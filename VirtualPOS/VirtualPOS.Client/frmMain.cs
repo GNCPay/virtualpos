@@ -16,5 +16,18 @@ namespace VirtualPOS.Client
         {
             InitializeComponent();
         }
+
+        public void LoadControl(UserControl controlToLoad)
+        {
+            this.pContent.Controls.Clear();
+            controlToLoad.Top = (this.pContent.Height - controlToLoad.Height) / 2;
+            controlToLoad.Left = (this.pContent.Width - controlToLoad.Width) / 2;
+            this.pContent.Controls.Add(controlToLoad);
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            LoadControl(new Forms.ucLogin());
+        }
     }
 }
