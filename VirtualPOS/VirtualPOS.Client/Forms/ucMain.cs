@@ -29,7 +29,8 @@ namespace VirtualPOS.Client.Forms
 
         private void changePIN(object sender, EventArgs e)
         {
-
+            frmChangePIN frmChangePIN = new frmChangePIN();
+            frmChangePIN.ShowDialog();
         }
 
         private void statement(object sender, EventArgs e)
