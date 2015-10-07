@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace VirtualPOS.Client.Forms
 {
-    public partial class ucCardInfo : UserControl
+    public partial class frmScanCard : Form
     {
-        public ucCardInfo()
+        public frmScanCard()
         {
             InitializeComponent();
-        }
-
-        public string CardNumber {
-            get { return this.lblCardNumber.Text; }
-            set { this.lblCardNumber.Text = value; }
         }
     }
 }

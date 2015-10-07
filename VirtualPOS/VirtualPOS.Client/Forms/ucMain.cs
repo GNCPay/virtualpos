@@ -24,7 +24,8 @@ namespace VirtualPOS.Client.Forms
 
         private void registerCard(object sender, EventArgs e)
         {
-
+            frmRegister frmRegister = new frmRegister();
+            frmRegister.ShowDialog();
         }
 
         private void changePIN(object sender, EventArgs e)
@@ -46,6 +47,15 @@ namespace VirtualPOS.Client.Forms
         private void cashOut(object sender, EventArgs e)
         {
 
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.F2)
+            {
+                DialogResult xScannedResult = new frmScanCard().ShowDialog();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

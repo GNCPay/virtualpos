@@ -29,5 +29,21 @@ namespace VirtualPOS.Client
         {
             LoadControl(new Forms.ucLogin());
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //if(keyData == Keys.F2)
+            //{
+            //    MessageBox.Show("F2 pressed");
+            //}
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private void listenShortCuts(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode== Keys.F2)
+            {
+                MessageBox.Show("F2 pressed");
+            }
+        }
     }
 }
