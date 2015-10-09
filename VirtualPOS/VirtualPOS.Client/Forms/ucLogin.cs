@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using VirtualPOS.Client.Processing;
 namespace VirtualPOS.Client.Forms
 {
     public partial class ucLogin : UserControl
@@ -19,7 +19,15 @@ namespace VirtualPOS.Client.Forms
 
         private void processLogin(object sender, EventArgs e)
         {
-            ((frmMain)this.ParentForm).LoadControl(new ucMain());
+            var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(),txtPassword.Text.Trim()).Result;
+            if (loginResult != null)
+            {
+                ((frmMain)this.ParentForm).LoadControl(new ucMain());
+                return;
+            }
+            else {
+                MessageBox.Show("Sai thông tin đăng nhập. Vui lòng kiểm tra và thử lại!", "Đăng nhập không thành công!");
+            }
         }
     }
 }

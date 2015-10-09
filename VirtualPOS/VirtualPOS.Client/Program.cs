@@ -16,6 +16,7 @@ namespace VirtualPOS.Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Processing.Helper.Init();
             Application.Run(new frmMain());
         }
     }

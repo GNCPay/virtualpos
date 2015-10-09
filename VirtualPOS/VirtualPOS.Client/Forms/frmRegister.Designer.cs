@@ -84,7 +84,6 @@
             // btnRegister
             // 
             this.btnRegister.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnRegister.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Location = new System.Drawing.Point(298, 155);
             this.btnRegister.Name = "btnRegister";
@@ -92,6 +91,7 @@
             this.btnRegister.TabIndex = 33;
             this.btnRegister.Text = "OK";
             this.btnRegister.UseVisualStyleBackColor = false;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // lblCardValidDate
             // 

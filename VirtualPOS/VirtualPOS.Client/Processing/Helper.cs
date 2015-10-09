@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using MongoDB.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,15 @@ namespace VirtualPOS.Client.Processing
 {
     public class Helper
     {
+        public static UserManager<ApplicationUser> UserManager { get; private set; }
         static eWalletGW.ChannelAPIClient client = new eWalletGW.ChannelAPIClient();   
+        public static void Init()
+        {
+            UserManager = new UserManager<ApplicationUser>
+                (
+                new UserStore<ApplicationUser>("CoreDB_Server")
+                );
+        }
         public static string RequestToServer(string request)
         {
             string response = @"{error_code:'96',error_message:'Có lỗi trong quá trình xử lý. Vui lòng thử lại sau'}";
@@ -34,5 +44,14 @@ namespace VirtualPOS.Client.Processing
             }
             return response;
         }
+    }
+
+    public class SessionVariables
+    {
+        public static string CardNumber, CardOwner, CardValidDate, MobileNumber;
+    }
+    public class ApplicationUser : IdentityUser
+    {
+        public string Status { get; set; }
     }
 }

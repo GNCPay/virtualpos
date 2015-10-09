@@ -38,11 +38,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 22);
+            this.label1.Location = new System.Drawing.Point(12, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(380, 20);
+            this.label1.Size = new System.Drawing.Size(293, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Vui lòng nhập PIN của chủ thẻ để xác nhận giao dịch";
+            this.label1.Text = "Vui lòng nhập PIN để xác nhận giao dịch";
             // 
             // button2
             // 
@@ -72,7 +72,7 @@
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.textBox1.Location = new System.Drawing.Point(29, 79);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(255, 31);
+            this.textBox1.Size = new System.Drawing.Size(261, 31);
             this.textBox1.TabIndex = 14;
             // 
             // label2
@@ -80,16 +80,16 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(25, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 20);
+            this.label2.Size = new System.Drawing.Size(149, 20);
             this.label2.TabIndex = 17;
-            this.label2.Text = "MÃ PIN HIỆN TẠI";
+            this.label2.Text = "MÃ PIN XÁC NHẬN";
             // 
             // frmConfirmPIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(426, 216);
+            this.ClientSize = new System.Drawing.Size(313, 160);
             this.ControlBox = false;
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

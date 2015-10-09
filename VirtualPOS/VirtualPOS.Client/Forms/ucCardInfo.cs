@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualPOS.Client.Processing;
 
 namespace VirtualPOS.Client.Forms
 {
@@ -17,9 +18,17 @@ namespace VirtualPOS.Client.Forms
             InitializeComponent();
         }
 
-        public string CardNumber {
-            get { return this.lblCardNumber.Text; }
-            set { this.lblCardNumber.Text = value; }
+        private void ucCardInfo_Load(object sender, EventArgs e)
+        {
+            
+        }
+        public void Reload()
+        {
+            lblCardBalance.Text = "0 VNĐ";
+            lblCardNumber.Text = SessionVariables.CardNumber;
+            lblCardOwner.Text = SessionVariables.CardOwner;
+            lblCardValidDate.Text = SessionVariables.CardValidDate;
+
         }
     }
 }

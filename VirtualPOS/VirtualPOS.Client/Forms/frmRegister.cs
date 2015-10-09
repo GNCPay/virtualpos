@@ -14,47 +14,46 @@ namespace VirtualPOS.Client.Forms
 {
     public partial class frmRegister : Form
     {
-        public string CardNumber {
-            get { return this.lblCardNumber.Text; }
-            set { this.lblCardNumber.Text = value; }
-        }
 
-        public string CardOwner
-        {
-            get { return this.lblCardOwner.Text; }
-            set { this.lblCardOwner.Text = value; }
-        }
-
-        public string CardValidDate
-        {
-            get { return this.lblCardValidDate.Text; }
-            set { this.lblCardValidDate.Text = value; }
-        }
-
-        public string MobileNumber
-        {
-            get { return this.txtMobileNumber.Text; }
-            set { this.txtMobileNumber.Text = value; }
-        }
 
         public frmRegister()
         {
             InitializeComponent();
         }
-        
+
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            string request = @"{system:'web_frontend', module:'profile', function:'register', type:'two_way', request:{full_name:'" 
-            + CardOwner 
-            + "', id:'" + CardNumber 
-            + "', mobile:'" + MobileNumber + "'}}";
+            var user = new ApplicationUser() { UserName = SessionVariables.CardNumber };
+            var result = Helper.UserManager.CreateAsync(user, "123456").Result;
+            if (!result.Succeeded)
+            {
+                MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
+                return;
+            }
+            SessionVariables.MobileNumber = txtMobileNumber.Text;
+            string request = @"{system:'app_pos_counter', module:'profile', function:'register', type:'two_way', request:{full_name:'"
+            + SessionVariables.CardOwner
+            + "', id:'" + SessionVariables.CardNumber
+            + "', mobile:'" + SessionVariables.MobileNumber + "'}}";
             dynamic response = JObject.Parse(Helper.RequestToServer(request));
-            //MessageBox.Show("Keets")
+            string error_code = response.error_code.ToString();
+            MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            if (error_code == "00")
+            {
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
 
         private void frmRegister_Load(object sender, EventArgs e)
         {
-            
+            lblCardNumber.Text = SessionVariables.CardNumber;
+            lblCardOwner.Text = SessionVariables.CardOwner;
+            lblCardValidDate.Text = SessionVariables.CardValidDate;
+            txtMobileNumber.Text = SessionVariables.MobileNumber;
         }
     }
 }

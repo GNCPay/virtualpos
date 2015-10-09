@@ -53,9 +53,19 @@ namespace VirtualPOS.Client.Forms
         {
             if(keyData == Keys.F2)
             {
-                DialogResult xScannedResult = new frmScanCard().ShowDialog();
+                ScanCard();
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void ScanCard()
+        {
+                var cardReaderResult = new frmScanCard().ShowDialog();
+                if (cardReaderResult == DialogResult.OK) { pCardInfo.Reload(); }
+        }
+        private void ucMain_Load(object sender, EventArgs e)
+        {
+            ScanCard();
         }
     }
 }
