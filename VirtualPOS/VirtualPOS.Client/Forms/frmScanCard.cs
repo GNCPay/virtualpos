@@ -20,10 +20,19 @@ namespace VirtualPOS.Client.Forms
 
         private void ScanCard()
         {
-            SessionVariables.CardNumber = "970431031501" + DateTime.Now.ToString("HHmm");
-            SessionVariables.CardOwner = "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
-            SessionVariables.MobileNumber = "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
+            SessionVariables.CardNumber = "9704310315011516";// "970431031501" + DateTime.Now.ToString("HHmm");
+            SessionVariables.CardOwner = "CARD OWNER 1516";// "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
+            SessionVariables.MobileNumber = "8490981516";// "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
             SessionVariables.CardValidDate = "10/15";
+            // Check thong tin the tren server
+            var cardProfile = Helper.GetProfile(SessionVariables.CardNumber);
+            SessionVariables.IsRegister = (cardProfile != null);
+            if (cardProfile != null)
+            {
+                SessionVariables.ProfileId = cardProfile._id;
+                SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+            } 
+            
             this.DialogResult = DialogResult.OK;
         }
 

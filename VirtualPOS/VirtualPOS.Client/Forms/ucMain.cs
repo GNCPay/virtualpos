@@ -41,12 +41,12 @@ namespace VirtualPOS.Client.Forms
 
         private void cashIn(object sender, EventArgs e)
         {
-
+            DialogResult cashInResult = new frmCashInOut().ShowDialog();
         }
 
         private void cashOut(object sender, EventArgs e)
         {
-
+            DialogResult cashInResult = new frmCashInOut().ShowDialog();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -61,7 +61,22 @@ namespace VirtualPOS.Client.Forms
         private void ScanCard()
         {
                 var cardReaderResult = new frmScanCard().ShowDialog();
-                if (cardReaderResult == DialogResult.OK) { pCardInfo.Reload(); }
+                if (cardReaderResult == DialogResult.OK) { EnableControl(); }
+        }
+        private void EnableControl()
+        {
+            if (!Processing.SessionVariables.IsRegister)
+            {
+                MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để có thể sử dụng các dịch vụ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            pCardInfo.Reload();
+            pPayment.Enabled = Processing.SessionVariables.IsRegister;
+            btnCashIn.Enabled = Processing.SessionVariables.IsRegister;
+            btnCashOut.Enabled = Processing.SessionVariables.IsRegister;
+            btnChangePIN.Enabled = Processing.SessionVariables.IsRegister; ;
+            btnLock.Enabled = Processing.SessionVariables.IsRegister;
+            btnRegister.Enabled = !Processing.SessionVariables.IsRegister;
+            btnStatement.Enabled = Processing.SessionVariables.IsRegister; 
         }
         private void ucMain_Load(object sender, EventArgs e)
         {

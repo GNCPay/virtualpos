@@ -31,11 +31,8 @@ namespace VirtualPOS.Client.Forms
                 return;
             }
             SessionVariables.MobileNumber = txtMobileNumber.Text;
-            string request = @"{system:'app_pos_counter', module:'profile', function:'register', type:'two_way', request:{full_name:'"
-            + SessionVariables.CardOwner
-            + "', id:'" + SessionVariables.CardNumber
-            + "', mobile:'" + SessionVariables.MobileNumber + "'}}";
-            dynamic response = JObject.Parse(Helper.RequestToServer(request));
+
+            dynamic response = Helper.RegisterCard();
             string error_code = response.error_code.ToString();
             MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             if (error_code == "00")

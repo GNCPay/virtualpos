@@ -24,7 +24,7 @@ namespace VirtualPOS.Client.Forms
         }
         public void Reload()
         {
-            lblCardBalance.Text = "0 VNĐ";
+            lblCardBalance.Text = String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ");
             lblCardNumber.Text = SessionVariables.CardNumber;
             lblCardOwner.Text = SessionVariables.CardOwner;
             lblCardValidDate.Text = SessionVariables.CardValidDate;

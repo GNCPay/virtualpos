@@ -16,5 +16,30 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
         }
+
+        private void btnChangePIN_Click(object sender, EventArgs e)
+        {
+            var user_name = Processing.SessionVariables.CardNumber;
+            var password = txtOldPIN.Text.Trim();
+            var new_password = txtNewPIN.Text.Trim();
+            var user = Processing.Helper.UserManager.FindAsync(user_name, password).Result;
+            if(user == null)
+            {
+                MessageBox.Show("Mã PIN cũ không hợp lệ. Vui lòng kiểm tra và thử lại!", "Thông báo");
+                return;
+            }
+            var result = Processing.Helper.UserManager.ChangePasswordAsync(
+                user.Id, password, new_password).Result;
+            if (result.Succeeded)
+            {
+                MessageBox.Show("Đổi PIN thành công!", "Thông báo");
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                MessageBox.Show("Đổi PIN không thành công. Xin vui lòng thử lại sau!", "Thông báo");
+                this.DialogResult = DialogResult.No;
+            }
+        }
     }
 }

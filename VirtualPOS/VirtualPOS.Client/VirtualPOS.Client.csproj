@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="eWallet.Data">
+      <HintPath>..\..\..\..\..\..\..\Data\Working\Source Codes\lib\eWallet.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -66,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\frmCashInOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCashInOut.Designer.cs">
+      <DependentUpon>frmCashInOut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmChangePIN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +137,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\frmCashInOut.resx">
+      <DependentUpon>frmCashInOut.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChangePIN.resx">
       <DependentUpon>frmChangePIN.cs</DependentUpon>
     </EmbeddedResource>
