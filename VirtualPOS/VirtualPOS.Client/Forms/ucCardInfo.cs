@@ -24,10 +24,10 @@ namespace VirtualPOS.Client.Forms
         }
         public void Reload()
         {
-            lblCardBalance.Text = String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ");
+            lblCardBalance.Text = (SessionVariables.IsRegister) ? String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ") : "CHƯA ĐĂNG KÝ";
             lblCardNumber.Text = SessionVariables.CardNumber;
-            lblCardOwner.Text = SessionVariables.CardOwner;
-            lblCardValidDate.Text = SessionVariables.CardValidDate;
+            lblCardType.Text = SessionVariables.CardType;
+            lblPrepaidAmount.Text = SessionVariables.CardPrepaidAmount.ToString("N0") + " VNĐ";
 
         }
     }

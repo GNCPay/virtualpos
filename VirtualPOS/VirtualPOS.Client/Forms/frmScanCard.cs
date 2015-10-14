@@ -20,12 +20,15 @@ namespace VirtualPOS.Client.Forms
 
         private void ScanCard()
         {
-            SessionVariables.CardNumber = "9704310315011516";// "970431031501" + DateTime.Now.ToString("HHmm");
-            SessionVariables.CardOwner = "CARD OWNER 1516";// "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
-            SessionVariables.MobileNumber = "8490981516";// "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
-            SessionVariables.CardValidDate = "10/15";
+            SessionVariables.CardId = card_id;
+            Helper.CheckCard();
+
+            //SessionVariables.CardNumber = "9704310315011516";// "970431031501" + DateTime.Now.ToString("HHmm");
+            //SessionVariables.CardOwner = "CARD OWNER 1516";// "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
+            //SessionVariables.MobileNumber = "8490981516";// "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
+            //SessionVariables.CardValidDate = "10/15";
             // Check thong tin the tren server
-            var cardProfile = Helper.GetProfile(SessionVariables.CardNumber);
+            var cardProfile = Helper.GetProfile();
             SessionVariables.IsRegister = (cardProfile != null);
             if (cardProfile != null)
             {
@@ -38,7 +41,24 @@ namespace VirtualPOS.Client.Forms
 
         private void frmScanCard_Load(object sender, EventArgs e)
         {
-            ScanCard();
+            //ScanCard();
+        }
+        private string card_id = String.Empty;
+        private string temp_card_id = string.Empty;
+        private KeysConverter keyConvert = new KeysConverter();
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                card_id = temp_card_id;
+                temp_card_id = String.Empty;
+                ScanCard();
+            }
+            else
+            {
+                temp_card_id += Helper.GetCharFromKeys(keyData).ToString();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

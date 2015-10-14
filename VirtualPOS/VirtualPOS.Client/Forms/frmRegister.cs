@@ -14,8 +14,6 @@ namespace VirtualPOS.Client.Forms
 {
     public partial class frmRegister : Form
     {
-
-
         public frmRegister()
         {
             InitializeComponent();
@@ -23,7 +21,7 @@ namespace VirtualPOS.Client.Forms
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            var user = new ApplicationUser() { UserName = SessionVariables.CardNumber };
+            var user = new ApplicationUser() { UserName = SessionVariables.CardId };
             var result = Helper.UserManager.CreateAsync(user, "123456").Result;
             if (!result.Succeeded)
             {
@@ -31,6 +29,7 @@ namespace VirtualPOS.Client.Forms
                 return;
             }
             SessionVariables.MobileNumber = txtMobileNumber.Text;
+            SessionVariables.CardOwner = txtCardHolder.Text;
 
             dynamic response = Helper.RegisterCard();
             string error_code = response.error_code.ToString();
@@ -48,8 +47,6 @@ namespace VirtualPOS.Client.Forms
         private void frmRegister_Load(object sender, EventArgs e)
         {
             lblCardNumber.Text = SessionVariables.CardNumber;
-            lblCardOwner.Text = SessionVariables.CardOwner;
-            lblCardValidDate.Text = SessionVariables.CardValidDate;
             txtMobileNumber.Text = SessionVariables.MobileNumber;
         }
     }

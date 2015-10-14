@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.btnPayment = new System.Windows.Forms.Button();
+            this.txtAmount = new System.Windows.Forms.MaskedTextBox();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtPIN = new System.Windows.Forms.TextBox();
+            this.lblPIN = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // maskedTextBox1
+            // txtAmount
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(16, 67);
-            this.maskedTextBox1.Mask = "0000000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(255, 35);
-            this.maskedTextBox1.TabIndex = 0;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtAmount.Location = new System.Drawing.Point(16, 67);
+            this.txtAmount.Mask = "0000000";
+            this.txtAmount.Name = "txtAmount";
+            this.txtAmount.Size = new System.Drawing.Size(255, 35);
+            this.txtAmount.TabIndex = 0;
+            this.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // btnPayment
+            // btnConfirm
             // 
-            this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPayment.Location = new System.Drawing.Point(200, 167);
-            this.btnPayment.Name = "btnPayment";
-            this.btnPayment.Size = new System.Drawing.Size(71, 34);
-            this.btnPayment.TabIndex = 2;
-            this.btnPayment.Text = "OK";
-            this.btnPayment.UseVisualStyleBackColor = true;
+            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirm.Location = new System.Drawing.Point(200, 170);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(71, 34);
+            this.btnConfirm.TabIndex = 2;
+            this.btnConfirm.Text = "OK";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // label3
             // 
@@ -66,42 +67,42 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "SỐ TIỀN";
             // 
-            // textBox1
+            // txtPIN
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.textBox1.Location = new System.Drawing.Point(16, 130);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(255, 31);
-            this.textBox1.TabIndex = 1;
+            this.txtPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtPIN.Location = new System.Drawing.Point(16, 133);
+            this.txtPIN.Name = "txtPIN";
+            this.txtPIN.PasswordChar = '*';
+            this.txtPIN.Size = new System.Drawing.Size(255, 31);
+            this.txtPIN.TabIndex = 1;
             // 
-            // label2
+            // lblPIN
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 107);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 20);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "MÃ PIN XÁC NHẬN";
+            this.lblPIN.AutoSize = true;
+            this.lblPIN.Location = new System.Drawing.Point(12, 110);
+            this.lblPIN.Name = "lblPIN";
+            this.lblPIN.Size = new System.Drawing.Size(204, 20);
+            this.lblPIN.TabIndex = 13;
+            this.lblPIN.Text = "MẬT KHẨU ĐỂ XÁC NHẬN";
             // 
-            // label1
+            // lblTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(42, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 24);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "NẠP TIỀN VÀO THẺ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblTitle.Location = new System.Drawing.Point(42, 9);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(187, 24);
+            this.lblTitle.TabIndex = 12;
+            this.lblTitle.Text = "NẠP TIỀN VÀO THẺ";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(123, 167);
+            this.btnCancel.Location = new System.Drawing.Point(123, 170);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 3;
@@ -116,12 +117,12 @@
             this.ClientSize = new System.Drawing.Size(283, 213);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.btnPayment);
+            this.Controls.Add(this.txtAmount);
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtPIN);
+            this.Controls.Add(this.lblPIN);
+            this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -134,12 +135,12 @@
 
         #endregion
 
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.Button btnPayment;
+        private System.Windows.Forms.MaskedTextBox txtAmount;
+        private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPIN;
+        private System.Windows.Forms.Label lblPIN;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnCancel;
     }
 }

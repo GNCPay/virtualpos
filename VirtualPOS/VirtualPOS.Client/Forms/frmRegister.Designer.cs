@@ -32,28 +32,28 @@
             this.txtMobileNumber = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.lblCardValidDate = new System.Windows.Forms.Label();
-            this.lblCardOwner = new System.Windows.Forms.Label();
             this.lblCardNumber = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtCardHolder = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.pScanned.SuspendLayout();
             this.SuspendLayout();
             // 
             // pScanned
             // 
+            this.pScanned.Controls.Add(this.txtEmail);
+            this.pScanned.Controls.Add(this.label3);
+            this.pScanned.Controls.Add(this.txtCardHolder);
+            this.pScanned.Controls.Add(this.label4);
             this.pScanned.Controls.Add(this.txtMobileNumber);
             this.pScanned.Controls.Add(this.btnCancel);
             this.pScanned.Controls.Add(this.btnRegister);
-            this.pScanned.Controls.Add(this.lblCardValidDate);
-            this.pScanned.Controls.Add(this.lblCardOwner);
             this.pScanned.Controls.Add(this.lblCardNumber);
             this.pScanned.Controls.Add(this.label5);
-            this.pScanned.Controls.Add(this.label4);
-            this.pScanned.Controls.Add(this.label3);
             this.pScanned.Controls.Add(this.label2);
             this.pScanned.Controls.Add(this.label1);
             this.pScanned.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -65,10 +65,10 @@
             // txtMobileNumber
             // 
             this.txtMobileNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMobileNumber.Location = new System.Drawing.Point(172, 117);
+            this.txtMobileNumber.Location = new System.Drawing.Point(172, 93);
             this.txtMobileNumber.Name = "txtMobileNumber";
-            this.txtMobileNumber.Size = new System.Drawing.Size(164, 26);
-            this.txtMobileNumber.TabIndex = 35;
+            this.txtMobileNumber.Size = new System.Drawing.Size(197, 26);
+            this.txtMobileNumber.TabIndex = 1;
             // 
             // btnCancel
             // 
@@ -77,7 +77,7 @@
             this.btnCancel.Location = new System.Drawing.Point(221, 155);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
-            this.btnCancel.TabIndex = 34;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -88,28 +88,10 @@
             this.btnRegister.Location = new System.Drawing.Point(298, 155);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(71, 34);
-            this.btnRegister.TabIndex = 33;
+            this.btnRegister.TabIndex = 3;
             this.btnRegister.Text = "OK";
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-            // 
-            // lblCardValidDate
-            // 
-            this.lblCardValidDate.AutoSize = true;
-            this.lblCardValidDate.Location = new System.Drawing.Point(168, 93);
-            this.lblCardValidDate.Name = "lblCardValidDate";
-            this.lblCardValidDate.Size = new System.Drawing.Size(89, 20);
-            this.lblCardValidDate.TabIndex = 32;
-            this.lblCardValidDate.Text = "07/10/2015";
-            // 
-            // lblCardOwner
-            // 
-            this.lblCardOwner.AutoSize = true;
-            this.lblCardOwner.Location = new System.Drawing.Point(168, 65);
-            this.lblCardOwner.Name = "lblCardOwner";
-            this.lblCardOwner.Size = new System.Drawing.Size(180, 20);
-            this.lblCardOwner.TabIndex = 31;
-            this.lblCardOwner.Text = "NGUYEN QUANG HUY";
             // 
             // lblCardNumber
             // 
@@ -124,29 +106,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 121);
+            this.label5.Location = new System.Drawing.Point(13, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 20);
             this.label5.TabIndex = 29;
             this.label5.Text = "SỐ DI ĐỘNG";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 20);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "NGÀY MỞ";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 65);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 20);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "TÊN CHỦ THẺ";
             // 
             // label2
             // 
@@ -169,6 +133,40 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "ĐĂNG KÝ TÀI KHOẢN VÍ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCardHolder
+            // 
+            this.txtCardHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCardHolder.Location = new System.Drawing.Point(172, 61);
+            this.txtCardHolder.Name = "txtCardHolder";
+            this.txtCardHolder.Size = new System.Drawing.Size(197, 26);
+            this.txtCardHolder.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 63);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(151, 20);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "TÊN KHÁCH HÀNG";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmail.Location = new System.Drawing.Point(172, 123);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(197, 26);
+            this.txtEmail.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 127);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 20);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "EMAIL";
             // 
             // frmRegister
             // 
@@ -196,13 +194,13 @@
         private System.Windows.Forms.TextBox txtMobileNumber;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.Label lblCardValidDate;
-        private System.Windows.Forms.Label lblCardOwner;
         private System.Windows.Forms.Label lblCardNumber;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCardHolder;
+        private System.Windows.Forms.Label label4;
     }
 }

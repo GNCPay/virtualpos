@@ -23,6 +23,7 @@ namespace VirtualPOS.Client.Forms
             if (loginResult != null)
             {
                 ((frmMain)this.ParentForm).LoadControl(new ucMain());
+                SessionVariables.TellerUser = loginResult;
                 return;
             }
             else {

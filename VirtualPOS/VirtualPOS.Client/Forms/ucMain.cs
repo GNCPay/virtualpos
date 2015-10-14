@@ -41,12 +41,14 @@ namespace VirtualPOS.Client.Forms
 
         private void cashIn(object sender, EventArgs e)
         {
-            DialogResult cashInResult = new frmCashInOut().ShowDialog();
+            DialogResult cashInResult = new frmCashInOut(false).ShowDialog();
+            if (cashInResult == DialogResult.OK) ScanCard();
         }
 
         private void cashOut(object sender, EventArgs e)
         {
-            DialogResult cashInResult = new frmCashInOut().ShowDialog();
+            DialogResult cashInResult = new frmCashInOut(true).ShowDialog();
+            if (cashInResult == DialogResult.OK) ScanCard();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -58,7 +60,7 @@ namespace VirtualPOS.Client.Forms
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void ScanCard()
+        public void ScanCard()
         {
                 var cardReaderResult = new frmScanCard().ShowDialog();
                 if (cardReaderResult == DialogResult.OK) { EnableControl(); }
