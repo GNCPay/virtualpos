@@ -93,6 +93,9 @@ namespace VirtualPOS.Client.Processing
                 string confirm = @"{system:'web_frontend', module:'transaction',type:'two_way',function:'confirm',request:{user_id:'" + SessionVariables.CardId
                    + "',transaction_type:'" + "CASHIN" + "', trans_id:'" + trans_id + "', amount: " + amount + "}}";
                 dynamic confirm_result = Helper.RequestToServer(confirm);
+                confirm_result.trans_id = trans_id;
+                confirm_result.amount = amount;
+                confirm_result.transaction_type = "CASHIN";
                 return confirm_result;
             }
             return cashin;
@@ -112,6 +115,9 @@ namespace VirtualPOS.Client.Processing
                 string confirm = @"{system:'web_frontend', module:'transaction',type:'two_way',function:'confirm',request:{user_id:'" + SessionVariables.CardId
                    + "',transaction_type:'" + "CASHOUT" + "', trans_id:'" + trans_id + "', amount: " + amount + "}}";
                 dynamic confirm_result = Helper.RequestToServer(confirm);
+                confirm_result.trans_id = trans_id;
+                confirm_result.amount = amount;
+                confirm_result.transaction_type = "CASHOUT";
                 return confirm_result;
             }
             return cashout;
@@ -136,9 +142,10 @@ namespace VirtualPOS.Client.Processing
                 string confirm = @"{system:'web_frontend', module:'transaction',type:'two_way',function:'confirm',request:{user_id:'" + SessionVariables.CardNumber
                    + "',transaction_type:'" + "PAYMENT" + "', trans_id:'" + trans_id + "', amount: " + amount + "}}";
                 dynamic confirm_result = Helper.RequestToServer(confirm);
+                confirm_result.trans_id = trans_id;
+                confirm_result.amount = amount;
                 return confirm_result;
             }
-            return response;
             return response;
         }
 
@@ -193,6 +200,35 @@ namespace VirtualPOS.Client.Processing
                 SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
                 SessionVariables.IsActived = bool.Parse(values[4]);
                 SessionVariables.CardType = values[5];
+                SessionVariables.CardOwner = values[6];
+                //card_info.CardId,
+                //card_info.CardNumber,
+                //card_info.CustomerCIF,
+                //card_info.PrepaidAmount,
+                //card_info.IsActived,
+                //card_info.CardType1.TypeName);
+
+            }
+        }
+
+        public static void RegisterWalletToCard()
+        {
+            //RestClient 
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:59949/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId + "&full_name=" + SessionVariables.CardOwner + "&customer_cif=" + 
+                    SessionVariables.ProfileId).Result;
+                //if (String.IsNullOrEmpty(card_info)) return;
+                //card_info = card_info.Substring(1, card_info.Length - 2);
+                //string[] values = card_info.Split('|');
+                //SessionVariables.CardNumber = values[1];
+                //SessionVariables.ProfileId = long.Parse("0" + values[2]);
+                //SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
+                //SessionVariables.IsActived = bool.Parse(values[4]);
+                //SessionVariables.CardType = values[5];
                 //card_info.CardId,
                 //card_info.CardNumber,
                 //card_info.CustomerCIF,

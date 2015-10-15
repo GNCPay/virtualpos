@@ -25,7 +25,9 @@ namespace VirtualPOS.Client.Forms
         private void registerCard(object sender, EventArgs e)
         {
             frmRegister frmRegister = new frmRegister();
-            frmRegister.ShowDialog();
+            DialogResult registerResult = frmRegister.ShowDialog();
+            if (registerResult == DialogResult.OK)
+                EnableControl();
         }
 
         private void changePIN(object sender, EventArgs e)
