@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualPOS.Client.Processing;
+using MongoDB.Driver.Builders;
 
 namespace VirtualPOS.Client.Forms
 {
@@ -74,6 +76,8 @@ namespace VirtualPOS.Client.Forms
                 MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để có thể sử dụng các dịch vụ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             pCardInfo.Reload();
+            //dynamic transactions= Helper.DataHelper.Get("transactions", Query.EQ("created_by", SessionVariables.CardId));
+            //dataGridView2.DataSource = transactions;
             pPayment.Enabled = Processing.SessionVariables.IsRegister;
             btnCashIn.Enabled = Processing.SessionVariables.IsRegister;
             btnCashOut.Enabled = Processing.SessionVariables.IsRegister;

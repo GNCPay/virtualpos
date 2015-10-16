@@ -19,7 +19,7 @@ namespace VirtualPOS.Client.Forms
 
         private void btnChangePIN_Click(object sender, EventArgs e)
         {
-            var user_name = Processing.SessionVariables.CardNumber;
+            var user_name = Processing.SessionVariables.CardId;
             var password = txtOldPIN.Text.Trim();
             var new_password = txtNewPIN.Text.Trim();
             var user = Processing.Helper.UserManager.FindAsync(user_name, password).Result;

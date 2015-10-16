@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using MongoDB.AspNet.Identity;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace VirtualPOS.Client.Processing
 {
     public class Helper
     {
+        public static eWallet.Data.MongoHelper DataHelper;
         public static UserManager<ApplicationUser> UserManager { get; private set; }
         static eWalletGW.ChannelAPIClient client = new eWalletGW.ChannelAPIClient();
         public static void Init()
@@ -100,6 +103,7 @@ namespace VirtualPOS.Client.Processing
             }
             return cashin;
         }
+
         public static dynamic CashOut(long amount) {
             string request = @"{system:'web_frontend', module:'transaction',type:'two_way', function:'CASHOUT',request:{channel:'WEB', profile:'"
                 +SessionVariables.CardId + "',service:'GNCP', provider:'BANK',payment_provider:'GNCC',amount: " + amount +
@@ -186,29 +190,33 @@ namespace VirtualPOS.Client.Processing
         public static void CheckCard()
         {
             //RestClient 
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("http://localhost:59949/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId).Result;
-                if (String.IsNullOrEmpty(card_info)) return;
-                card_info = card_info.Substring(1, card_info.Length -2);
-                string[] values = card_info.Split('|');
-                SessionVariables.CardNumber = values[1];
-                SessionVariables.ProfileId = long.Parse("0" + values[2]);
-                SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
-                SessionVariables.IsActived = bool.Parse(values[4]);
-                SessionVariables.CardType = values[5];
-                SessionVariables.CardOwner = values[6];
-                //card_info.CardId,
-                //card_info.CardNumber,
-                //card_info.CustomerCIF,
-                //card_info.PrepaidAmount,
-                //card_info.IsActived,
-                //card_info.CardType1.TypeName);
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://210.211.116.19:8888");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId).Result;
+                    if (String.IsNullOrEmpty(card_info)) return;
+                    card_info = card_info.Substring(1, card_info.Length - 2);
+                    string[] values = card_info.Split('|');
+                    SessionVariables.CardNumber = values[1];
+                    SessionVariables.ProfileId = long.Parse("0" + values[2]);
+                    SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
+                    SessionVariables.IsActived = bool.Parse(values[4]);
+                    SessionVariables.CardType = values[5];
+                    SessionVariables.CardOwner = values[6];
+                    //card_info.CardId,
+                    //card_info.CardNumber,
+                    //card_info.CustomerCIF,
+                    //card_info.PrepaidAmount,
+                    //card_info.IsActived,
+                    //card_info.CardType1.TypeName);
 
+                }
             }
+            catch (Exception ex) { }
         }
 
         public static void RegisterWalletToCard()
@@ -216,7 +224,7 @@ namespace VirtualPOS.Client.Processing
             //RestClient 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:59949/");
+                client.BaseAddress = new Uri("http://210.211.116.19:8888");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId + "&full_name=" + SessionVariables.CardOwner + "&customer_cif=" + 
@@ -243,7 +251,7 @@ namespace VirtualPOS.Client.Processing
             using (var client = new HttpClient())
             {
                 // New code:
-                client.BaseAddress = new Uri("http://localhost:59949/");
+                client.BaseAddress = new Uri("http://210.211.116.19:8888");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = await client.GetAsync("api/ewallet/1");

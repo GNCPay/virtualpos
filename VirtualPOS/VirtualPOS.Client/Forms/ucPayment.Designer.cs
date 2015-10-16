@@ -42,7 +42,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(37, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.label1.Name = "label1";
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.txtPIN);
             this.Controls.Add(this.lblPIN);
             this.Controls.Add(this.txtBillAmount);
@@ -130,6 +130,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucPayment";
             this.Size = new System.Drawing.Size(290, 282);

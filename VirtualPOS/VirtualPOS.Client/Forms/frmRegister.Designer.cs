@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.pScanned = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCardHolder = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtMobileNumber = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
@@ -36,10 +40,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCardHolder = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.pScanned.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,8 +62,45 @@
             this.pScanned.Size = new System.Drawing.Size(382, 194);
             this.pScanned.TabIndex = 0;
             // 
+            // txtEmail
+            // 
+            this.txtEmail.BackColor = System.Drawing.Color.Silver;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmail.Location = new System.Drawing.Point(172, 123);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(197, 26);
+            this.txtEmail.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 127);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 20);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "EMAIL";
+            // 
+            // txtCardHolder
+            // 
+            this.txtCardHolder.BackColor = System.Drawing.Color.Silver;
+            this.txtCardHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCardHolder.Location = new System.Drawing.Point(172, 61);
+            this.txtCardHolder.Name = "txtCardHolder";
+            this.txtCardHolder.Size = new System.Drawing.Size(197, 26);
+            this.txtCardHolder.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 63);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(151, 20);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "TÊN KHÁCH HÀNG";
+            // 
             // txtMobileNumber
             // 
+            this.txtMobileNumber.BackColor = System.Drawing.Color.Silver;
             this.txtMobileNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMobileNumber.Location = new System.Drawing.Point(172, 93);
             this.txtMobileNumber.Name = "txtMobileNumber";
@@ -83,7 +120,6 @@
             // 
             // btnRegister
             // 
-            this.btnRegister.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Location = new System.Drawing.Point(298, 155);
             this.btnRegister.Name = "btnRegister";
@@ -133,40 +169,6 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "ĐĂNG KÝ TÀI KHOẢN VÍ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtCardHolder
-            // 
-            this.txtCardHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCardHolder.Location = new System.Drawing.Point(172, 61);
-            this.txtCardHolder.Name = "txtCardHolder";
-            this.txtCardHolder.Size = new System.Drawing.Size(197, 26);
-            this.txtCardHolder.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 63);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 20);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "TÊN KHÁCH HÀNG";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Location = new System.Drawing.Point(172, 123);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(197, 26);
-            this.txtEmail.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 127);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 20);
-            this.label3.TabIndex = 38;
-            this.label3.Text = "EMAIL";
             // 
             // frmRegister
             // 

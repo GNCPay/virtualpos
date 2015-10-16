@@ -25,7 +25,7 @@ namespace VirtualPOS.Client.Forms
         private void btnPayment_Click(object sender, EventArgs e)
         {
             string pin = txtPIN.Text.Trim();
-            var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardNumber, pin).Result;
+            var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
             if (loginResult == null)
             {
                 MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);

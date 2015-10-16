@@ -39,7 +39,6 @@
             // 
             // btnChangePIN
             // 
-            this.btnChangePIN.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnChangePIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangePIN.Location = new System.Drawing.Point(218, 177);
             this.btnChangePIN.Name = "btnChangePIN";
