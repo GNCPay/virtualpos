@@ -43,14 +43,14 @@
             this.txtAmount.Location = new System.Drawing.Point(16, 67);
             this.txtAmount.Mask = "0000000";
             this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(255, 35);
+            this.txtAmount.Size = new System.Drawing.Size(304, 35);
             this.txtAmount.TabIndex = 0;
             this.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnConfirm
             // 
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.Location = new System.Drawing.Point(200, 170);
+            this.btnConfirm.Location = new System.Drawing.Point(249, 201);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(71, 34);
             this.btnConfirm.TabIndex = 2;
@@ -70,16 +70,16 @@
             // txtPIN
             // 
             this.txtPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtPIN.Location = new System.Drawing.Point(16, 133);
+            this.txtPIN.Location = new System.Drawing.Point(16, 147);
             this.txtPIN.Name = "txtPIN";
             this.txtPIN.PasswordChar = '*';
-            this.txtPIN.Size = new System.Drawing.Size(255, 31);
+            this.txtPIN.Size = new System.Drawing.Size(304, 31);
             this.txtPIN.TabIndex = 1;
             // 
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
-            this.lblPIN.Location = new System.Drawing.Point(12, 110);
+            this.lblPIN.Location = new System.Drawing.Point(12, 124);
             this.lblPIN.Name = "lblPIN";
             this.lblPIN.Size = new System.Drawing.Size(204, 20);
             this.lblPIN.TabIndex = 13;
@@ -90,7 +90,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblTitle.ForeColor = System.Drawing.Color.Black;
-            this.lblTitle.Location = new System.Drawing.Point(42, 9);
+            this.lblTitle.Location = new System.Drawing.Point(84, 9);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(187, 24);
@@ -102,7 +102,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(123, 170);
+            this.btnCancel.Location = new System.Drawing.Point(162, 201);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 3;
@@ -114,7 +114,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(283, 213);
+            this.ClientSize = new System.Drawing.Size(341, 247);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtAmount);

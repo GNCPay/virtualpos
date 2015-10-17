@@ -42,7 +42,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.ForeColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(37, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.label1.Name = "label1";
@@ -54,6 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Location = new System.Drawing.Point(15, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 20);
@@ -71,6 +72,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label3.Location = new System.Drawing.Point(15, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
@@ -80,6 +82,7 @@
             // btnPayment
             // 
             this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPayment.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnPayment.Location = new System.Drawing.Point(211, 235);
             this.btnPayment.Name = "btnPayment";
             this.btnPayment.Size = new System.Drawing.Size(63, 34);
@@ -110,6 +113,7 @@
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
+            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblPIN.Location = new System.Drawing.Point(15, 175);
             this.lblPIN.Name = "lblPIN";
             this.lblPIN.Size = new System.Drawing.Size(89, 20);
@@ -120,7 +124,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.txtPIN);
             this.Controls.Add(this.lblPIN);
             this.Controls.Add(this.txtBillAmount);

@@ -59,14 +59,14 @@
             this.pScanned.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pScanned.Location = new System.Drawing.Point(0, 0);
             this.pScanned.Name = "pScanned";
-            this.pScanned.Size = new System.Drawing.Size(382, 194);
+            this.pScanned.Size = new System.Drawing.Size(382, 247);
             this.pScanned.TabIndex = 0;
             // 
             // txtEmail
             // 
-            this.txtEmail.BackColor = System.Drawing.Color.Silver;
+            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Location = new System.Drawing.Point(172, 123);
+            this.txtEmail.Location = new System.Drawing.Point(172, 155);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(197, 26);
             this.txtEmail.TabIndex = 2;
@@ -74,7 +74,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 127);
+            this.label3.Location = new System.Drawing.Point(12, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 38;
@@ -82,9 +82,9 @@
             // 
             // txtCardHolder
             // 
-            this.txtCardHolder.BackColor = System.Drawing.Color.Silver;
+            this.txtCardHolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtCardHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCardHolder.Location = new System.Drawing.Point(172, 61);
+            this.txtCardHolder.Location = new System.Drawing.Point(173, 65);
             this.txtCardHolder.Name = "txtCardHolder";
             this.txtCardHolder.Size = new System.Drawing.Size(197, 26);
             this.txtCardHolder.TabIndex = 0;
@@ -92,7 +92,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 63);
+            this.label4.Location = new System.Drawing.Point(12, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(151, 20);
             this.label4.TabIndex = 36;
@@ -100,9 +100,9 @@
             // 
             // txtMobileNumber
             // 
-            this.txtMobileNumber.BackColor = System.Drawing.Color.Silver;
+            this.txtMobileNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtMobileNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMobileNumber.Location = new System.Drawing.Point(172, 93);
+            this.txtMobileNumber.Location = new System.Drawing.Point(172, 110);
             this.txtMobileNumber.Name = "txtMobileNumber";
             this.txtMobileNumber.Size = new System.Drawing.Size(197, 26);
             this.txtMobileNumber.TabIndex = 1;
@@ -111,7 +111,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(221, 155);
+            this.btnCancel.Location = new System.Drawing.Point(222, 201);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 4;
@@ -121,7 +121,7 @@
             // btnRegister
             // 
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Location = new System.Drawing.Point(298, 155);
+            this.btnRegister.Location = new System.Drawing.Point(299, 201);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(71, 34);
             this.btnRegister.TabIndex = 3;
@@ -135,14 +135,14 @@
             this.lblCardNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblCardNumber.Location = new System.Drawing.Point(168, 38);
             this.lblCardNumber.Name = "lblCardNumber";
-            this.lblCardNumber.Size = new System.Drawing.Size(169, 20);
+            this.lblCardNumber.Size = new System.Drawing.Size(24, 20);
             this.lblCardNumber.TabIndex = 30;
-            this.lblCardNumber.Text = "1234567890123456";
+            this.lblCardNumber.Text = "...";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 97);
+            this.label5.Location = new System.Drawing.Point(12, 116);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 20);
             this.label5.TabIndex = 29;
@@ -175,7 +175,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(382, 194);
+            this.ClientSize = new System.Drawing.Size(382, 247);
             this.ControlBox = false;
             this.Controls.Add(this.pScanned);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));

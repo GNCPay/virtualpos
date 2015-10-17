@@ -5,6 +5,7 @@ using MongoDB.Driver.Builders;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -24,6 +25,10 @@ namespace VirtualPOS.Client.Processing
             UserManager = new UserManager<ApplicationUser>
                 (
                 new UserStore<ApplicationUser>("CoreDB_Server")
+                );
+            DataHelper = new eWallet.Data.MongoHelper(
+               ConfigurationSettings.AppSettings["CoreDB_Server"],
+                ConfigurationSettings.AppSettings["CoreDB_Database"]
                 );
         }
         public static dynamic RequestToServer(string request)

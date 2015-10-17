@@ -40,7 +40,7 @@
             // btnChangePIN
             // 
             this.btnChangePIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangePIN.Location = new System.Drawing.Point(218, 177);
+            this.btnChangePIN.Location = new System.Drawing.Point(258, 201);
             this.btnChangePIN.Name = "btnChangePIN";
             this.btnChangePIN.Size = new System.Drawing.Size(71, 34);
             this.btnChangePIN.TabIndex = 2;
@@ -51,16 +51,16 @@
             // txtNewPIN
             // 
             this.txtNewPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtNewPIN.Location = new System.Drawing.Point(34, 126);
+            this.txtNewPIN.Location = new System.Drawing.Point(34, 140);
             this.txtNewPIN.Name = "txtNewPIN";
             this.txtNewPIN.PasswordChar = '*';
-            this.txtNewPIN.Size = new System.Drawing.Size(255, 35);
+            this.txtNewPIN.Size = new System.Drawing.Size(295, 35);
             this.txtNewPIN.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 103);
+            this.label3.Location = new System.Drawing.Point(30, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 20);
             this.label3.TabIndex = 14;
@@ -72,7 +72,7 @@
             this.txtOldPIN.Location = new System.Drawing.Point(34, 64);
             this.txtOldPIN.Name = "txtOldPIN";
             this.txtOldPIN.PasswordChar = '*';
-            this.txtOldPIN.Size = new System.Drawing.Size(255, 31);
+            this.txtOldPIN.Size = new System.Drawing.Size(295, 31);
             this.txtOldPIN.TabIndex = 0;
             // 
             // label2
@@ -101,7 +101,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(141, 177);
+            this.btnCancel.Location = new System.Drawing.Point(167, 201);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 3;
@@ -113,7 +113,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(318, 219);
+            this.ClientSize = new System.Drawing.Size(341, 247);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnChangePIN);
