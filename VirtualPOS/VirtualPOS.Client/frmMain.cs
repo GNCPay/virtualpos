@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualPOS.Client.Forms;
 using VirtualPOS.Client.Processing;
 
 namespace VirtualPOS.Client
 {
     public partial class frmMain : Form
     {
+
         public frmMain()
         {
-            InitializeComponent();
+            InitializeComponent();      
         }
 
         public void LoadControl(UserControl controlToLoad)
@@ -23,12 +25,12 @@ namespace VirtualPOS.Client
             this.pContent.Controls.Clear();
             controlToLoad.Top = (this.pContent.Height - controlToLoad.Height) / 2;
             controlToLoad.Left = (this.pContent.Width - controlToLoad.Width) / 2;
-            this.pContent.Controls.Add(controlToLoad);
+            this.pContent.Controls.Add(controlToLoad);          
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            LoadControl(new Forms.ucLogin());
+            LoadControl(new Forms.ucLogin());         
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

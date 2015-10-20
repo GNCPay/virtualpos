@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.pScanned = new System.Windows.Forms.Panel();
+            this.txtdiachi = new System.Windows.Forms.TextBox();
+            this.txtcmnd = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCardHolder = new System.Windows.Forms.TextBox();
@@ -45,6 +49,10 @@
             // 
             // pScanned
             // 
+            this.pScanned.Controls.Add(this.txtdiachi);
+            this.pScanned.Controls.Add(this.txtcmnd);
+            this.pScanned.Controls.Add(this.label7);
+            this.pScanned.Controls.Add(this.label6);
             this.pScanned.Controls.Add(this.txtEmail);
             this.pScanned.Controls.Add(this.label3);
             this.pScanned.Controls.Add(this.txtCardHolder);
@@ -56,17 +64,52 @@
             this.pScanned.Controls.Add(this.label5);
             this.pScanned.Controls.Add(this.label2);
             this.pScanned.Controls.Add(this.label1);
-            this.pScanned.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pScanned.Location = new System.Drawing.Point(0, 0);
             this.pScanned.Name = "pScanned";
-            this.pScanned.Size = new System.Drawing.Size(382, 247);
+            this.pScanned.Size = new System.Drawing.Size(390, 349);
             this.pScanned.TabIndex = 0;
+            // 
+            // txtdiachi
+            // 
+            this.txtdiachi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.txtdiachi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtdiachi.Location = new System.Drawing.Point(172, 256);
+            this.txtdiachi.Name = "txtdiachi";
+            this.txtdiachi.Size = new System.Drawing.Size(197, 26);
+            this.txtdiachi.TabIndex = 42;
+            // 
+            // txtcmnd
+            // 
+            this.txtcmnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.txtcmnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtcmnd.Location = new System.Drawing.Point(172, 208);
+            this.txtcmnd.Name = "txtcmnd";
+            this.txtcmnd.Size = new System.Drawing.Size(197, 26);
+            this.txtcmnd.TabIndex = 41;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 258);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(69, 20);
+            this.label7.TabIndex = 40;
+            this.label7.Text = "ĐỊA CHỈ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 208);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 20);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "CMND";
             // 
             // txtEmail
             // 
             this.txtEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Location = new System.Drawing.Point(172, 155);
+            this.txtEmail.Location = new System.Drawing.Point(172, 157);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(197, 26);
             this.txtEmail.TabIndex = 2;
@@ -111,7 +154,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(222, 201);
+            this.btnCancel.Location = new System.Drawing.Point(222, 296);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 4;
@@ -121,7 +164,7 @@
             // btnRegister
             // 
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Location = new System.Drawing.Point(299, 201);
+            this.btnRegister.Location = new System.Drawing.Point(299, 296);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(71, 34);
             this.btnRegister.TabIndex = 3;
@@ -175,7 +218,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(382, 247);
+            this.ClientSize = new System.Drawing.Size(390, 348);
             this.ControlBox = false;
             this.Controls.Add(this.pScanned);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -204,5 +247,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCardHolder;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtdiachi;
+        private System.Windows.Forms.TextBox txtcmnd;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }

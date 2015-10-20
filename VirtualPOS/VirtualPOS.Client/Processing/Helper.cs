@@ -76,7 +76,9 @@ namespace VirtualPOS.Client.Processing
            + "', id:'" + SessionVariables.CardId
            + "', mobile:'" + SessionVariables.MobileNumber 
            + "', email:'" + SessionVariables.Email
-           + "'}}";
+           + "', personal_id:'" + SessionVariables.Personal_id
+           + "',address:'" + SessionVariables.Address
+           +"'}}";
             return Helper.RequestToServer(request);
         }
 
@@ -233,7 +235,7 @@ namespace VirtualPOS.Client.Processing
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId + "&full_name=" + SessionVariables.CardOwner + "&customer_cif=" + 
-                    SessionVariables.ProfileId).Result;
+                SessionVariables.ProfileId).Result;
                 //if (String.IsNullOrEmpty(card_info)) return;
                 //card_info = card_info.Substring(1, card_info.Length - 2);
                 //string[] values = card_info.Split('|');
@@ -271,7 +273,7 @@ namespace VirtualPOS.Client.Processing
 
     public class SessionVariables
     {
-        public static string CardId,Email, CardNumber, CardOwner, CardValidDate, MobileNumber, CardType;
+        public static string CardId,Email, CardNumber, CardOwner, CardValidDate, MobileNumber, CardType, Personal_id, Address, gduser;
         public static long ProfileId, CardPrepaidAmount;
         public static bool IsActived;
         public static dynamic FinanceAccount;

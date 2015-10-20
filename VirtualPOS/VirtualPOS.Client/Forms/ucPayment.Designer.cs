@@ -68,6 +68,7 @@
             this.txtBillNo.Name = "txtBillNo";
             this.txtBillNo.Size = new System.Drawing.Size(255, 31);
             this.txtBillNo.TabIndex = 0;
+            this.txtBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -109,6 +110,7 @@
             this.txtPIN.PasswordChar = '*';
             this.txtPIN.Size = new System.Drawing.Size(255, 31);
             this.txtPIN.TabIndex = 14;
+            this.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblPIN
             // 

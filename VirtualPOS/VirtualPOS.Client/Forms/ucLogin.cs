@@ -16,13 +16,17 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
         }
-
+        public static class usergd
+        {
+            public static string userGD;
+        }
         private void processLogin(object sender, EventArgs e)
         {
+            usergd.userGD = txtUserName.Text.Trim();
             var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(),txtPassword.Text.Trim()).Result;
             if (loginResult != null)
             {
-                ((frmMain)this.ParentForm).LoadControl(new ucMain());
+                ((frmMain)this.ParentForm).LoadControl(new ucMain());                
                 SessionVariables.TellerUser = loginResult;
                 return;
             }

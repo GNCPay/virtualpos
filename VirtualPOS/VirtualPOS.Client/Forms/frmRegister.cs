@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MongoDB.Driver.Builders;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,38 +24,156 @@ namespace VirtualPOS.Client.Forms
         private string pin = String.Empty;
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
-            var user = new ApplicationUser() { UserName = SessionVariables.CardId };
-            var result = Helper.UserManager.CreateAsync(user, pin).Result;
-            if (!result.Succeeded)
+            string a = txtMobileNumber.Text.Insert(0, "84");
+            a = a.Remove(2, 1);
+            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
+            if (CheckPhoneSupport(txtMobileNumber.Text) == true)
             {
-                MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
-                return;
-            }
-            SessionVariables.MobileNumber = txtMobileNumber.Text;
-            SessionVariables.CardOwner = txtCardHolder.Text;
-            SessionVariables.Email = txtEmail.Text;
-            dynamic response = Helper.RegisterCard();
-            string error_code = response.error_code.ToString();
-
-            MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            if (error_code == "00")
-            {
-                //Cash In here
-                Helper.CashIn(SessionVariables.CardPrepaidAmount);
-                var cardProfile = Helper.GetProfile();
-                    SessionVariables.ProfileId = cardProfile._id;
-                    SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                SessionVariables.IsActived = true;
-                SessionVariables.IsRegister = true;
-                Helper.RegisterWalletToCard();
-                this.DialogResult = DialogResult.OK;
-                print();
+                if (CheckIphone(txtMobileNumber.Text) == true)
+                {
+                    pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
+                    var user = new ApplicationUser() { UserName = SessionVariables.CardId };
+                    var result = Helper.UserManager.CreateAsync(user, pin).Result;
+                    if (!result.Succeeded)
+                    {
+                        MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
+                        return;
+                    }
+                    else
+                    {
+                        SessionVariables.MobileNumber = txtMobileNumber.Text;
+                        SessionVariables.CardOwner = txtCardHolder.Text;
+                        SessionVariables.Email = txtEmail.Text;
+                        SessionVariables.Personal_id = txtcmnd.Text;
+                        SessionVariables.Address = txtdiachi.Text;
+                        dynamic response = Helper.RegisterCard();
+                        string error_code = response.error_code.ToString();
+                        MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        if (error_code == "00")
+                        {
+                            //Cash In here
+                            
+                            //Helper.CashIn(SessionVariables.CardPrepaidAmount);
+                            var cardProfile = Helper.GetProfile();
+                            SessionVariables.ProfileId = cardProfile._id;
+                            SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                            SessionVariables.IsActived = true;
+                            SessionVariables.IsRegister = true;
+                            Helper.RegisterWalletToCard();
+                            this.DialogResult = DialogResult.OK;
+                            print();
+                        }
+                        else
+                        {
+                            this.DialogResult = DialogResult.Cancel;
+                        }
+                    }
+                }
+                else
+                {
+                    DialogResult dialogResult = MessageBox.Show("số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
+                        var user = new ApplicationUser() { UserName = SessionVariables.CardId };
+                        var result = Helper.UserManager.CreateAsync(user, pin).Result;
+                        if (!result.Succeeded)
+                        {
+                            MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
+                            return;
+                        }
+                        else
+                        {
+                            //Cash In here
+                            SessionVariables.MobileNumber = txtMobileNumber.Text;
+                            SessionVariables.CardOwner = txtCardHolder.Text;
+                            SessionVariables.Email = txtEmail.Text;
+                            SessionVariables.Personal_id = txtcmnd.Text;
+                            SessionVariables.Address = txtdiachi.Text;
+                            dynamic response = Helper.RegisterCard();
+                            Helper.CashIn(SessionVariables.CardPrepaidAmount);
+                            if (profile != null)
+                            {
+                                SessionVariables.ProfileId = profile._id;
+                                profile.user_name = SessionVariables.CardId;
+                                Helper.DataHelper.SaveUpdate("profile", profile);
+                            }
+                            SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                            SessionVariables.IsActived = true;
+                            SessionVariables.IsRegister = true;
+                            Helper.RegisterWalletToCard();
+                            this.DialogResult = DialogResult.OK;
+                            print();
+                        }
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        MessageBox.Show("bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        this.Close();
+                    }
+                }
             }
             else
             {
-                this.DialogResult = DialogResult.Cancel;
+                MessageBox.Show("số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
             }
+        }
+
+        private static bool CheckIphone(string iphone)
+        {
+            string a = iphone.Insert(0, "84");
+            a = a.Remove(2, 1);
+            dynamic profile= Helper.DataHelper.Get("profile",Query.EQ("mobile",a));
+            if(profile!=null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private static bool CheckPhoneSupport(string phone_number)
+        {
+            const int RegionConuntryCode = 84;
+
+            if (phone_number.Length == 10)
+            {
+                if (phone_number.StartsWith("+"))
+                {
+                    phone_number = phone_number.Replace("+", "0");
+                }
+
+                if (phone_number.StartsWith("0" + RegionConuntryCode))
+                {
+                    phone_number = phone_number.Replace("0" + RegionConuntryCode, "0");
+                }
+                string[] networkSupport_2 = { "096", "097", "098", "090", "093", "091", "094", "092", "099" };
+                const int networkLength = 3;
+                var startphone_number = phone_number.Substring(0, networkLength);
+                return networkSupport_2.Any(startphone_number.Equals);
+
+            }
+            if (phone_number.Length == 11)
+            {
+                if (phone_number.StartsWith("+"))
+                {
+                    phone_number = phone_number.Replace("+", "0");
+                }
+
+                if (phone_number.StartsWith("0" + RegionConuntryCode))
+                {
+                    phone_number = phone_number.Replace("0" + RegionConuntryCode, "0");
+                }
+
+                string[] networkSupport_1 = {"0162", "0163", "0164", "0165", "0166", "0167", "0168", "0169",
+            "0120", "0121", "0122","0126","0128",
+            "0123","0124","0125","0127","0129",
+            "0188", "0186",
+            "0199"};
+                const int networkLength_2 = 4;
+                var startphone_number_2 = phone_number.Substring(0, networkLength_2);
+                return networkSupport_1.Any(startphone_number_2.Equals);
+            }
+            return false;
         }
 
         private void frmRegister_Load(object sender, EventArgs e)

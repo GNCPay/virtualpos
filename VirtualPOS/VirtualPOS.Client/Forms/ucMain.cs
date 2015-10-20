@@ -18,7 +18,8 @@ namespace VirtualPOS.Client.Forms
     {
         public ucMain()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            lbuser2.Text = "GDV : " + ucLogin.usergd.userGD;
         }
 
         private void lockAccount(object sender, EventArgs e)
@@ -69,6 +70,29 @@ namespace VirtualPOS.Client.Forms
 
         void pdoc_PrintPage(object sender, PrintPageEventArgs e)
         {
+            dynamic profile= Helper.DataHelper.Get("transactions", Query.EQ("created_by", SessionVariables.CardId));
+
+            long total_page = 0;
+            IMongoQuery query = null;
+            string create_by = SessionVariables.CardId;
+            if (!string.IsNullOrEmpty(create_by))
+                query = (query == null) ? Query.EQ("created_by", create_by) : Query.And(
+                    query,
+                    Query.EQ("created_by", create_by)
+                    );
+
+            var transactions = Helper.DataHelper.ListPagging("transactions", query, SortBy.Descending("system_created_time"),
+             5, 1,
+             out total_page);
+            var list_accounts = (from a in transactions select a).Select(p => new
+            {
+                created_by = p.created_by,
+                amount = p.amount.ToString("N0") + " VNĐ",
+                system_created_time = DateTime.ParseExact(p.system_created_time, "yyyyMMddHHmmss", null).ToString("HH:mm:ss dd/MM/yyyy"),
+                transaction_type = p.transaction_type,
+                status = p.status
+            }).ToArray();
+            
             Graphics graphics = e.Graphics;
             Font font = new Font("Courier New", 10);
             float fontHeight = font.GetHeight();
@@ -94,7 +118,35 @@ namespace VirtualPOS.Client.Forms
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             String underLine = "------------------------------------------";
+            graphics.DrawString(underLine, new Font("Courier New", 10),
+                                new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 40;
+            try
+            {
+                for (int i = 0; i < list_accounts.Length; i++)
+                {
+                    var p = list_accounts[i];
+                    graphics.DrawString("Người tạo: " + p.created_by, new Font("Courier New", 10), new
+                      SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 20;
+                  
 
+                    graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 10), new
+                       SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 20;
+                   
+
+                    graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 10), new
+                        SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 20;
+
+                    graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 10), new
+                        SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 30;
+                }
+            }
+            catch(Exception ex) { }
+            
            
             Offset = Offset + 20;
             underLine = "------------------------------------------";
@@ -126,28 +178,22 @@ namespace VirtualPOS.Client.Forms
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.F2)
+            if (keyData == Keys.F2)
             {
-                ScanCard();
-            }
+                ScanCard();               
+            }         
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         public void ScanCard()
         {
-                var cardReaderResult = new frmScanCard().ShowDialog();
-                if (cardReaderResult == DialogResult.OK) { EnableControl(); }
+            var cardReaderResult = new frmScanCard().ShowDialog();
+            if (cardReaderResult == DialogResult.OK) { EnableControl(); }
         }
         private void EnableControl()
-        {
+        {           
             try
             {
-                if (!Processing.SessionVariables.IsRegister)
-                {
-                    MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để có thể sử dụng các dịch vụ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                pCardInfo.Reload();
-
                 long total_page = 0;
                 IMongoQuery query = null;
                 string create_by = SessionVariables.CardId;
@@ -168,7 +214,19 @@ namespace VirtualPOS.Client.Forms
                     status = p.status
                 }).ToArray();
 
-                dataGridView2.DataSource = list_accounts;
+                if (!Processing.SessionVariables.IsRegister)
+                {
+                    MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để có thể sử dụng các dịch vụ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnRegister.Text = "Đăng ký";
+                }
+                else
+                {
+                    btnRegister.Text = "Welcome";
+                    pCardInfo.Reload();                  
+                    dataGridView2.DataSource = list_accounts;
+                }
+                timer1.Enabled = true;
+                timer1.Interval = 1000;
                 pPayment.Enabled = Processing.SessionVariables.IsRegister;
                 btnCashIn.Enabled = Processing.SessionVariables.IsRegister;
                 btnCashOut.Enabled = Processing.SessionVariables.IsRegister;
@@ -177,16 +235,20 @@ namespace VirtualPOS.Client.Forms
                 btnRegister.Enabled = !Processing.SessionVariables.IsRegister;
                 btnStatement.Enabled = Processing.SessionVariables.IsRegister;
             }
-            catch(Exception ex) { }
+            catch(Exception ex) { }           
         }
         private void ucMain_Load(object sender, EventArgs e)
         {
-            ScanCard();
+            ScanCard();                     
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lbtime.Text ="Thời gian : "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
         }
     }
 }
