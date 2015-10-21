@@ -37,6 +37,11 @@ namespace VirtualPOS.Client.Forms
                 this.pCardInfo.Reload();
                 RefreshUI(false);
             } 
+            else
+            {
+                frmRegister frmRegister = new frmRegister();
+                DialogResult registerResult = frmRegister.ShowDialog();                  
+            }
             
             //this.DialogResult = DialogResult.OK;
         }
@@ -60,6 +65,7 @@ namespace VirtualPOS.Client.Forms
         private KeysConverter keyConvert = new KeysConverter();
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            
             if (keyData == Keys.Enter)
             {
                 card_id = temp_card_id;

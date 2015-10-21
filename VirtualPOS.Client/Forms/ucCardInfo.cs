@@ -24,6 +24,7 @@ namespace VirtualPOS.Client.Forms
         }
         public void Reload()
         {
+            lbtheid.Text = SessionVariables.CardId;
             lblChuThe.Text = SessionVariables.CardOwner;
             lblCardBalance.Text = (SessionVariables.IsRegister) ? String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ") : "CHƯA ĐĂNG KÝ";
             lblCardNumber.Text = SessionVariables.CardNumber;

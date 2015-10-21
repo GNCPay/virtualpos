@@ -104,14 +104,14 @@
             this.amont.DataPropertyName = "system_created_time";
             this.amont.HeaderText = "Ngày Tạo";
             this.amont.Name = "amont";
-            this.amont.Width = 170;
+            this.amont.Width = 190;
             // 
             // status
             // 
             this.status.DataPropertyName = "status";
             this.status.HeaderText = "Trạng Thái";
             this.status.Name = "status";
-            this.status.Width = 180;
+            this.status.Width = 170;
             // 
             // label1
             // 
@@ -264,6 +264,7 @@
             this.pPayment.Name = "pPayment";
             this.pPayment.Size = new System.Drawing.Size(290, 282);
             this.pPayment.TabIndex = 1;
+            this.pPayment.Load += new System.EventHandler(this.pPayment_Load);
             // 
             // pCardInfo
             // 
@@ -322,14 +323,14 @@
         private System.Windows.Forms.Button btnChangePIN;
         private System.Data.DataSet dataSet1;
         private System.Data.DataSet dataSet2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amont;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbuser;
         private System.Windows.Forms.Label lbuser2;
         private System.Windows.Forms.Label lbtime;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amont;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
     }
 }

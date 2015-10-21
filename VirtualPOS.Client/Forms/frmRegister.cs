@@ -23,7 +23,7 @@ namespace VirtualPOS.Client.Forms
 
         private string pin = String.Empty;
         private void btnRegister_Click(object sender, EventArgs e)
-        {
+        {    
             string a = txtMobileNumber.Text.Insert(0, "84");
             a = a.Remove(2, 1);
             dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
@@ -52,7 +52,6 @@ namespace VirtualPOS.Client.Forms
                         if (error_code == "00")
                         {
                             //Cash In here
-                            
                             Helper.CashIn(SessionVariables.CardPrepaidAmount);
                             var cardProfile = Helper.GetProfile();
                             SessionVariables.ProfileId = cardProfile._id;
@@ -62,6 +61,8 @@ namespace VirtualPOS.Client.Forms
                             Helper.RegisterWalletToCard();
                             this.DialogResult = DialogResult.OK;
                             print();
+                            Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance);
+                            ((ucMain)(this.Parent)).EnableControl();
                         }
                         else
                         {
@@ -104,6 +105,8 @@ namespace VirtualPOS.Client.Forms
                             Helper.RegisterWalletToCard();
                             this.DialogResult = DialogResult.OK;
                             print();
+                            Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance);
+                            ((ucMain)(this.Parent)).EnableControl();
                         }
                     }
                     else if (dialogResult == DialogResult.No)
@@ -117,7 +120,7 @@ namespace VirtualPOS.Client.Forms
             {
                 MessageBox.Show("số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
             }
-        }
+       }
 
         private static bool CheckIphone(string iphone)
         {
@@ -265,6 +268,10 @@ namespace VirtualPOS.Client.Forms
 
             graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("Quầy bán : " + SessionVariables.CounterName,
+            new Font("Courier New", 10),
+            new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);

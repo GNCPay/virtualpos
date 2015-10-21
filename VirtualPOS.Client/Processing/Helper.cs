@@ -41,6 +41,48 @@ namespace VirtualPOS.Client.Processing
                coreServer,coreDbString
                 );
         }
+
+        public static void AddLogCard(string action_code, string note, long start_balance, long end_balance, long amount)
+        {
+            string strRequest = "api/ewallet?card_id={0}&start_balance={1}&end_balance={2}&amount={3}&action_code={4}&action_by={5}&note={6}";
+            strRequest = String.Format(strRequest,
+                SessionVariables.CardId,
+                start_balance,
+                end_balance,
+                amount,
+                action_code,
+                SessionVariables.TellerUser.UserName,
+                note);
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CMS_Gateway);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string result = client.GetStringAsync(strRequest).Result;
+                }
+            }
+            catch {  }
+
+        }
+
+        public static JArray GetStatement()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CMS_Gateway);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    JArray card_info = JArray.Parse(client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId + "&last_number=5").Result);
+                    return card_info;
+                }
+            }
+            catch { return null; }
+        }
+
         public static dynamic RequestToServer(string request)
         {
             string response = @"{error_code:'96',error_message:'Có lỗi trong quá trình xử lý. Vui lòng thử lại sau'}";
@@ -217,14 +259,15 @@ namespace VirtualPOS.Client.Processing
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId).Result;
                     if (String.IsNullOrEmpty(card_info)) return;
-                    card_info = card_info.Substring(1, card_info.Length - 2);
-                    string[] values = card_info.Split('|');
-                    SessionVariables.CardNumber = values[1];
-                    SessionVariables.ProfileId = long.Parse("0" + values[2]);
-                    SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
-                    SessionVariables.IsActived = bool.Parse(values[4]);
-                    SessionVariables.CardType = values[5];
-                    SessionVariables.CardOwner = values[6];
+                    dynamic card = JObject.Parse(card_info);
+                    //card_info = card_info.Substring(1, card_info.Length - 2);
+                    //string[] values = card_info.Split('|');
+                    SessionVariables.CardNumber = card.CardNumber;// Car values[1];
+                    SessionVariables.ProfileId = long.Parse(card.CustomerCIF.ToString());// long.Parse("0" + values[2]);
+                    SessionVariables.CardPrepaidAmount = card.PrepaidAmount;// long.Parse("0" + values[3]);
+                    SessionVariables.IsActived = card.IsActived;// bool.Parse(values[4]);
+                    SessionVariables.CardType = card.CardType;// values[5];
+                    SessionVariables.CardOwner = card.CardOwnerName;// values[6];
                     //card_info.CardId,
                     //card_info.CardNumber,
                     //card_info.CustomerCIF,

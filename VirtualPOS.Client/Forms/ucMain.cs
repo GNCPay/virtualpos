@@ -11,6 +11,7 @@ using VirtualPOS.Client.Processing;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver;
 using System.Drawing.Printing;
+using Newtonsoft.Json.Linq;
 
 namespace VirtualPOS.Client.Forms
 {
@@ -20,6 +21,8 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
             lbuser2.Text = "GDV : " + ucLogin.usergd.userGD;
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
         }
 
         private void lockAccount(object sender, EventArgs e)
@@ -29,13 +32,22 @@ namespace VirtualPOS.Client.Forms
 
         private void registerCard(object sender, EventArgs e)
         {
-            if (new frmScanCard().ShowDialog() == DialogResult.OK)
+            try
             {
-                frmRegister frmRegister = new frmRegister();
-                DialogResult registerResult = frmRegister.ShowDialog();
-                //if (registerResult == DialogResult.OK)
-                    //EnableControl();
+                if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                {  
+                    if (SessionVariables.CardId == null)
+                    {  
+                        frmRegister frmRegister = new frmRegister();
+                        DialogResult registerResult = frmRegister.ShowDialog();
+                        //if (registerResult == DialogResult.OK)
+                        //    EnableControl();
+                    }
+                    else
+                    EnableControl();
+                }
             }
+            catch (Exception ex) { }         
         }
 
         private void changePIN(object sender, EventArgs e)
@@ -44,6 +56,7 @@ namespace VirtualPOS.Client.Forms
             {
                 frmChangePIN frmChangePIN = new frmChangePIN();
                 frmChangePIN.ShowDialog();
+                EnableControl();
             }
         }
 
@@ -52,6 +65,8 @@ namespace VirtualPOS.Client.Forms
             if (new frmScanCard().ShowDialog() == DialogResult.OK)
             {
                 print();
+                EnableControl();
+                
             }
         }
 
@@ -79,27 +94,39 @@ namespace VirtualPOS.Client.Forms
 
         void pdoc_PrintPage(object sender, PrintPageEventArgs e)
         {
-            dynamic profile= Helper.DataHelper.Get("transactions", Query.EQ("created_by", SessionVariables.CardId));
+            //dynamic profile= Helper.DataHelper.Get("transactions", Query.EQ("created_by", SessionVariables.CardId));
 
-            long total_page = 0;
-            IMongoQuery query = null;
-            string create_by = SessionVariables.CardId;
-            if (!string.IsNullOrEmpty(create_by))
-                query = (query == null) ? Query.EQ("created_by", create_by) : Query.And(
-                    query,
-                    Query.EQ("created_by", create_by)
-                    );
+            //long total_page = 0;
+            //IMongoQuery query = null;
+            //string create_by = SessionVariables.CardId;
+            //if (!string.IsNullOrEmpty(create_by))
+            //    query = (query == null) ? Query.EQ("created_by", create_by) : Query.And(
+            //        query,
+            //        Query.EQ("created_by", create_by)
+            //        );
 
-            var transactions = Helper.DataHelper.ListPagging("transactions", query, SortBy.Descending("system_created_time"),
-             5, 1,
-             out total_page);
+            //var transactions = Helper.DataHelper.ListPagging("transactions", query, SortBy.Descending("system_created_time"),
+            // 5, 1,
+            // out total_page);
+            //var list_accounts = (from a in transactions select a).Select(p => new
+            //{
+            //    created_by = p.created_by,
+            //    amount = p.amount.ToString("N0") + " VNĐ",
+            //    system_created_time = DateTime.ParseExact(p.system_created_time, "yyyyMMddHHmmss", null).ToString("HH:mm:ss dd/MM/yyyy"),
+            //    transaction_type = p.transaction_type,
+            //    status = p.status
+            //}).ToArray();
+
+            JArray transactions = Helper.GetStatement();
             var list_accounts = (from a in transactions select a).Select(p => new
             {
-                created_by = p.created_by,
-                amount = p.amount.ToString("N0") + " VNĐ",
-                system_created_time = DateTime.ParseExact(p.system_created_time, "yyyyMMddHHmmss", null).ToString("HH:mm:ss dd/MM/yyyy"),
-                transaction_type = p.transaction_type,
-                status = p.status
+                created_by = p["ActionBy"].ToString(),
+                amount = long.Parse(p["Amount"].ToString()).ToString("N0") + " VNĐ",
+                start_balance = long.Parse(p["StartBalance"].ToString()).ToString("N0") + " VNĐ",
+                end_balance = long.Parse(p["EndBalance"].ToString()).ToString("N0") + " VNĐ",
+                transaction_type = p["ActionCode"].ToString(),
+                system_created_time = ((DateTime)p["ActionTime"]).ToString("HH:mm:ss dd/MM/yyyy"),
+                status = "COMPLETED"
             }).ToArray();
             
             Graphics graphics = e.Graphics;
@@ -130,31 +157,34 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Courier New", 10),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 40;
+            graphics.DrawString("Số tiền        |   Loại Giao Dịch  |  Ngày tạo", new Font("Courier New", 9), new
+                      SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
             try
             {
                 for (int i = 0; i < list_accounts.Length; i++)
                 {
                     var p = list_accounts[i];
-                    graphics.DrawString("Người tạo: " + p.created_by, new Font("Courier New", 10), new
-                      SolidBrush(Color.Black), startX, startY + Offset);
-                    Offset = Offset + 20;
-                  
+                    graphics.DrawString(p.amount + p.transaction_type.ToString().PadLeft(15) + p.system_created_time.ToString().PadLeft(35), new Font("Courier New", 8), new
+                    SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 10;
 
-                    graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 10), new
-                       SolidBrush(Color.Black), startX, startY + Offset);
-                    Offset = Offset + 20;
-                   
 
-                    graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 10), new
-                        SolidBrush(Color.Black), startX, startY + Offset);
-                    Offset = Offset + 20;
+                    //graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 10), new
+                    //   SolidBrush(Color.Black), startX, startY + Offset);
+                    //Offset = Offset + 20;
 
-                    graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 10), new
-                        SolidBrush(Color.Black), startX, startY + Offset);
-                    Offset = Offset + 30;
+
+                    //graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 10), new
+                    //    SolidBrush(Color.Black), startX, startY + Offset);
+                    //Offset = Offset + 20;
+
+                    //graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 10), new
+                    //    SolidBrush(Color.Black), startX, startY + Offset);
+                    //Offset = Offset + 30;
                 }
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
             
            
             Offset = Offset + 20;
@@ -199,28 +229,40 @@ namespace VirtualPOS.Client.Forms
             var cardReaderResult = new frmScanCard().ShowDialog();
             if (cardReaderResult == DialogResult.OK) { EnableControl(); }
         }
-        private void EnableControl()
+        public void EnableControl()
         {           
             try
             {
-                long total_page = 0;
-                IMongoQuery query = null;
-                string create_by = SessionVariables.CardId;
-                if (!string.IsNullOrEmpty(create_by))
-                    query = (query == null) ? Query.EQ("created_by", create_by) : Query.And(
-                        query,
-                        Query.EQ("created_by", create_by)
-                        );
+                //long total_page = 0;
+                //IMongoQuery query = null;
+                //string create_by = SessionVariables.CardId;
+                //if (!string.IsNullOrEmpty(create_by))
+                //    query = (query == null) ? Query.EQ("created_by", create_by) : Query.And(
+                //        query,
+                //        Query.EQ("created_by", create_by)
+                //        );
 
-                var transactions = Helper.DataHelper.ListPagging("transactions", query, SortBy.Descending("system_created_time"),
-                 5, 1,
-                 out total_page);
-                var list_accounts = (from e in transactions select e).Select(p => new
+                //var transactions = Helper.DataHelper.ListPagging("transactions", query, SortBy.Descending("system_created_time"),
+                // 5, 1,
+                // out total_page);
+                                
+                //var list_accounts = (from e in transactions select e).Select(p => new
+                //{
+                //    created_by = p.created_by,
+                //    amount = p.amount.ToString("N0") + " VNĐ",
+                //    system_created_time = DateTime.ParseExact(p.system_created_time, "yyyyMMddHHmmss", null).ToString("HH:mm:ss dd/MM/yyyy"),
+                //    status = p.status
+                //}).ToArray();
+
+                JArray transactions = Helper.GetStatement();
+                var list_accounts = (from a in transactions select a).Select(p => new
                 {
-                    created_by = p.created_by,
-                    amount = p.amount.ToString("N0") + " VNĐ",
-                    system_created_time = DateTime.ParseExact(p.system_created_time, "yyyyMMddHHmmss", null).ToString("HH:mm:ss dd/MM/yyyy"),
-                    status = p.status
+                    created_by = p["ActionBy"].ToString(),
+                    amount = long.Parse(p["Amount"].ToString()).ToString("N0") + " VNĐ",
+                    //end_balance = long.Parse(p["EndBalance"].ToString()).ToString("N0") + " VNĐ",
+                    //transaction_type = p["ActionCode"].ToString(),
+                    system_created_time = ((DateTime)p["ActionTime"]).ToString("HH:mm:ss dd/MM/yyyy"),
+                    status = "COMPLETED"
                 }).ToArray();
 
                 if (!Processing.SessionVariables.IsRegister)
@@ -233,9 +275,7 @@ namespace VirtualPOS.Client.Forms
                     btnRegister.Text = "Welcome";
                     pCardInfo.Reload();                  
                     dataGridView2.DataSource = list_accounts;
-                }
-                timer1.Enabled = true;
-                timer1.Interval = 1000;
+                }             
                 pPayment.Enabled = Processing.SessionVariables.IsRegister;
                 btnCashIn.Enabled = Processing.SessionVariables.IsRegister;
                 btnCashOut.Enabled = Processing.SessionVariables.IsRegister;
@@ -248,7 +288,7 @@ namespace VirtualPOS.Client.Forms
         }
         private void ucMain_Load(object sender, EventArgs e)
         {
-            ScanCard();                     
+            //ScanCard();                     
         }
         private void label3_Click(object sender, EventArgs e)
         {
@@ -258,6 +298,10 @@ namespace VirtualPOS.Client.Forms
         private void timer1_Tick(object sender, EventArgs e)
         {
             lbtime.Text ="Thời gian : "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+        }
+
+        private void pPayment_Load(object sender, EventArgs e)
+        {
         }
     }
 }

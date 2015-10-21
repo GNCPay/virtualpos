@@ -39,8 +39,8 @@
             this.lblCardBalance = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblChuThe = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbtheid = new System.Windows.Forms.Label();
+            this.lbidthe = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -146,31 +146,31 @@
             this.lblChuThe.TabIndex = 12;
             this.lblChuThe.Text = "...";
             // 
-            // label7
+            // lbtheid
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(195, 50);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 18);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "...";
+            this.lbtheid.AutoSize = true;
+            this.lbtheid.Location = new System.Drawing.Point(195, 50);
+            this.lbtheid.Name = "lbtheid";
+            this.lbtheid.Size = new System.Drawing.Size(20, 18);
+            this.lbtheid.TabIndex = 14;
+            this.lbtheid.Text = "...";
             // 
-            // label8
+            // lbidthe
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 50);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 18);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "ID THẺ";
+            this.lbidthe.AutoSize = true;
+            this.lbidthe.Location = new System.Drawing.Point(16, 50);
+            this.lbidthe.Name = "lbidthe";
+            this.lbidthe.Size = new System.Drawing.Size(56, 18);
+            this.lbidthe.TabIndex = 13;
+            this.lbidthe.Text = "ID THẺ";
             // 
             // ucCardInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lbtheid);
+            this.Controls.Add(this.lbidthe);
             this.Controls.Add(this.lblChuThe);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblCardBalance);
@@ -205,7 +205,7 @@
         private System.Windows.Forms.Label lblCardBalance;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblChuThe;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbtheid;
+        private System.Windows.Forms.Label lbidthe;
     }
 }

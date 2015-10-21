@@ -31,9 +31,14 @@ namespace VirtualPOS.Client.Forms
             if (loginResult == null)
             {
                 MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                txtPIN.Text = "";
+                Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, amount);
+                ((ucMain)(this.Parent)).EnableControl();
+                return;           
             }
             amount = long.Parse(txtBillAmount.Text);
+            long a = SessionVariables.FinanceAccount.available_balance;
+            int kqx = (int)a - (int)amount;
             bill_no = txtBillNo.Text.Trim();
             dynamic result = Processing.Helper.PayBill(bill_no, amount);
             if (result.error_code == "00")
@@ -41,7 +46,12 @@ namespace VirtualPOS.Client.Forms
                 MessageBox.Show("Giao dịch thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 trans_id = result.trans_id;
                 print();
-                ((ucMain)(this.Parent)).ScanCard();
+                ((ucMain)(this.Parent)).ScanCard();               
+                txtBillAmount.Text = "";
+                txtBillNo.Text = "";
+                txtPIN.Text = "";
+                Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance,kqx,amount);
+                ((ucMain)(this.Parent)).EnableControl();
             }
             else
             {
@@ -85,7 +95,7 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
+            graphics.DrawString("Số thẻ:" + SessionVariables.CardId,
                      new Font("Courier New", 14),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
@@ -118,10 +128,21 @@ namespace VirtualPOS.Client.Forms
                    new Font("Courier New", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            graphics.DrawString("Số dư đầu :" + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
+                   new Font("Courier New", 12),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
             graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
                    new Font("Courier New", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            long a = SessionVariables.FinanceAccount.available_balance;
+            int kqx = (int)a - (int)amount;
+            graphics.DrawString("Số dư còn lại :" + kqx.ToString("N0") + " VNĐ",
+                  new Font("Courier New", 12),
+                  new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+
             underLine = "------------------------------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
@@ -129,6 +150,10 @@ namespace VirtualPOS.Client.Forms
 
             graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("Quầy bán:" + SessionVariables.CounterName,
+                   new Font("Courier New", 10),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
