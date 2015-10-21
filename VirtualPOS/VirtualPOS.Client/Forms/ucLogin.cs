@@ -15,6 +15,7 @@ namespace VirtualPOS.Client.Forms
         public ucLogin()
         {
             InitializeComponent();
+            //
         }
         public static class usergd
         {
