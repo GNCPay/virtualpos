@@ -42,6 +42,7 @@ namespace VirtualPOS.Client.Forms
                         DialogResult registerResult = frmRegister.ShowDialog();
                         //if (registerResult == DialogResult.OK)
                         //    EnableControl();
+                        EnableControl();
                     }
                     else
                     EnableControl();
@@ -138,57 +139,61 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 14),
+            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 11),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
-                     new Font("Courier New", 14),
+                     new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Khách hàng :" + SessionVariables.CardOwner,
+            graphics.DrawString("Khách hàng :",
                    new Font("Courier New", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString(SessionVariables.CardOwner,
+                  new Font("Courier New", 10),
+                  new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Loại :" + SessionVariables.CardType,
                      new Font("Courier New", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            String underLine = "------------------------------------------";
+            String underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 40;
-            graphics.DrawString("Số tiền        |   Loại Giao Dịch  |  Ngày tạo", new Font("Courier New", 9), new
-                      SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
+            //graphics.DrawString("Số tiền        |   Loại Giao Dịch  |  Ngày tạo", new Font("Courier New", 9), new
+            //          SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + 20;
             try
             {
                 for (int i = 0; i < list_accounts.Length; i++)
                 {
                     var p = list_accounts[i];
-                    graphics.DrawString(p.amount + p.transaction_type.ToString().PadLeft(15) + p.system_created_time.ToString().PadLeft(35), new Font("Courier New", 8), new
-                    SolidBrush(Color.Black), startX, startY + Offset);
-                    Offset = Offset + 10;
+                    //graphics.DrawString(p.amount + p.transaction_type.ToString().PadLeft(15) + p.system_created_time.ToString().PadLeft(35), new Font("Courier New", 8), new
+                    //SolidBrush(Color.Black), startX, startY + Offset);
+                    //Offset = Offset + 10;
 
 
-                    //graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 10), new
-                    //   SolidBrush(Color.Black), startX, startY + Offset);
-                    //Offset = Offset + 20;
+                    graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 8), new
+                       SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 20;
 
 
-                    //graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 10), new
-                    //    SolidBrush(Color.Black), startX, startY + Offset);
-                    //Offset = Offset + 20;
+                    graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 8), new
+                        SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 20;
 
-                    //graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 10), new
-                    //    SolidBrush(Color.Black), startX, startY + Offset);
-                    //Offset = Offset + 30;
+                    graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 8), new
+                        SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + 30;
                 }
             }
             catch (Exception ex) { }
             
            
             Offset = Offset + 20;
-            underLine = "------------------------------------------";
+            underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;

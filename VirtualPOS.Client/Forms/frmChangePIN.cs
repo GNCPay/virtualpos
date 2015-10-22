@@ -24,29 +24,33 @@ namespace VirtualPOS.Client.Forms
             var password = txtOldPIN.Text.Trim();
             var new_password = txtNewPIN.Text.Trim();
             var user = Processing.Helper.UserManager.FindAsync(user_name, password).Result;
-            if(user == null)
+            try
             {
-                MessageBox.Show("Mã PIN cũ không hợp lệ. Vui lòng kiểm tra và thử lại!", "Thông báo");
-                Helper.AddLogCard("Change PIN", "thay doi khong thanh cong", SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.FinanceAccount.available_balance);
-                ((ucMain)(this.Parent)).EnableControl();
-                return;
+                if (user == null)
+                {
+                    MessageBox.Show("Mã PIN cũ không hợp lệ. Vui lòng kiểm tra và thử lại!", "Thông báo");
+                    Helper.AddLogCard("Change PIN", "thay doi khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                    ((ucMain)(this.Parent)).EnableControl();
+                    return;
+                }
+                var result = Processing.Helper.UserManager.ChangePasswordAsync(
+                    user.Id, password, new_password).Result;
+                if (result.Succeeded)
+                {
+                    MessageBox.Show("Đổi PIN thành công!", "Thông báo");
+                    this.DialogResult = DialogResult.OK;
+                    Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
+                    ((ucMain)(this.Parent)).EnableControl();
+                }
+                else
+                {
+                    MessageBox.Show("Đổi PIN không thành công. Xin vui lòng thử lại sau!", "Thông báo");
+                    this.DialogResult = DialogResult.No;
+                    Helper.AddLogCard("Change PIN", "thay doi khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
+                    ((ucMain)(this.Parent)).EnableControl();
+                }
             }
-            var result = Processing.Helper.UserManager.ChangePasswordAsync(
-                user.Id, password, new_password).Result;
-            if (result.Succeeded)
-            {
-                MessageBox.Show("Đổi PIN thành công!", "Thông báo");
-                this.DialogResult = DialogResult.OK;
-                Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.FinanceAccount.available_balance);
-                ((ucMain)(this.Parent)).EnableControl();
-            }
-            else
-            {
-                MessageBox.Show("Đổi PIN không thành công. Xin vui lòng thử lại sau!", "Thông báo");
-                this.DialogResult = DialogResult.No;
-                Helper.AddLogCard("Change PIN", "thay doi khong thanh cong", SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.FinanceAccount.available_balance);
-                ((ucMain)(this.Parent)).EnableControl();
-            }
+            catch (Exception ex) { }   
         }
     }
 }

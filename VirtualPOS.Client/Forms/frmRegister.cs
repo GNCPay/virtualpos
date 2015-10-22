@@ -27,53 +27,11 @@ namespace VirtualPOS.Client.Forms
             string a = txtMobileNumber.Text.Insert(0, "84");
             a = a.Remove(2, 1);
             dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
-            if (CheckPhoneSupport(txtMobileNumber.Text) == true)
+            try
             {
-                if (CheckIphone(txtMobileNumber.Text) == true)
+                if (CheckPhoneSupport(txtMobileNumber.Text) == true)
                 {
-                    pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
-                    var user = new ApplicationUser() { UserName = SessionVariables.CardId };
-                    var result = Helper.UserManager.CreateAsync(user, pin).Result;
-                    if (!result.Succeeded)
-                    {
-                        MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
-                        return;
-                    }
-                    else
-                    {
-                        SessionVariables.MobileNumber = txtMobileNumber.Text;
-                        SessionVariables.CardOwner = txtCardHolder.Text;
-                        SessionVariables.Email = txtEmail.Text;
-                        SessionVariables.Personal_id = txtcmnd.Text;
-                        SessionVariables.Address = txtdiachi.Text;
-                        dynamic response = Helper.RegisterCard();
-                        string error_code = response.error_code.ToString();
-                        MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        if (error_code == "00")
-                        {
-                            //Cash In here
-                            Helper.CashIn(SessionVariables.CardPrepaidAmount);
-                            var cardProfile = Helper.GetProfile();
-                            SessionVariables.ProfileId = cardProfile._id;
-                            SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                            SessionVariables.IsActived = true;
-                            SessionVariables.IsRegister = true;
-                            Helper.RegisterWalletToCard();
-                            this.DialogResult = DialogResult.OK;
-                            print();
-                            Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance);
-                            ((ucMain)(this.Parent)).EnableControl();
-                        }
-                        else
-                        {
-                            this.DialogResult = DialogResult.Cancel;
-                        }
-                    }
-                }
-                else
-                {
-                    DialogResult dialogResult = MessageBox.Show("số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                    if (dialogResult == DialogResult.Yes)
+                    if (CheckIphone(txtMobileNumber.Text) == true)
                     {
                         pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
                         var user = new ApplicationUser() { UserName = SessionVariables.CardId };
@@ -85,41 +43,85 @@ namespace VirtualPOS.Client.Forms
                         }
                         else
                         {
-                            //Cash In here
                             SessionVariables.MobileNumber = txtMobileNumber.Text;
                             SessionVariables.CardOwner = txtCardHolder.Text;
                             SessionVariables.Email = txtEmail.Text;
                             SessionVariables.Personal_id = txtcmnd.Text;
                             SessionVariables.Address = txtdiachi.Text;
                             dynamic response = Helper.RegisterCard();
-                            Helper.CashIn(SessionVariables.CardPrepaidAmount);
-                            if (profile != null)
+                            string error_code = response.error_code.ToString();
+                            MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            if (error_code == "00")
                             {
-                                SessionVariables.ProfileId = profile._id;
-                                profile.user_name = SessionVariables.CardId;
-                                Helper.DataHelper.SaveUpdate("profile", profile);
+                                //Cash In here
+                                Helper.CashIn(SessionVariables.CardPrepaidAmount);
+                                var cardProfile = Helper.GetProfile();
+                                SessionVariables.ProfileId = cardProfile._id;
+                                SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                                SessionVariables.IsActived = true;
+                                SessionVariables.IsRegister = true;
+                                Helper.RegisterWalletToCard();
+                                this.DialogResult = DialogResult.OK;
+                                print();
+                                Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
                             }
-                            SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                            SessionVariables.IsActived = true;
-                            SessionVariables.IsRegister = true;
-                            Helper.RegisterWalletToCard();
-                            this.DialogResult = DialogResult.OK;
-                            print();
-                            Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance);
-                            ((ucMain)(this.Parent)).EnableControl();
+                            else
+                            {
+                                this.DialogResult = DialogResult.Cancel;
+                            }
                         }
                     }
-                    else if (dialogResult == DialogResult.No)
+                    else
                     {
-                        MessageBox.Show("bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        this.Close();
+                        DialogResult dialogResult = MessageBox.Show("số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
+                            var user = new ApplicationUser() { UserName = SessionVariables.CardId };
+                            var result = Helper.UserManager.CreateAsync(user, pin).Result;
+                            if (!result.Succeeded)
+                            {
+                                MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
+                                return;
+                            }
+                            else
+                            {
+                                //Cash In here
+                                SessionVariables.MobileNumber = txtMobileNumber.Text;
+                                SessionVariables.CardOwner = txtCardHolder.Text;
+                                SessionVariables.Email = txtEmail.Text;
+                                SessionVariables.Personal_id = txtcmnd.Text;
+                                SessionVariables.Address = txtdiachi.Text;
+                                dynamic response = Helper.RegisterCard();
+                                Helper.CashIn(SessionVariables.CardPrepaidAmount);
+                                if (profile != null)
+                                {
+                                    SessionVariables.ProfileId = profile._id;
+                                    profile.user_name = SessionVariables.CardId;
+                                    Helper.DataHelper.SaveUpdate("profile", profile);
+                                }
+                                SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                                SessionVariables.IsActived = true;
+                                SessionVariables.IsRegister = true;
+                                Helper.RegisterWalletToCard();
+                                this.DialogResult = DialogResult.OK;
+                                print();
+                                Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                            }
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            MessageBox.Show("bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            this.Close();
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                }
             }
-            else
-            {
-                MessageBox.Show("số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-            }
+            catch (Exception ex) { }      
        }
 
         private static bool CheckIphone(string iphone)
@@ -218,11 +220,11 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN KÍCH HOẠT!", new Font("Courier New", 14),
+            graphics.DrawString("THÔNG TIN KÍCH HOẠT!", new Font("Courier New", 11),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
-                     new Font("Courier New", 14),
+                     new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Loại :" + SessionVariables.CardType,
@@ -230,38 +232,42 @@ namespace VirtualPOS.Client.Forms
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mệnh giá :" + SessionVariables.CardPrepaidAmount.ToString("N0") + " VNĐ",
-                    new Font("Courier New", 12),
+                    new Font("Courier New", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Ngày hiệu lực :" + DateTime.Today.ToString("dd/MM/yyyy"),
-                    new Font("Courier New", 12),
+                    new Font("Courier New", 9),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Ngày hết hạn :" + DateTime.Today.AddMonths(6).ToString("dd/MM/yyyy"),
-                  new Font("Courier New", 12),
+                  new Font("Courier New", 9),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            String underLine = "------------------------------------------";
+            String underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Khách hàng :" + SessionVariables.CardOwner,
+            graphics.DrawString("Khách hàng :",
                    new Font("Courier New", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Số điện thoại :" + SessionVariables.MobileNumber,
-                   new Font("Courier New", 12),
+            graphics.DrawString(SessionVariables.CardOwner,
+                  new Font("Courier New", 10),
+                  new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("SDT :" + SessionVariables.MobileNumber,
+                   new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Email :" + SessionVariables.Email,
-                   new Font("Courier New", 12),
+                   new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mã PIN :" + pin,
                    new Font("Courier New", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            underLine = "------------------------------------------";
+            underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
@@ -275,6 +281,18 @@ namespace VirtualPOS.Client.Forms
             Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+        }
+
+        private void txtcmnd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //check number
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+        }
+
+        private void txtMobileNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //check number
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
         }
     }
 }

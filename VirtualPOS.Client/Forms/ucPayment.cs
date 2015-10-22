@@ -32,7 +32,7 @@ namespace VirtualPOS.Client.Forms
             {
                 MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPIN.Text = "";
-                Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, amount);
+                Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, amount);
                 ((ucMain)(this.Parent)).EnableControl();
                 return;           
             }
@@ -92,58 +92,63 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 14),
+            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 12),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Số thẻ:" + SessionVariables.CardId,
-                     new Font("Courier New", 14),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Khách hàng :" + SessionVariables.CardOwner,
-                   new Font("Courier New", 12),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Loại :" + SessionVariables.CardType,
+            graphics.DrawString("Số thẻ : " + SessionVariables.CardId,
                      new Font("Courier New", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            String underLine = "------------------------------------------";
+            graphics.DrawString("Khách hàng : ",
+                   new Font("Courier New", 12),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString(SessionVariables.CardOwner,
+                   new Font("Courier New", 10),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            
+            graphics.DrawString("Loại : " + SessionVariables.CardType,
+                     new Font("Courier New", 12),
+                     new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            String underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Mã GD :" + trans_id.Substring(0, 8),
-                   new Font("Courier New", 12),
+            graphics.DrawString("Mã GD : " + trans_id.Substring(0, 8),
+                   new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Thời gian GD :" + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
-                   new Font("Courier New", 12),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
+            //graphics.DrawString("Thời gian : " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+            //       new Font("Courier New", 8),
+            //       new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + 20;
 
             graphics.DrawString("Loại GD : THANH TOÁN",
-                   new Font("Courier New", 12),
+                   new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số Hóa đơn : " + bill_no,
-                   new Font("Courier New", 12),
+                   new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số dư đầu :" + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
-                   new Font("Courier New", 12),
+                   new Font("Courier New",8),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
-                   new Font("Courier New", 12),
+                   new Font("Courier New", 9),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             long a = SessionVariables.FinanceAccount.available_balance;
             int kqx = (int)a - (int)amount;
-            graphics.DrawString("Số dư còn lại :" + kqx.ToString("N0") + " VNĐ",
-                  new Font("Courier New", 12),
+            graphics.DrawString("Số dư cuối :" + kqx.ToString("N0") + " VNĐ",
+                  new Font("Courier New", 8),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
-            underLine = "------------------------------------------";
+            underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
@@ -157,6 +162,20 @@ namespace VirtualPOS.Client.Forms
             Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+        }
+
+        private void txtBillAmount_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void txtBillAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                //check number
+                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+            }
+            catch (Exception ex) { }    
         }
     }
 }

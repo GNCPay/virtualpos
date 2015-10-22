@@ -96,11 +96,12 @@
             // 
             this.txtBillAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtBillAmount.Location = new System.Drawing.Point(19, 132);
-            this.txtBillAmount.Mask = "0000000";
             this.txtBillAmount.Name = "txtBillAmount";
             this.txtBillAmount.Size = new System.Drawing.Size(255, 35);
             this.txtBillAmount.TabIndex = 1;
             this.txtBillAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBillAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillAmount_KeyPress);
+            this.txtBillAmount.Leave += new System.EventHandler(this.txtBillAmount_Leave);
             // 
             // txtPIN
             // 

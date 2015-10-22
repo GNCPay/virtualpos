@@ -86,6 +86,7 @@
             this.txtcmnd.Name = "txtcmnd";
             this.txtcmnd.Size = new System.Drawing.Size(197, 26);
             this.txtcmnd.TabIndex = 3;
+            this.txtcmnd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcmnd_KeyPress);
             // 
             // label7
             // 
@@ -149,6 +150,7 @@
             this.txtMobileNumber.Name = "txtMobileNumber";
             this.txtMobileNumber.Size = new System.Drawing.Size(197, 26);
             this.txtMobileNumber.TabIndex = 1;
+            this.txtMobileNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMobileNumber_KeyPress);
             // 
             // btnCancel
             // 
