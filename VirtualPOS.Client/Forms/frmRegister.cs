@@ -62,8 +62,8 @@ namespace VirtualPOS.Client.Forms
                                 SessionVariables.IsRegister = true;
                                 Helper.RegisterWalletToCard();
                                 this.DialogResult = DialogResult.OK;
-                                print();
                                 Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                                print();
                             }
                             else
                             {
@@ -105,8 +105,8 @@ namespace VirtualPOS.Client.Forms
                                 SessionVariables.IsRegister = true;
                                 Helper.RegisterWalletToCard();
                                 this.DialogResult = DialogResult.OK;
-                                print();
                                 Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                                print();
                             }
                         }
                         else if (dialogResult == DialogResult.No)

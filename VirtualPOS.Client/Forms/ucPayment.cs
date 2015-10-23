@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualPOS.Client.Processing;
 using System.Drawing.Printing;
+using MongoDB.Driver.Builders;
 
 namespace VirtualPOS.Client.Forms
 {
@@ -24,39 +25,56 @@ namespace VirtualPOS.Client.Forms
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            if (new frmScanCard().ShowDialog() != DialogResult.OK)
-                return;
-            string pin = txtPIN.Text.Trim();
-            var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
-            if (loginResult == null)
+            try
             {
-                MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPIN.Text = "";
-                Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, amount);
-                ((ucMain)(this.Parent)).EnableControl();
-                return;           
+                if (new frmScanCard().ShowDialog() != DialogResult.OK)
+                    return;               
+                string pin = txtPIN.Text.Trim();
+                var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
+                if (loginResult == null)
+                {
+                    MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPIN.Text = "";
+                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
+                    ((ucMain)(this.Parent)).EnableControl();
+                    return;
+                }
+                var user_name = Processing.SessionVariables.CardId;
+                dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                if (profile.Status != "LOCKED")
+                {
+                    
+                    string kaka = txtBillAmount.Text;
+                    string mkaka = kaka.Replace(".", "");
+                    amount = long.Parse(mkaka);
+                    long a = SessionVariables.FinanceAccount.available_balance;
+                    int kqx = (int)a - (int)amount;
+                    bill_no = txtBillNo.Text.Trim();
+                    dynamic result = Processing.Helper.PayBill(bill_no, amount);
+                    if (result.error_code == "00")
+                    {
+                        MessageBox.Show("Giao dịch thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        trans_id = result.trans_id;
+                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
+                        print();
+                        ((ucMain)(this.Parent)).ScanCard();
+                        txtBillAmount.Text = "";
+                        txtBillNo.Text = "";
+                        txtPIN.Text = "";                      
+                        ((ucMain)(this.Parent)).EnableControl();
+                    }
+                    else
+                    {
+                        MessageBox.Show(result.error_message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                    MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    txtBillAmount.Text = "";
+                    txtBillNo.Text = "";
+                    txtPIN.Text = "";
             }
-            amount = long.Parse(txtBillAmount.Text);
-            long a = SessionVariables.FinanceAccount.available_balance;
-            int kqx = (int)a - (int)amount;
-            bill_no = txtBillNo.Text.Trim();
-            dynamic result = Processing.Helper.PayBill(bill_no, amount);
-            if (result.error_code == "00")
-            {
-                MessageBox.Show("Giao dịch thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                trans_id = result.trans_id;
-                print();
-                ((ucMain)(this.Parent)).ScanCard();               
-                txtBillAmount.Text = "";
-                txtBillNo.Text = "";
-                txtPIN.Text = "";
-                Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance,kqx,amount);
-                ((ucMain)(this.Parent)).EnableControl();
-            }
-            else
-            {
-                MessageBox.Show(result.error_message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { }  
         }
 
         public void print()
@@ -166,6 +184,14 @@ namespace VirtualPOS.Client.Forms
 
         private void txtBillAmount_Leave(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtBillAmount.Text.Equals("0"))
+                    return;
+                double temp = Convert.ToDouble(txtBillAmount.Text);
+                txtBillAmount.Text = temp.ToString("#,###");
+            }
+            catch (Exception ex) { }
         }
 
         private void txtBillAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -176,6 +202,20 @@ namespace VirtualPOS.Client.Forms
                 e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
             }
             catch (Exception ex) { }    
+        }
+
+        private void txtBillNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                //check number
+                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+            }
+            catch (Exception ex) { }    
+        }
+
+        private void txtBillAmount_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

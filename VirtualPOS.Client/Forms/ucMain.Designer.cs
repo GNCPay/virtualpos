@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucMain));
             this.pTransaction = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,14 +51,14 @@
             this.lbuser = new System.Windows.Forms.Label();
             this.lbtime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pPayment = new VirtualPOS.Client.Forms.ucPayment();
-            this.pCardInfo = new VirtualPOS.Client.Forms.ucCardInfo();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.pAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pTransaction
@@ -111,7 +112,7 @@
             this.status.DataPropertyName = "status";
             this.status.HeaderText = "Trạng Thái";
             this.status.Name = "status";
-            this.status.Width = 170;
+            this.status.Width = 164;
             // 
             // label1
             // 
@@ -254,41 +255,28 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // pPayment
+            // pictureBox1
             // 
-            this.pPayment.BackColor = System.Drawing.Color.White;
-            this.pPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.pPayment.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pPayment.Location = new System.Drawing.Point(461, 7);
-            this.pPayment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pPayment.Name = "pPayment";
-            this.pPayment.Size = new System.Drawing.Size(290, 282);
-            this.pPayment.TabIndex = 1;
-            this.pPayment.Load += new System.EventHandler(this.pPayment_Load);
-            // 
-            // pCardInfo
-            // 
-            this.pCardInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.pCardInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.pCardInfo.Location = new System.Drawing.Point(15, 4);
-            this.pCardInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.pCardInfo.Name = "pCardInfo";
-            this.pCardInfo.Size = new System.Drawing.Size(439, 286);
-            this.pCardInfo.TabIndex = 0;
-            this.pCardInfo.Visible = false;
+            this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
+            this.pictureBox1.ImageLocation = "almaz.bmp";
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(439, 282);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // ucMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbtime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCashIn);
             this.Controls.Add(this.pAction);
             this.Controls.Add(this.pTransaction);
             this.Controls.Add(this.btnCashOut);
-            this.Controls.Add(this.pPayment);
-            this.Controls.Add(this.pCardInfo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucMain";
@@ -302,6 +290,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,6 +317,7 @@
         private System.Windows.Forms.Label lbuser2;
         private System.Windows.Forms.Label lbtime;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
         private System.Windows.Forms.DataGridViewTextBoxColumn amont;

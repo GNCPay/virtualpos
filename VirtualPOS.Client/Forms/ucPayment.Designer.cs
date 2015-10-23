@@ -54,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(15, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 20);
@@ -69,11 +69,12 @@
             this.txtBillNo.Size = new System.Drawing.Size(255, 31);
             this.txtBillNo.TabIndex = 0;
             this.txtBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBillNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillNo_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Location = new System.Drawing.Point(15, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
@@ -100,6 +101,7 @@
             this.txtBillAmount.Size = new System.Drawing.Size(255, 35);
             this.txtBillAmount.TabIndex = 1;
             this.txtBillAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBillAmount.TextChanged += new System.EventHandler(this.txtBillAmount_TextChanged);
             this.txtBillAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillAmount_KeyPress);
             this.txtBillAmount.Leave += new System.EventHandler(this.txtBillAmount_Leave);
             // 
@@ -116,7 +118,7 @@
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
-            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblPIN.Location = new System.Drawing.Point(15, 175);
             this.lblPIN.Name = "lblPIN";
             this.lblPIN.Size = new System.Drawing.Size(89, 20);

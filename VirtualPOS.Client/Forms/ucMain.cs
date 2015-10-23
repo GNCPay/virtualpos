@@ -12,6 +12,8 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver;
 using System.Drawing.Printing;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using MongoDB.Bson;
 
 namespace VirtualPOS.Client.Forms
 {
@@ -21,6 +23,12 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
             lbuser2.Text = "GDV : " + ucLogin.usergd.userGD;
+            try
+            {
+                Image img = Image.FromFile(@"img\almaz.bmp");
+                pictureBox1.Image = img;
+            }
+            catch (Exception ex) { }
             timer1.Enabled = true;
             timer1.Interval = 1000;
         }
@@ -28,6 +36,42 @@ namespace VirtualPOS.Client.Forms
         private void lockAccount(object sender, EventArgs e)
         {
             DialogResult confirmResult = MessageBox.Show("Bạn có chắc chắn muốn khóa tài khoản này?","Xác nhận",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2);
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
+                {
+                    if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                    {
+                         var user_name = Processing.SessionVariables.CardId;
+                         dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                        if (user_name != null)
+                        {
+                            if (profile.Status != "LOCKED")
+                            {
+                                updateLock(profile._id, "LOCKED");
+                                MessageBox.Show("Bạn đã khoá tài khoản thành công !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                btnLock.Enabled = false;
+                            }
+                            else
+                                MessageBox.Show("Tài khoản đã bị khoá !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                btnLock.Enabled = false;
+                        }
+                        else
+                            MessageBox.Show("Vui lòng đăng nhập để thực hiện khoá tài khoản !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                }
+                catch (Exception ex) { }
+            }
+            else
+                MessageBox.Show("Bạn đã huỷ thành công !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        private void updateLock(ObjectId _id, string Status)
+        {
+            //var id = new ObjectId(_id);
+            dynamic user = Helper.DataHelper.Get("users", Query.EQ("_id", _id));
+            user.Status = Status;
+            Helper.DataHelper.SaveUpdate("users", user);
         }
 
         private void registerCard(object sender, EventArgs e)
@@ -35,17 +79,26 @@ namespace VirtualPOS.Client.Forms
             try
             {
                 if (new frmScanCard().ShowDialog() == DialogResult.OK)
-                {  
-                    if (SessionVariables.CardId == null)
-                    {  
+                {
+                    var user_name = Processing.SessionVariables.CardId;
+                    if (user_name != null)
+                    {
+                        dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                        if (profile.Status == "LOCKED")
+                        {
+                            MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        else
+                            EnableControl();
+                    }
+                    else
+                    {
                         frmRegister frmRegister = new frmRegister();
                         DialogResult registerResult = frmRegister.ShowDialog();
                         //if (registerResult == DialogResult.OK)
                         //    EnableControl();
                         EnableControl();
                     }
-                    else
-                    EnableControl();
                 }
             }
             catch (Exception ex) { }         
@@ -57,7 +110,16 @@ namespace VirtualPOS.Client.Forms
             {
                 frmChangePIN frmChangePIN = new frmChangePIN();
                 frmChangePIN.ShowDialog();
-                EnableControl();
+                try
+                {
+                    var user_name = Processing.SessionVariables.CardId;
+                    dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                    if (profile.Status != "LOCKED")
+                    {
+                        EnableControl();
+                    }
+                }
+                catch (Exception ex) { } 
             }
         }
 
@@ -65,9 +127,19 @@ namespace VirtualPOS.Client.Forms
         {
             if (new frmScanCard().ShowDialog() == DialogResult.OK)
             {
-                print();
-                EnableControl();
-                
+                try
+                {
+                    var user_name = Processing.SessionVariables.CardId;
+                    dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                    if (profile.Status != "LOCKED")
+                    {
+                        print();
+                        EnableControl(); 
+                    }
+                    else
+                        MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (Exception ex) { }     
             }
         }
 
@@ -232,7 +304,20 @@ namespace VirtualPOS.Client.Forms
         public void ScanCard()
         {
             var cardReaderResult = new frmScanCard().ShowDialog();
-            if (cardReaderResult == DialogResult.OK) { EnableControl(); }
+            try
+            {
+                var user_name = Processing.SessionVariables.CardId;
+                dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                if (profile.Status != "LOCKED")
+                {
+                    if (cardReaderResult == DialogResult.OK) { EnableControl(); }
+                }
+                else
+                    MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            catch (Exception ex) { }
+          
+            
         }
         public void EnableControl()
         {           
