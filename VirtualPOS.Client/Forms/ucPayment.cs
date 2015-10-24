@@ -11,6 +11,7 @@ using VirtualPOS.Client.Processing;
 using System.Drawing.Printing;
 using MongoDB.Driver.Builders;
 
+
 namespace VirtualPOS.Client.Forms
 {
     public partial class ucPayment : UserControl
@@ -21,6 +22,7 @@ namespace VirtualPOS.Client.Forms
         public ucPayment()
         {
             InitializeComponent();
+            progressBar1.Visible = false;
         }
 
         private void btnPayment_Click(object sender, EventArgs e)
@@ -28,24 +30,31 @@ namespace VirtualPOS.Client.Forms
             try
             {
                 if (new frmScanCard().ShowDialog() != DialogResult.OK)
-                    return;               
+                    return;
+                progressBar1.Visible = true;
+                this.timer1.Enabled = true;
+                for (int i = 0; i <= timer1.Interval; i++)
+                {
+                    progressBar1.Value = i;
+                }
                 string pin = txtPIN.Text.Trim();
                 var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
                 if (loginResult == null)
-                {
+                {          
                     MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    progressBar1.Visible = false;
                     txtPIN.Text = "";
                     Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
                     ((ucMain)(this.Parent)).EnableControl();
                     return;
                 }
+
                 var user_name = Processing.SessionVariables.CardId;
                 dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
                 if (profile.Status != "LOCKED")
                 {
-                    
                     string kaka = txtBillAmount.Text;
-                    string mkaka = kaka.Replace(".", "");
+                    string mkaka = kaka.Replace(".", "").Replace(",", "");
                     amount = long.Parse(mkaka);
                     long a = SessionVariables.FinanceAccount.available_balance;
                     int kqx = (int)a - (int)amount;
@@ -53,14 +62,15 @@ namespace VirtualPOS.Client.Forms
                     dynamic result = Processing.Helper.PayBill(bill_no, amount);
                     if (result.error_code == "00")
                     {
-                        MessageBox.Show("Giao dịch thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        trans_id = result.trans_id;
-                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
+                        MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        progressBar1.Visible = false;
+                        trans_id = result.trans_id;                     
                         print();
                         ((ucMain)(this.Parent)).ScanCard();
                         txtBillAmount.Text = "";
                         txtBillNo.Text = "";
-                        txtPIN.Text = "";                      
+                        txtPIN.Text = "";
+                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
                         ((ucMain)(this.Parent)).EnableControl();
                     }
                     else
@@ -216,6 +226,17 @@ namespace VirtualPOS.Client.Forms
 
         private void txtBillAmount_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void ucPayment_Load(object sender, EventArgs e)
+        {
+            this.progressBar1.Maximum = 300;
+            this.progressBar1.Minimum = 0;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.timer1.Start();
         }
     }
 }

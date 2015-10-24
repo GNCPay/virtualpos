@@ -363,7 +363,8 @@ namespace VirtualPOS.Client.Forms
                 else
                 {
                     btnRegister.Text = "Welcome";
-                    pCardInfo.Reload();                  
+                    btnRegister.Enabled = false;
+                    //pCardInfo.Reload();                  
                     dataGridView2.DataSource = list_accounts;
                 }             
                 pPayment.Enabled = Processing.SessionVariables.IsRegister;

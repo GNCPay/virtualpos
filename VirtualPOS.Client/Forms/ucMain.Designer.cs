@@ -52,6 +52,7 @@
             this.lbtime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ucPayment1 = new VirtualPOS.Client.Forms.ucPayment();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.pAction.SuspendLayout();
@@ -266,21 +267,32 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // ucPayment1
+            // 
+            this.ucPayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.ucPayment1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ucPayment1.Location = new System.Drawing.Point(461, 5);
+            this.ucPayment1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucPayment1.Name = "ucPayment1";
+            this.ucPayment1.Size = new System.Drawing.Size(312, 282);
+            this.ucPayment1.TabIndex = 10;
+            // 
             // ucMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.ucPayment1);
             this.Controls.Add(this.lbtime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCashIn);
             this.Controls.Add(this.pAction);
             this.Controls.Add(this.pTransaction);
             this.Controls.Add(this.btnCashOut);
+            this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucMain";
-            this.Size = new System.Drawing.Size(755, 607);
+            this.Size = new System.Drawing.Size(773, 607);
             this.Load += new System.EventHandler(this.ucMain_Load);
             this.pTransaction.ResumeLayout(false);
             this.pTransaction.PerformLayout();
@@ -322,5 +334,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
         private System.Windows.Forms.DataGridViewTextBoxColumn amont;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private ucPayment ucPayment1;
     }
 }

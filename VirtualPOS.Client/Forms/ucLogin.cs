@@ -23,16 +23,21 @@ namespace VirtualPOS.Client.Forms
         private void processLogin(object sender, EventArgs e)
         {
             usergd.userGD = txtUserName.Text.Trim();
-            var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(),txtPassword.Text.Trim()).Result;
-            if (loginResult != null)
+            try
             {
-                ((frmMain)this.ParentForm).LoadControl(new ucMain());                
-                SessionVariables.TellerUser = loginResult;
-                return;
+                var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(), txtPassword.Text.Trim()).Result;
+                if (loginResult != null)
+                {
+                    ((frmMain)this.ParentForm).LoadControl(new ucMain());
+                    SessionVariables.TellerUser = loginResult;
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Sai thông tin đăng nhập. Vui lòng kiểm tra và thử lại!", "Đăng nhập không thành công!");
+                }
             }
-            else {
-                MessageBox.Show("Sai thông tin đăng nhập. Vui lòng kiểm tra và thử lại!", "Đăng nhập không thành công!");
-            }
+            catch (Exception ex) { }
         }
     }
 }

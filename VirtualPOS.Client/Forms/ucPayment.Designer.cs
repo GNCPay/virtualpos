@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBillNo = new System.Windows.Forms.TextBox();
@@ -36,6 +37,8 @@
             this.txtBillAmount = new System.Windows.Forms.MaskedTextBox();
             this.txtPIN = new System.Windows.Forms.TextBox();
             this.lblPIN = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -54,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Location = new System.Drawing.Point(15, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 20);
@@ -66,7 +69,7 @@
             this.txtBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtBillNo.Location = new System.Drawing.Point(19, 70);
             this.txtBillNo.Name = "txtBillNo";
-            this.txtBillNo.Size = new System.Drawing.Size(255, 31);
+            this.txtBillNo.Size = new System.Drawing.Size(280, 31);
             this.txtBillNo.TabIndex = 0;
             this.txtBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtBillNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillNo_KeyPress);
@@ -74,7 +77,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label3.Location = new System.Drawing.Point(15, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
@@ -85,7 +88,7 @@
             // 
             this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPayment.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnPayment.Location = new System.Drawing.Point(211, 235);
+            this.btnPayment.Location = new System.Drawing.Point(236, 235);
             this.btnPayment.Name = "btnPayment";
             this.btnPayment.Size = new System.Drawing.Size(63, 34);
             this.btnPayment.TabIndex = 2;
@@ -98,7 +101,7 @@
             this.txtBillAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtBillAmount.Location = new System.Drawing.Point(19, 132);
             this.txtBillAmount.Name = "txtBillAmount";
-            this.txtBillAmount.Size = new System.Drawing.Size(255, 35);
+            this.txtBillAmount.Size = new System.Drawing.Size(280, 35);
             this.txtBillAmount.TabIndex = 1;
             this.txtBillAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtBillAmount.TextChanged += new System.EventHandler(this.txtBillAmount_TextChanged);
@@ -111,24 +114,37 @@
             this.txtPIN.Location = new System.Drawing.Point(19, 198);
             this.txtPIN.Name = "txtPIN";
             this.txtPIN.PasswordChar = '*';
-            this.txtPIN.Size = new System.Drawing.Size(255, 31);
+            this.txtPIN.Size = new System.Drawing.Size(280, 31);
             this.txtPIN.TabIndex = 14;
             this.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
-            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblPIN.Location = new System.Drawing.Point(15, 175);
             this.lblPIN.Name = "lblPIN";
             this.lblPIN.Size = new System.Drawing.Size(89, 20);
             this.lblPIN.TabIndex = 15;
             this.lblPIN.Text = "MÃ PIN KH";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(19, 235);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(196, 34);
+            this.progressBar1.TabIndex = 16;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // ucPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.txtPIN);
             this.Controls.Add(this.lblPIN);
             this.Controls.Add(this.txtBillAmount);
@@ -141,7 +157,8 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucPayment";
-            this.Size = new System.Drawing.Size(290, 282);
+            this.Size = new System.Drawing.Size(318, 282);
+            this.Load += new System.EventHandler(this.ucPayment_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +174,7 @@
         private System.Windows.Forms.MaskedTextBox txtBillAmount;
         private System.Windows.Forms.TextBox txtPIN;
         private System.Windows.Forms.Label lblPIN;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
