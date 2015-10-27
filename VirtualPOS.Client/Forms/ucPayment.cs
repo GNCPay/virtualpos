@@ -144,6 +144,9 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            graphics.DrawString("HotLine: 094.9898.222", new Font("Courier New", 10),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
             graphics.DrawString("Mã GD : " + trans_id.Substring(0, 8),
                    new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
@@ -188,8 +191,18 @@ namespace VirtualPOS.Client.Forms
                    new Font("Courier New", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            graphics.DrawString("HotLine: 094.9898.222", new Font("Courier New", 10),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString(underLine, new Font("Courier New", 10),
+                     new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("Thank You! And See You Again.", new Font("Courier New", 10),
+                  new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
         }
 
         private void txtBillAmount_Leave(object sender, EventArgs e)

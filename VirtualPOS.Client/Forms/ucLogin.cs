@@ -22,6 +22,7 @@ namespace VirtualPOS.Client.Forms
         }
         private void processLogin(object sender, EventArgs e)
         {
+            txtUserName.Text = "tt";
             usergd.userGD = txtUserName.Text.Trim();
             try
             {
@@ -38,6 +39,10 @@ namespace VirtualPOS.Client.Forms
                 }
             }
             catch (Exception ex) { }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
         }
     }
 }

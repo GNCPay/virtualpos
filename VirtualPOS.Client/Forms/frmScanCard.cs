@@ -22,27 +22,30 @@ namespace VirtualPOS.Client.Forms
         {
             SessionVariables.CardId = card_id;
             Helper.CheckCard();
-
+            if(SessionVariables.CardNumber!=null)
+            {
+                var cardProfile = Helper.GetProfile();
+                SessionVariables.IsRegister = (cardProfile != null);
+                if (cardProfile != null)
+                {
+                    SessionVariables.ProfileId = cardProfile._id;
+                    SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                    this.pCardInfo.Reload();
+                    RefreshUI(false);
+                }
+                else
+                {
+                    frmRegister frmRegister = new frmRegister();
+                    DialogResult registerResult = frmRegister.ShowDialog();
+                }
+            }
+            else
+                MessageBox.Show("Số thẻ không tồn tại liên hệ admin để được hỗ trợ !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //SessionVariables.CardNumber = "9704310315011516";// "970431031501" + DateTime.Now.ToString("HHmm");
             //SessionVariables.CardOwner = "CARD OWNER 1516";// "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
             //SessionVariables.MobileNumber = "8490981516";// "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
             //SessionVariables.CardValidDate = "10/15";
             // Check thong tin the tren server
-            var cardProfile = Helper.GetProfile();
-            SessionVariables.IsRegister = (cardProfile != null);
-            if (cardProfile != null)
-            {
-                SessionVariables.ProfileId = cardProfile._id;
-                SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                this.pCardInfo.Reload();
-                RefreshUI(false);
-            } 
-            else
-            {
-                frmRegister frmRegister = new frmRegister();
-                DialogResult registerResult = frmRegister.ShowDialog();                  
-            }
-            
             //this.DialogResult = DialogResult.OK;
         }
 

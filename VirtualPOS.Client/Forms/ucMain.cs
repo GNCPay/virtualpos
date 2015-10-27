@@ -226,7 +226,7 @@ namespace VirtualPOS.Client.Forms
                   new Font("Courier New", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Loại :" + SessionVariables.CardType,
+            graphics.DrawString("Loại Thẻ:" + SessionVariables.CardType,
                      new Font("Courier New", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
@@ -278,6 +278,13 @@ namespace VirtualPOS.Client.Forms
             Offset = Offset + 20;
             graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString(underLine, new Font("Courier New", 10),
+                    new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("Thank You! And See You Again.", new Font("Courier New", 10),
+                  new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
         }
 
         private void cashIn(object sender, EventArgs e)
@@ -362,7 +369,7 @@ namespace VirtualPOS.Client.Forms
                 }
                 else
                 {
-                    btnRegister.Text = "Welcome";
+                    //btnRegister.Text = "Welcome";
                     btnRegister.Enabled = false;
                     //pCardInfo.Reload();                  
                     dataGridView2.DataSource = list_accounts;

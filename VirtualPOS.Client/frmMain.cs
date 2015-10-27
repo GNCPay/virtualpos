@@ -17,7 +17,7 @@ namespace VirtualPOS.Client
 
         public frmMain()
         {
-            InitializeComponent();      
+            InitializeComponent();
         }
 
         public void LoadControl(UserControl controlToLoad)
@@ -30,7 +30,7 @@ namespace VirtualPOS.Client
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            LoadControl(new Forms.ucLogin());         
+            LoadControl(new Forms.ucAlmaz());
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
