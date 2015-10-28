@@ -1,25 +1,24 @@
-﻿using System;
+﻿using MongoDB.Driver.Builders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualPOS.Client.Processing;
-using System.Drawing.Printing;
-using MongoDB.Driver.Builders;
-
 
 namespace VirtualPOS.Client.Forms
 {
-    public partial class ucPayment : UserControl
+    public partial class frmPayment : Form
     {
         long amount = 0;
         string bill_no = String.Empty;
         string trans_id = String.Empty;
-        public ucPayment()
+        public frmPayment()
         {
             InitializeComponent();
             progressBar1.Visible = false;
@@ -40,11 +39,11 @@ namespace VirtualPOS.Client.Forms
                 string pin = txtPIN.Text.Trim();
                 var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
                 if (loginResult == null)
-                {          
+                {
                     MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     progressBar1.Visible = false;
                     txtPIN.Text = "";
-                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
+                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
                     ((ucMain)(this.Parent)).EnableControl();
                     return;
                 }
@@ -63,15 +62,14 @@ namespace VirtualPOS.Client.Forms
                     if (result.error_code == "00")
                     {
                         MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
                         progressBar1.Visible = false;
-                        trans_id = result.trans_id;                     
-                        print();
-                        ((ucMain)(this.Parent)).ScanCard();
+                        trans_id = result.trans_id;
                         txtBillAmount.Text = "";
                         txtBillNo.Text = "";
-                        txtPIN.Text = "";
-                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
-                        ((ucMain)(this.Parent)).EnableControl();
+                        txtPIN.Text = ""; 
+                        print();
+                        ((ucMain)(this.Parent)).EnableControl();      
                     }
                     else
                     {
@@ -79,11 +77,11 @@ namespace VirtualPOS.Client.Forms
                     }
                 }
                 else
-                    MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    txtBillAmount.Text = "";
-                    txtBillNo.Text = "";
-                    txtPIN.Text = "";
-            }
+                MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                txtBillAmount.Text = "";
+                txtBillNo.Text = "";
+                txtPIN.Text = "";
+           }
             catch (Exception ex) { }  
         }
 
@@ -135,7 +133,7 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            
+
             graphics.DrawString("Loại : " + SessionVariables.CardType,
                      new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
@@ -151,7 +149,7 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-          
+
             graphics.DrawString("Loại GD : THANH TOÁN",
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
@@ -161,7 +159,7 @@ namespace VirtualPOS.Client.Forms
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số dư đầu :" + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
-                   new Font("Arial",8),
+                   new Font("Arial", 8),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
@@ -220,7 +218,7 @@ namespace VirtualPOS.Client.Forms
                 //check number
                 e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
             }
-            catch (Exception ex) { }    
+            catch (Exception ex) { }
         }
 
         private void txtBillNo_KeyPress(object sender, KeyPressEventArgs e)
@@ -233,11 +231,7 @@ namespace VirtualPOS.Client.Forms
             catch (Exception ex) { }    
         }
 
-        private void txtBillAmount_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void ucPayment_Load(object sender, EventArgs e)
+        private void frmPayment_Load(object sender, EventArgs e)
         {
             this.progressBar1.Maximum = 300;
             this.progressBar1.Minimum = 0;
@@ -247,5 +241,12 @@ namespace VirtualPOS.Client.Forms
         {
             this.timer1.Start();
         }
+
+        private void btnhuy_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
 }

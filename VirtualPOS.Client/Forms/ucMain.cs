@@ -282,7 +282,7 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Thank You! And See You Again.", new Font("Arial", 10),
+            graphics.DrawString("Thank you & See you again!", new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
         }
@@ -400,6 +400,45 @@ namespace VirtualPOS.Client.Forms
 
         private void pPayment_Load(object sender, EventArgs e)
         {
+        }
+
+        private void btnthanhtoan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                {
+                    var user_name = Processing.SessionVariables.CardId;
+                    if (user_name != null)
+                    {
+                        dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                        if (profile.Status == "LOCKED")
+                        {
+                            MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        else
+                        {
+                            frmPayment frmp = new frmPayment();
+                            DialogResult dfrmp = frmp.ShowDialog();
+
+                            EnableControl();
+                        }
+                            
+                    }
+                    else
+                    {
+                        frmRegister frmRegister = new frmRegister();
+                        DialogResult registerResult = frmRegister.ShowDialog();
+
+                        //frmPayment frmp = new frmPayment();
+                        //DialogResult dfrmp = frmp.ShowDialog();
+                        //if (registerResult == DialogResult.OK)
+                        //    EnableControl();
+                        EnableControl();
+                    }
+                }
+            }
+            catch (Exception ex) { }      
         }
     }
 }

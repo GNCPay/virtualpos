@@ -57,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Location = new System.Drawing.Point(15, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 20);
@@ -66,6 +66,7 @@
             // 
             // txtBillNo
             // 
+            this.txtBillNo.Enabled = false;
             this.txtBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtBillNo.Location = new System.Drawing.Point(19, 70);
             this.txtBillNo.Name = "txtBillNo";
@@ -77,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label3.Location = new System.Drawing.Point(15, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
@@ -87,7 +88,7 @@
             // btnPayment
             // 
             this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPayment.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnPayment.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnPayment.Location = new System.Drawing.Point(236, 235);
             this.btnPayment.Name = "btnPayment";
             this.btnPayment.Size = new System.Drawing.Size(63, 34);
@@ -98,6 +99,7 @@
             // 
             // txtBillAmount
             // 
+            this.txtBillAmount.Enabled = false;
             this.txtBillAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtBillAmount.Location = new System.Drawing.Point(19, 132);
             this.txtBillAmount.Name = "txtBillAmount";
@@ -110,6 +112,7 @@
             // 
             // txtPIN
             // 
+            this.txtPIN.Enabled = false;
             this.txtPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtPIN.Location = new System.Drawing.Point(19, 198);
             this.txtPIN.Name = "txtPIN";
@@ -121,7 +124,7 @@
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
-            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPIN.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblPIN.Location = new System.Drawing.Point(15, 175);
             this.lblPIN.Name = "lblPIN";
             this.lblPIN.Size = new System.Drawing.Size(89, 20);

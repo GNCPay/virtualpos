@@ -51,13 +51,40 @@ namespace VirtualPOS.Client.Forms
 
         private void CheckProfile()
         {
-            Helper.GetUserConfig(card_track);
-            if(SessionVariables.UserConfig == null)
+            try
+            {
+                card_track = card_track.Replace("?", "").Replace("%", "");
+                Helper.GetUserConfig(card_track);
+                if (SessionVariables.UserConfig == null)
+                {
+                    MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
+                    return;
+                }
+                ucLogin.usergd.userGD = SessionVariables.UserConfig.Id.ToString();// "0123213";
+                try
+                {
+                    ((frmMain)this.ParentForm).LoadControl(new ucLogin());
+                }
+                catch (Exception ex) { }
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
                 return;
             }
-            ucLogin.usergd.userGD = SessionVariables.UserConfig.Id.ToString();// "0123213";
+            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            
+            //Helper.GetUserConfig(card_track);
+            //if (SessionVariables.UserConfig == null)
+            //{
+            //    MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
+            //    return;
+            //}
+            ucLogin.usergd.userGD = "";
             try
             {
                 ((frmMain)this.ParentForm).LoadControl(new ucLogin());

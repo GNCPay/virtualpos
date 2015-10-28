@@ -78,7 +78,7 @@
             // 
             this.pCardInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.pCardInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.pCardInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pCardInfo.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.pCardInfo.Location = new System.Drawing.Point(3, 6);
             this.pCardInfo.Margin = new System.Windows.Forms.Padding(4);
             this.pCardInfo.Name = "pCardInfo";

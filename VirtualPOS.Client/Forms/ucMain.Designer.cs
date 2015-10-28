@@ -52,6 +52,7 @@
             this.lbtime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnthanhtoan = new System.Windows.Forms.Button();
             this.ucPayment1 = new VirtualPOS.Client.Forms.ucPayment();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -127,6 +128,7 @@
             // pAction
             // 
             this.pAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.pAction.Controls.Add(this.btnthanhtoan);
             this.pAction.Controls.Add(this.btnStatement);
             this.pAction.Controls.Add(this.btnChangePIN);
             this.pAction.Controls.Add(this.btnLock);
@@ -139,7 +141,7 @@
             // btnStatement
             // 
             this.btnStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStatement.Location = new System.Drawing.Point(446, 14);
+            this.btnStatement.Location = new System.Drawing.Point(627, 14);
             this.btnStatement.Name = "btnStatement";
             this.btnStatement.Size = new System.Drawing.Size(109, 36);
             this.btnStatement.TabIndex = 3;
@@ -267,6 +269,17 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // btnthanhtoan
+            // 
+            this.btnthanhtoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnthanhtoan.Location = new System.Drawing.Point(455, 14);
+            this.btnthanhtoan.Name = "btnthanhtoan";
+            this.btnthanhtoan.Size = new System.Drawing.Size(129, 36);
+            this.btnthanhtoan.TabIndex = 4;
+            this.btnthanhtoan.Text = "THANH TOÁN";
+            this.btnthanhtoan.UseVisualStyleBackColor = true;
+            this.btnthanhtoan.Click += new System.EventHandler(this.btnthanhtoan_Click);
+            // 
             // ucPayment1
             // 
             this.ucPayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -335,5 +348,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn amont;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private ucPayment ucPayment1;
+        private System.Windows.Forms.Button btnthanhtoan;
     }
 }

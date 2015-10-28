@@ -291,7 +291,7 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Thank You! And See You Again.", new Font("Arial", 10),
+            graphics.DrawString("Thank you & See you again!", new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
         }
