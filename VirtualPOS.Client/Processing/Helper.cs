@@ -42,9 +42,9 @@ namespace VirtualPOS.Client.Processing
                 );
         }
 
-        public static void AddLogCard(string action_code, string note, long start_balance, long end_balance, long amount)
+        public static void AddLogCard(string action_code, string note, long start_balance, long end_balance, long amount, string action_at)
         {
-            string strRequest = "api/ewallet?card_id={0}&start_balance={1}&end_balance={2}&amount={3}&action_code={4}&action_by={5}&note={6}";
+            string strRequest = "api/ewallet?card_id={0}&start_balance={1}&end_balance={2}&amount={3}&action_code={4}&action_by={5}&action_at={6}&note={7}";
             strRequest = String.Format(strRequest,
                 SessionVariables.CardId,
                 start_balance,
@@ -52,6 +52,7 @@ namespace VirtualPOS.Client.Processing
                 amount,
                 action_code,
                 SessionVariables.TellerUser.UserName,
+                action_at,
                 note);
             try
             {

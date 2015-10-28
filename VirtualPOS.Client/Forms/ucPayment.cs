@@ -44,7 +44,7 @@ namespace VirtualPOS.Client.Forms
                     MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     progressBar1.Visible = false;
                     txtPIN.Text = "";
-                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0);
+                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance,0,SessionVariables.CounterName);
                     ((ucMain)(this.Parent)).EnableControl();
                     return;
                 }
@@ -70,7 +70,7 @@ namespace VirtualPOS.Client.Forms
                         txtBillAmount.Text = "";
                         txtBillNo.Text = "";
                         txtPIN.Text = "";
-                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount);
+                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName);
                         ((ucMain)(this.Parent)).EnableControl();
                     }
                     else

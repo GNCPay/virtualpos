@@ -45,7 +45,7 @@ namespace VirtualPOS.Client.Forms
                          Helper.DataHelper.SaveUpdate("profile", pr);
                          MessageBox.Show("Đổi PIN thành công!", "Thông báo");
                          this.DialogResult = DialogResult.OK;
-                         Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                         Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0,SessionVariables.CounterName);
                          ((ucMain)(this.Parent)).EnableControl(); 
                      }
                      else
