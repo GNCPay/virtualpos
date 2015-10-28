@@ -290,21 +290,24 @@ namespace VirtualPOS.Client.Processing
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId + "&full_name=" + SessionVariables.CardOwner + "&customer_cif=" +
                 SessionVariables.ProfileId).Result;
-                //if (String.IsNullOrEmpty(card_info)) return;
-                //card_info = card_info.Substring(1, card_info.Length - 2);
-                //string[] values = card_info.Split('|');
-                //SessionVariables.CardNumber = values[1];
-                //SessionVariables.ProfileId = long.Parse("0" + values[2]);
-                //SessionVariables.CardPrepaidAmount = long.Parse("0" + values[3]);
-                //SessionVariables.IsActived = bool.Parse(values[4]);
-                //SessionVariables.CardType = values[5];
-                //card_info.CardId,
-                //card_info.CardNumber,
-                //card_info.CustomerCIF,
-                //card_info.PrepaidAmount,
-                //card_info.IsActived,
-                //card_info.CardType1.TypeName);
+            }
+        }
 
+        public static void GetUserConfig(string card_track)
+        {
+            //RestClient 
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(CMS_Gateway);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                string user_config = client.GetStringAsync("api/ewallet/?card_track=" + card_track).Result;
+                if (String.IsNullOrEmpty(user_config))
+                {
+                    SessionVariables.UserConfig = null;
+                    return;
+                }
+                SessionVariables.UserConfig = JObject.Parse(user_config);
             }
         }
         static async Task RunAsync()
@@ -329,6 +332,7 @@ namespace VirtualPOS.Client.Processing
     {
         public static string CardId, Email, CardNumber, CardOwner, CardValidDate, MobileNumber, CardType, Personal_id, Address, gduser;
         public static long ProfileId, CardPrepaidAmount;
+        public static dynamic UserConfig;
         public static bool IsActived;
         public static dynamic FinanceAccount;
         public static ApplicationUser TellerUser;

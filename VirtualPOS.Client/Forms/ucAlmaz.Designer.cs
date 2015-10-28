@@ -38,15 +38,15 @@
             this.lblNotif.AutoSize = true;
             this.lblNotif.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblNotif.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblNotif.Location = new System.Drawing.Point(31, 63);
+            this.lblNotif.Location = new System.Drawing.Point(16, 63);
             this.lblNotif.Name = "lblNotif";
-            this.lblNotif.Size = new System.Drawing.Size(349, 24);
+            this.lblNotif.Size = new System.Drawing.Size(378, 24);
             this.lblNotif.TabIndex = 1;
-            this.lblNotif.Text = "VUI LÒNG QUẸT THẺ ĐỂ TIẾP TỤC";
+            this.lblNotif.Text = "VUI LÒNG QUẸT THẺ ĐỂ ĐĂNG NHẬP";
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            //this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ucAlmaz
             // 

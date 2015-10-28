@@ -16,6 +16,7 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
         }
+        
         public static class usergd
         {
             public static string userGD;
@@ -43,6 +44,20 @@ namespace VirtualPOS.Client.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+        }
+
+        private void ucLogin_Load(object sender, EventArgs e)
+        {
+            if(String.IsNullOrEmpty(usergd.userGD))
+            {
+                txtUserName.ReadOnly = false;
+                txtUserName.Text = "";
+            }
+            else
+            {
+                txtUserName.Text = usergd.userGD;
+                txtUserName.ReadOnly = true;
+            }
         }
     }
 }

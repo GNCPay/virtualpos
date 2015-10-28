@@ -48,5 +48,10 @@ namespace VirtualPOS.Client
                 MessageBox.Show("F2 pressed");
             }
         }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

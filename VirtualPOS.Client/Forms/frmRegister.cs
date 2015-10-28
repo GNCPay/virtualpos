@@ -43,9 +43,9 @@ namespace VirtualPOS.Client.Forms
                         }
                         else
                         {
-                            SessionVariables.MobileNumber = txtMobileNumber.Text;
-                            SessionVariables.CardOwner = txtCardHolder.Text;
-                            SessionVariables.Email = txtEmail.Text;
+                            SessionVariables.MobileNumber = txtMobileNumber.Text.Trim();
+                            SessionVariables.CardOwner =  (String.IsNullOrEmpty(txtCardHolder.Text.Trim()))? "THẺ CHƯA ĐỊNH DANH":txtCardHolder.Text.Trim();
+                            SessionVariables.Email = txtEmail.Text.Trim();
                             SessionVariables.Personal_id = txtcmnd.Text;
                             SessionVariables.Address = txtdiachi.Text;
                             dynamic response = Helper.RegisterCard();
@@ -62,7 +62,7 @@ namespace VirtualPOS.Client.Forms
                                 SessionVariables.IsRegister = true;
                                 Helper.RegisterWalletToCard();
                                 this.DialogResult = DialogResult.OK;
-                                Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
+                                Helper.AddLogCard("Register", "Đăng ký Thành công", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
                                 print();
                             }
                             else
@@ -73,7 +73,7 @@ namespace VirtualPOS.Client.Forms
                     }
                     else
                     {
-                        DialogResult dialogResult = MessageBox.Show("số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                        DialogResult dialogResult = MessageBox.Show("Số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
                         if (dialogResult == DialogResult.Yes)
                         {
                             pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
@@ -106,19 +106,22 @@ namespace VirtualPOS.Client.Forms
                                 Helper.RegisterWalletToCard();
                                 this.DialogResult = DialogResult.OK;
                                 Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
-                                print();
+                                try {
+                                    print();
+                                }
+                                catch { }
                             }
                         }
                         else if (dialogResult == DialogResult.No)
                         {
-                            MessageBox.Show("bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            MessageBox.Show("Bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             this.Close();
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
                 }
             }
             catch (Exception ex) { }      
@@ -192,7 +195,7 @@ namespace VirtualPOS.Client.Forms
             PrintDialog pd = new PrintDialog();
             PrintDocument pdoc = new PrintDocument();
             PrinterSettings ps = new PrinterSettings();
-            Font font = new Font("Courier New", 15);
+            Font font = new Font("Arial", 15);
 
 
             PaperSize psize = new PaperSize("Custom", 100, 200);
@@ -212,83 +215,83 @@ namespace VirtualPOS.Client.Forms
         void pdoc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Font font = new Font("Courier New", 10);
+            Font font = new Font("Arial", 10);
             float fontHeight = font.GetHeight();
-            int startX = 50;
-            int startY = 55;
+            int startX = 10;
+            int startY = 10;
             int Offset = 40;
-            graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
+            graphics.DrawString("Welcome to Almaz!", new Font("Arial", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN KÍCH HOẠT!", new Font("Courier New", 11),
+            graphics.DrawString("THÔNG TIN KÍCH HOẠT!", new Font("Arial", 11),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
-                     new Font("Courier New", 10),
+                     new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Loại :" + SessionVariables.CardType,
-                     new Font("Courier New", 12),
+                     new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mệnh giá :" + SessionVariables.CardPrepaidAmount.ToString("N0") + " VNĐ",
-                    new Font("Courier New", 10),
+                    new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Ngày hiệu lực :" + DateTime.Today.ToString("dd/MM/yyyy"),
-                    new Font("Courier New", 9),
+                    new Font("Arial", 9),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Ngày hết hạn :" + DateTime.Today.AddMonths(6).ToString("dd/MM/yyyy"),
-                  new Font("Courier New", 9),
+                  new Font("Arial", 9),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             String underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Khách hàng :",
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(SessionVariables.CardOwner,
-                  new Font("Courier New", 10),
+                  new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("SDT :" + SessionVariables.MobileNumber,
-                   new Font("Courier New", 10),
+                   new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Email :" + SessionVariables.Email,
-                   new Font("Courier New", 10),
+                   new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mã PIN :" + pin,
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
-            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Courier New", 10),
+            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Quầy bán : " + SessionVariables.CounterName,
-            new Font("Courier New", 10),
+            new Font("Arial", 10),
             new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Courier New", 10),
+            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
+            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Thank You! And See You Again.", new Font("Courier New", 10),
+            graphics.DrawString("Thank You! And See You Again.", new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
         }

@@ -148,7 +148,7 @@ namespace VirtualPOS.Client.Forms
             PrintDialog pd = new PrintDialog();
             PrintDocument pdoc = new PrintDocument();
             PrinterSettings ps = new PrinterSettings();
-            Font font = new Font("Courier New", 15);
+            Font font = new Font("Arial", 15);
 
 
             PaperSize psize = new PaperSize("Custom", 100, 200);
@@ -203,38 +203,38 @@ namespace VirtualPOS.Client.Forms
             }).ToArray();
             
             Graphics graphics = e.Graphics;
-            Font font = new Font("Courier New", 10);
+            Font font = new Font("Arial", 10);
             float fontHeight = font.GetHeight();
-            int startX = 50;
-            int startY = 55;
+            int startX = 10;
+            int startY = 15;
             int Offset = 40;
-            graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
+            graphics.DrawString("Welcome to Almaz!", new Font("Arial", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 11),
+            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Arial", 11),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
-                     new Font("Courier New", 10),
+                     new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Khách hàng :",
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(SessionVariables.CardOwner,
-                  new Font("Courier New", 10),
+                  new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Loại Thẻ:" + SessionVariables.CardType,
-                     new Font("Courier New", 12),
+                     new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             String underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 40;
-            //graphics.DrawString("Số tiền        |   Loại Giao Dịch  |  Ngày tạo", new Font("Courier New", 9), new
+            //graphics.DrawString("Số tiền        |   Loại Giao Dịch  |  Ngày tạo", new Font("Arial", 9), new
             //          SolidBrush(Color.Black), startX, startY + Offset);
             //Offset = Offset + 20;
             try
@@ -242,21 +242,21 @@ namespace VirtualPOS.Client.Forms
                 for (int i = 0; i < list_accounts.Length; i++)
                 {
                     var p = list_accounts[i];
-                    //graphics.DrawString(p.amount + p.transaction_type.ToString().PadLeft(15) + p.system_created_time.ToString().PadLeft(35), new Font("Courier New", 8), new
+                    //graphics.DrawString(p.amount + p.transaction_type.ToString().PadLeft(15) + p.system_created_time.ToString().PadLeft(35), new Font("Arial", 8), new
                     //SolidBrush(Color.Black), startX, startY + Offset);
                     //Offset = Offset + 10;
 
 
-                    graphics.DrawString("Số tiền: " + p.amount, new Font("Courier New", 8), new
+                    graphics.DrawString("Số tiền: " + p.amount, new Font("Arial", 8), new
                        SolidBrush(Color.Black), startX, startY + Offset);
                     Offset = Offset + 20;
 
 
-                    graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Courier New", 8), new
+                    graphics.DrawString("Loại Giao Dịch: " + p.transaction_type, new Font("Arial", 8), new
                         SolidBrush(Color.Black), startX, startY + Offset);
                     Offset = Offset + 20;
 
-                    graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Courier New", 8), new
+                    graphics.DrawString("Ngày tạo: " + p.system_created_time, new Font("Arial", 8), new
                         SolidBrush(Color.Black), startX, startY + Offset);
                     Offset = Offset + 30;
                 }
@@ -266,23 +266,23 @@ namespace VirtualPOS.Client.Forms
            
             Offset = Offset + 20;
             underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
-            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Courier New", 10),
+            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Courier New", 10),
+            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
+            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Thank You! And See You Again.", new Font("Courier New", 10),
+            graphics.DrawString("Thank You! And See You Again.", new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
         }

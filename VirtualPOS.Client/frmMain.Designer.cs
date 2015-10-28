@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pHeader = new System.Windows.Forms.Panel();
             this.pContent = new System.Windows.Forms.Panel();
+            this.btnConfig = new System.Windows.Forms.LinkLabel();
             this.pHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             // pHeader
             // 
             this.pHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
+            this.pHeader.Controls.Add(this.btnConfig);
             this.pHeader.Controls.Add(this.label1);
             this.pHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pHeader.Location = new System.Drawing.Point(0, 0);
@@ -63,6 +65,20 @@
             this.pContent.Name = "pContent";
             this.pContent.Size = new System.Drawing.Size(858, 596);
             this.pContent.TabIndex = 1;
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.ActiveLinkColor = System.Drawing.Color.White;
+            this.btnConfig.AutoSize = true;
+            this.btnConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfig.LinkColor = System.Drawing.Color.White;
+            this.btnConfig.Location = new System.Drawing.Point(791, 9);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(64, 17);
+            this.btnConfig.TabIndex = 1;
+            this.btnConfig.TabStop = true;
+            this.btnConfig.Text = "Cấu hình";
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
             // frmMain
             // 
@@ -91,6 +107,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pHeader;
         private System.Windows.Forms.Panel pContent;
+        private System.Windows.Forms.LinkLabel btnConfig;
     }
 }
 

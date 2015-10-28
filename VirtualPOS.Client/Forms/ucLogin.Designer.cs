@@ -61,7 +61,6 @@
             this.label2.Size = new System.Drawing.Size(96, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Tên truy cập";
-            this.label2.Visible = false;
             // 
             // txtUserName
             // 
@@ -71,9 +70,9 @@
             this.txtUserName.Location = new System.Drawing.Point(146, 43);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(6);
             this.txtUserName.Name = "txtUserName";
+            this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(279, 26);
             this.txtUserName.TabIndex = 0;
-            this.txtUserName.Visible = false;
             // 
             // txtPassword
             // 
@@ -129,6 +128,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ucLogin";
             this.Size = new System.Drawing.Size(461, 184);
+            this.Load += new System.EventHandler(this.ucLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

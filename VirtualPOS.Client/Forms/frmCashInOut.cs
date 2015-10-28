@@ -75,7 +75,7 @@ namespace VirtualPOS.Client.Forms
             PrintDialog pd = new PrintDialog();
             PrintDocument pdoc = new PrintDocument();
             PrinterSettings ps = new PrinterSettings();
-            Font font = new Font("Courier New", 15);
+            Font font = new Font("Arial", 15);
 
 
             PaperSize psize = new PaperSize("Custom", 100, 200);
@@ -95,62 +95,62 @@ namespace VirtualPOS.Client.Forms
         void pdoc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Font font = new Font("Courier New", 10);
+            Font font = new Font("Arial", 10);
             float fontHeight = font.GetHeight();
-            int startX = 50;
-            int startY = 55;
+            int startX = 10;
+            int startY = 10;
             int Offset = 40;
-            graphics.DrawString("Welcome to Almaz!", new Font("Courier New", 14),
+            graphics.DrawString("Welcome to Almaz!", new Font("Arial", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Courier New", 14),
+            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Arial", 14),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
-                     new Font("Courier New", 14),
+                     new Font("Arial", 14),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Khách hàng :" + SessionVariables.CardOwner,
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Loại :" + SessionVariables.CardType,
-                     new Font("Courier New", 12),
+                     new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             String underLine = "------------------------------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mã GD :" + trans_id.Substring(0,8),
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Thời gian GD :" +DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
             graphics.DrawString("Loại GD :" + ((IsCashOut)?"RÚT TIỀN":"NỘP TIỀN"),
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
-                   new Font("Courier New", 12),
+                   new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             underLine = "------------------------------------------";
-            graphics.DrawString(underLine, new Font("Courier New", 10),
+            graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
-            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Courier New", 10),
+            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Courier New", 10),
+            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Courier New", 10),
+            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
         }
     }
