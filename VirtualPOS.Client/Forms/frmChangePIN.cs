@@ -40,10 +40,13 @@ namespace VirtualPOS.Client.Forms
                      user.Id, password, new_password).Result;
                      if (result.Succeeded)
                      {
+                         dynamic pr = Helper.DataHelper.Get("profile", Query.EQ("user_name", user_name));
+                         pr.Pin = 0;
+                         Helper.DataHelper.SaveUpdate("profile", pr);
                          MessageBox.Show("Đổi PIN thành công!", "Thông báo");
                          this.DialogResult = DialogResult.OK;
                          Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0);
-                         ((ucMain)(this.Parent)).EnableControl();
+                         ((ucMain)(this.Parent)).EnableControl(); 
                      }
                      else
                      {

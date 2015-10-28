@@ -134,7 +134,7 @@ namespace VirtualPOS.Client.Forms
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
-            graphics.DrawString("Loại : " + SessionVariables.CardType,
+            graphics.DrawString("Loại Thẻ : " + SessionVariables.CardType,
                      new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;

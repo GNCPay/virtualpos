@@ -23,7 +23,6 @@ namespace VirtualPOS.Client.Forms
         }
         private void processLogin(object sender, EventArgs e)
         {
-            txtUserName.Text = "tt";
             usergd.userGD = txtUserName.Text.Trim();
             try
             {

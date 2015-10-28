@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver.Builders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,7 @@ namespace VirtualPOS.Client.Forms
         private void ScanCard()
         {
             SessionVariables.CardId = card_id;
+            //SessionVariables.CardId = "0009897205";
             Helper.CheckCard();
             if(SessionVariables.CardNumber!=null)
             {
@@ -28,10 +30,19 @@ namespace VirtualPOS.Client.Forms
                 SessionVariables.IsRegister = (cardProfile != null);
                 if (cardProfile != null)
                 {
-                    SessionVariables.ProfileId = cardProfile._id;
-                    SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                    this.pCardInfo.Reload();
-                    RefreshUI(false);
+                    if(cardProfile.Pin!=1)
+                    {
+                        SessionVariables.ProfileId = cardProfile._id;
+                        SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                        this.pCardInfo.Reload();
+                        RefreshUI(false);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vui lòng đổi mã pin cho lần giao dịch đầu tiên !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        frmChangePIN frmp = new frmChangePIN();
+                        DialogResult changepin = frmp.ShowDialog();    
+                    }
                 }
                 else
                 {

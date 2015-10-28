@@ -214,7 +214,7 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Arial", 11),
                                 new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Số thẻ:" + SessionVariables.CardNumber,
+            graphics.DrawString("Số thẻ : " + SessionVariables.CardNumber,
                      new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;

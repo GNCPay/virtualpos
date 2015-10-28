@@ -35,10 +35,9 @@ namespace VirtualPOS.Client.Forms
         string card_track = String.Empty;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            MessageBox.Show(card_track);
             if (keyData == Keys.Enter)
             {
-                //MessageBox.Show(card_track);
-                
                 CheckProfile();
                 card_track = String.Empty;
             }

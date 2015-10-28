@@ -123,14 +123,14 @@ namespace VirtualPOS.Client.Processing
 
         public static dynamic RegisterCard()
         {
-            string request = @"{system:'app_pos_counter', module:'profile', function:'register', type:'two_way', request:{full_name:'"
+                  string request = @"{system:'app_pos_counter', module:'profile', function:'register', type:'two_way', request:{full_name:'"
            + SessionVariables.CardOwner
            + "', id:'" + SessionVariables.CardId
            + "', mobile:'" + SessionVariables.MobileNumber
            + "', email:'" + SessionVariables.Email
            + "', personal_id:'" + SessionVariables.Personal_id
            + "',address:'" + SessionVariables.Address
-           + "'}}";
+           +"'}}";
             return Helper.RequestToServer(request);
         }
 
