@@ -46,6 +46,7 @@ namespace VirtualPOS.Client.Forms
                 }
                 else
                 {
+                    MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     frmRegister frmRegister = new frmRegister();
                     DialogResult registerResult = frmRegister.ShowDialog();
                 }
@@ -91,6 +92,11 @@ namespace VirtualPOS.Client.Forms
                 temp_card_id += Helper.GetCharFromKeys(keyData).ToString();
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,191 +14,42 @@ using VirtualPOS.Client.Processing;
 namespace VirtualPOS.Client.Forms
 {
     public partial class frmPayment : Form
-    {
-        long amount = 0;
-        string bill_no = String.Empty;
-        string trans_id = String.Empty;
+    {       
         public frmPayment()
         {
             InitializeComponent();
-            progressBar1.Visible = false;
         }
-
+        public static class payment
+        {
+            public static long amount;
+            public static string bill_no;
+        }
         private void btnPayment_Click(object sender, EventArgs e)
         {
             try
             {
-                if (new frmScanCard().ShowDialog() != DialogResult.OK)
+                if (txtBillAmount.Text == "" || txtBillNo.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập Số hoá đơn và số tiền thanh toán!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
-                progressBar1.Visible = true;
-                this.timer1.Enabled = true;
-                for (int i = 0; i <= timer1.Interval; i++)
-                {
-                    progressBar1.Value = i;
-                }
-                string pin = txtPIN.Text.Trim();
-                var loginResult = Helper.UserManager.FindAsync(SessionVariables.CardId, pin).Result;
-                if (loginResult == null)
-                {
-                    MessageBox.Show("Mã PIN không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    progressBar1.Visible = false;
-                    txtPIN.Text = "";
-                    Helper.AddLogCard("Transaction", "thanh toan khong thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0,SessionVariables.CounterName);
-                    ((ucMain)(this.Parent)).EnableControl();
-                    return;
-                }
-
-                var user_name = Processing.SessionVariables.CardId;
-                dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
-                if (profile.Status != "LOCKED")
-                {
-                    string kaka = txtBillAmount.Text;
-                    string mkaka = kaka.Replace(".", "").Replace(",", "");
-                    amount = long.Parse(mkaka);
-                    long a = SessionVariables.FinanceAccount.available_balance;
-                    int kqx = (int)a - (int)amount;
-                    bill_no = txtBillNo.Text.Trim();
-                    dynamic result = Processing.Helper.PayBill(bill_no, amount);
-                    if (result.error_code == "00")
-                    {
-                        MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName);
-                        progressBar1.Visible = false;
-                        trans_id = result.trans_id;
-                        txtBillAmount.Text = "";
-                        txtBillNo.Text = "";
-                        txtPIN.Text = ""; 
-                        print();
-                        ((ucMain)(this.Parent)).EnableControl();      
-                    }
-                    else
-                    {
-                        MessageBox.Show(result.error_message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
                 else
-                MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                txtBillAmount.Text = "";
-                txtBillNo.Text = "";
-                txtPIN.Text = "";
-           }
-            catch (Exception ex) { }  
+                {
+                    string mkaka = txtBillAmount.Text.Replace(".", "").Replace(",", "");
+                    payment.amount = long.Parse(mkaka);
+                    payment.bill_no = txtBillNo.Text;
+                    this.Hide();
+                    if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                    {
+                        PinRequest pir = new PinRequest();
+                        DialogResult dpir = pir.ShowDialog();
+                        ((ucMain)(this.Parent)).EnableControl();
+
+                    }
+                }
+            }
+            catch (Exception ex) { }
         }
-
-        public void print()
-        {
-            PrintDialog pd = new PrintDialog();
-            PrintDocument pdoc = new PrintDocument();
-            PrinterSettings ps = new PrinterSettings();
-            Font font = new Font("Arial", 15);
-
-
-            PaperSize psize = new PaperSize("Custom", 100, 200);
-            //ps.DefaultPageSettings.PaperSize = psize;
-
-            pd.Document = pdoc;
-            pd.Document.DefaultPageSettings.PaperSize = psize;
-            //pdoc.DefaultPageSettings.PaperSize.Height =320;
-            pdoc.DefaultPageSettings.PaperSize.Height = 820;
-
-            pdoc.DefaultPageSettings.PaperSize.Width = 520;
-
-            pdoc.PrintPage += new PrintPageEventHandler(pdoc_PrintPage);
-            pdoc.Print();
-        }
-
-        void pdoc_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            Graphics graphics = e.Graphics;
-            Font font = new Font("Arial", 10);
-            float fontHeight = font.GetHeight();
-            int startX = 10;
-            int startY = 10;
-            int Offset = 40;
-            graphics.DrawString("Welcome to Almaz!", new Font("Arial", 14),
-                                new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("THÔNG TIN GIAO DỊCH", new Font("Arial", 12),
-                                new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Số thẻ : " + SessionVariables.CardNumber,
-                     new Font("Arial", 12),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Khách hàng : ",
-                   new Font("Arial", 12),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString(SessionVariables.CardOwner,
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-
-            graphics.DrawString("Loại Thẻ : " + SessionVariables.CardType,
-                     new Font("Arial", 12),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            String underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Arial", 10),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Mã GD : " + trans_id.Substring(0, 8),
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-
-            graphics.DrawString("Loại GD : THANH TOÁN",
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Số Hóa đơn : " + bill_no,
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Số dư đầu :" + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
-                   new Font("Arial", 8),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
-                   new Font("Arial", 9),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            long a = SessionVariables.FinanceAccount.available_balance;
-            int kqx = (int)a - (int)amount;
-            graphics.DrawString("Số dư cuối :" + kqx.ToString("N0") + " VNĐ",
-                  new Font("Arial", 8),
-                  new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-
-            underLine = "-----------------------";
-            graphics.DrawString(underLine, new Font("Arial", 10),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-
-            graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Quầy bán:" + SessionVariables.CounterName,
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString(underLine, new Font("Arial", 10),
-                     new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-            graphics.DrawString("Thank you & See you again!", new Font("Arial", 10),
-                  new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
-        }
-
         private void txtBillAmount_Leave(object sender, EventArgs e)
         {
             try
@@ -207,16 +58,6 @@ namespace VirtualPOS.Client.Forms
                     return;
                 double temp = Convert.ToDouble(txtBillAmount.Text);
                 txtBillAmount.Text = temp.ToString("#,###");
-            }
-            catch (Exception ex) { }
-        }
-
-        private void txtBillAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                //check number
-                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
             }
             catch (Exception ex) { }
         }
@@ -233,18 +74,40 @@ namespace VirtualPOS.Client.Forms
 
         private void frmPayment_Load(object sender, EventArgs e)
         {
-            this.progressBar1.Maximum = 300;
-            this.progressBar1.Minimum = 0;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.timer1.Start();
+            
         }
 
         private void btnhuy_Click(object sender, EventArgs e)
         {
-            this.Close();
+            try
+            {
+                MessageBox.Show("Bạn đã huỷ thanh toán thành công!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                this.Close();
+                ((ucMain)(this.Parent)).EnableControl();
+            }
+            catch (Exception ex) { } 
+        }
+
+        private void txtBillAmount_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                //check number
+                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+            }
+            catch (Exception ex) { }
+        }
+
+        private void txtBillAmount_Leave_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtBillAmount.Text.Equals("0"))
+                    return;
+                double temp = Convert.ToDouble(txtBillAmount.Text);
+                txtBillAmount.Text = temp.ToString("#,###");
+            }
+            catch (Exception ex) { }
         }
 
 

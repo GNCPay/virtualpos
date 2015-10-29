@@ -31,7 +31,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -60,6 +60,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo_foot.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="eWallet.Data">
@@ -117,6 +120,12 @@
     <Compile Include="Forms\frmConfirmPIN.Designer.cs">
       <DependentUpon>frmConfirmPIN.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmLockPin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLockPin.Designer.cs">
+      <DependentUpon>frmLockPin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +143,12 @@
     </Compile>
     <Compile Include="Forms\frmScanCard.Designer.cs">
       <DependentUpon>frmScanCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PinRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PinRequest.Designer.cs">
+      <DependentUpon>PinRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ucAlmaz.cs">
       <SubType>UserControl</SubType>
@@ -165,6 +180,12 @@
     <Compile Include="Forms\ucPayment.Designer.cs">
       <DependentUpon>ucPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UpdateProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdateProfile.Designer.cs">
+      <DependentUpon>UpdateProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +209,9 @@
     <EmbeddedResource Include="Forms\frmConfirmPIN.resx">
       <DependentUpon>frmConfirmPIN.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLockPin.resx">
+      <DependentUpon>frmLockPin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPayment.resx">
       <DependentUpon>frmPayment.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmScanCard.resx">
       <DependentUpon>frmScanCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PinRequest.resx">
+      <DependentUpon>PinRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ucAlmaz.resx">
       <DependentUpon>ucAlmaz.cs</DependentUpon>
@@ -211,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ucPayment.resx">
       <DependentUpon>ucPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdateProfile.resx">
+      <DependentUpon>UpdateProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -281,6 +311,8 @@
     <None Include="Resources\almaz.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1s.ico" />
+    <Content Include="logo_foot.ico" />
     <Content Include="Resources\logo_foot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -38,6 +38,7 @@
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.pAction = new System.Windows.Forms.Panel();
+            this.btnthanhtoan = new System.Windows.Forms.Button();
             this.btnStatement = new System.Windows.Forms.Button();
             this.btnChangePIN = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
@@ -52,8 +53,8 @@
             this.lbtime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnthanhtoan = new System.Windows.Forms.Button();
-            this.ucPayment1 = new VirtualPOS.Client.Forms.ucPayment();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.pAction.SuspendLayout();
@@ -61,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pTransaction
@@ -138,6 +140,17 @@
             this.pAction.Size = new System.Drawing.Size(739, 53);
             this.pAction.TabIndex = 2;
             // 
+            // btnthanhtoan
+            // 
+            this.btnthanhtoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnthanhtoan.Location = new System.Drawing.Point(455, 14);
+            this.btnthanhtoan.Name = "btnthanhtoan";
+            this.btnthanhtoan.Size = new System.Drawing.Size(129, 36);
+            this.btnthanhtoan.TabIndex = 4;
+            this.btnthanhtoan.Text = "THANH TOÁN";
+            this.btnthanhtoan.UseVisualStyleBackColor = true;
+            this.btnthanhtoan.Click += new System.EventHandler(this.btnthanhtoan_Click);
+            // 
             // btnStatement
             // 
             this.btnStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -187,7 +200,7 @@
             // btnCashIn
             // 
             this.btnCashIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCashIn.Location = new System.Drawing.Point(345, 211);
+            this.btnCashIn.Location = new System.Drawing.Point(642, 249);
             this.btnCashIn.Name = "btnCashIn";
             this.btnCashIn.Size = new System.Drawing.Size(109, 36);
             this.btnCashIn.TabIndex = 4;
@@ -199,7 +212,7 @@
             // btnCashOut
             // 
             this.btnCashOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCashOut.Location = new System.Drawing.Point(345, 253);
+            this.btnCashOut.Location = new System.Drawing.Point(527, 249);
             this.btnCashOut.Name = "btnCashOut";
             this.btnCashOut.Size = new System.Drawing.Size(109, 36);
             this.btnCashOut.TabIndex = 5;
@@ -263,38 +276,38 @@
             this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
             this.pictureBox1.ImageLocation = "almaz.bmp";
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(316, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(439, 282);
+            this.pictureBox1.Size = new System.Drawing.Size(439, 285);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // btnthanhtoan
+            // label2
             // 
-            this.btnthanhtoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnthanhtoan.Location = new System.Drawing.Point(455, 14);
-            this.btnthanhtoan.Name = "btnthanhtoan";
-            this.btnthanhtoan.Size = new System.Drawing.Size(129, 36);
-            this.btnthanhtoan.TabIndex = 4;
-            this.btnthanhtoan.Text = "THANH TOÁN";
-            this.btnthanhtoan.UseVisualStyleBackColor = true;
-            this.btnthanhtoan.Click += new System.EventHandler(this.btnthanhtoan_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label2.Location = new System.Drawing.Point(3, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(276, 37);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "WELCOME TO ALMAZ";
             // 
-            // ucPayment1
+            // pictureBox2
             // 
-            this.ucPayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.ucPayment1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ucPayment1.Location = new System.Drawing.Point(461, 5);
-            this.ucPayment1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucPayment1.Name = "ucPayment1";
-            this.ucPayment1.Size = new System.Drawing.Size(312, 282);
-            this.ucPayment1.TabIndex = 10;
+            this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
+            this.pictureBox2.ImageLocation = "//";
+            this.pictureBox2.Location = new System.Drawing.Point(10, 73);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(256, 197);
+            this.pictureBox2.TabIndex = 11;
+            this.pictureBox2.TabStop = false;
             // 
             // ucMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ucPayment1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lbtime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCashIn);
@@ -316,6 +329,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,7 +361,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
         private System.Windows.Forms.DataGridViewTextBoxColumn amont;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
-        private ucPayment ucPayment1;
         private System.Windows.Forms.Button btnthanhtoan;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

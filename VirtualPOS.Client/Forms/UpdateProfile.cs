@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver.Builders;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,145 +14,97 @@ using VirtualPOS.Client.Processing;
 
 namespace VirtualPOS.Client.Forms
 {
-    public partial class frmRegister : Form
+    public partial class UpdateProfile : Form
     {
-        public frmRegister()
+        public UpdateProfile()
         {
             InitializeComponent();
         }
 
-        private string pin = String.Empty;
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("bạn huỷ cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            this.Close();
+        }
         private void btnRegister_Click(object sender, EventArgs e)
-        {    
-            string a = txtMobileNumber.Text.Insert(0, "84");
-            a = a.Remove(2, 1);
-            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
+        {
+            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("user_name", SessionVariables.CardId));
             try
             {
-                if (IsValidEmail(txtEmail.Text)==true)
+                if (IsValidEmail(txtEmail.Text) == true)
                 {
                     if (CheckPhoneSupport(txtMobileNumber.Text) == true)
                     {
-                        if (CheckIphone(txtMobileNumber.Text) == true)
+                        if(SessionVariables.CardId==profile.user_name)
                         {
-                            pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
-                            var user = new ApplicationUser() { UserName = SessionVariables.CardId };
-                            var result = Helper.UserManager.CreateAsync(user, pin).Result;
-                            if (!result.Succeeded)
-                            {
-                                MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
-                                return;
-                            }
-                            else
-                            {
-                                SessionVariables.MobileNumber = txtMobileNumber.Text.Trim();
-                                SessionVariables.CardOwner = (String.IsNullOrEmpty(txtCardHolder.Text.Trim())) ? "THẺ CHƯA ĐỊNH DANH" : txtCardHolder.Text.Trim();
-                                SessionVariables.Email = txtEmail.Text.Trim();
-                                SessionVariables.Personal_id = txtcmnd.Text;
-                                SessionVariables.Address = txtdiachi.Text;
-                                dynamic response = Helper.RegisterCard();
-                                string error_code = response.error_code.ToString();
-                                MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                if (error_code == "00")
-                                {
-                                    //Cash In here
-                                    if (SessionVariables.CardPrepaidAmount == 0)
-                                    {
-                                        MessageBox.Show("Có lỗi sảy ra !");
-                                    }
-                                    Helper.CashIn(SessionVariables.CardPrepaidAmount);
-                                    var cardProfile = Helper.GetProfile();
-                                    SessionVariables.ProfileId = cardProfile._id;
-                                    SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                                    SessionVariables.IsActived = true;
-                                    SessionVariables.IsRegister = true;
-                                    Helper.RegisterWalletToCard();
-
-                                    dynamic pr = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
-                                    pr.email = SessionVariables.Email;
-                                    pr.personal_id = SessionVariables.Personal_id;
-                                    pr.address = SessionVariables.Address;
-                                    pr.Pin = 1;
-                                    Helper.DataHelper.SaveUpdate("profile", pr);
-                                    this.DialogResult = DialogResult.OK;
-                                    Helper.AddLogCard("Register", "Đăng ký Thành công", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName,"null");
-                                    print();
-                                }
-                                else
-                                {
-                                    this.DialogResult = DialogResult.Cancel;
-                                }
-                            }
+                            SessionVariables.MobileNumber = txtMobileNumber.Text.Trim();
+                            SessionVariables.CardOwner = (String.IsNullOrEmpty(txtCardHolder.Text.Trim())) ? "THẺ CHƯA ĐỊNH DANH" : txtCardHolder.Text.Trim();
+                            SessionVariables.Email = txtEmail.Text.Trim();
+                            SessionVariables.Personal_id = txtcmnd.Text;
+                            SessionVariables.Address = txtdiachi.Text;
+                            string a = txtMobileNumber.Text.Insert(0, "84");
+                            a = a.Remove(2, 1);
+                            profile.full_name = txtCardHolder.Text;
+                            profile.mobile = a;
+                            profile.email = txtEmail.Text;
+                            profile.personal_id = txtcmnd.Text;
+                            profile.address = txtdiachi.Text;
+                            Helper.DataHelper.SaveUpdate("profile", profile);
+                            this.DialogResult = DialogResult.OK;
+                            DialogResult dialogResult = MessageBox.Show("Cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            Helper.AddLogCard("UpdateProfile", "Cập nhật Thành công", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName, "null");
+                            print();
                         }
                         else
                         {
-                            DialogResult dialogResult = MessageBox.Show("Số điện thoại đã tồn tại bạn muốn tiếp tục đăng ký !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                            if (dialogResult == DialogResult.Yes)
+                            if (CheckIphone(txtMobileNumber.Text) == true)
                             {
-                                pin = (long.Parse(DateTime.Now.ToString("ssHHmm")) + 153103).ToString();
-                                var user = new ApplicationUser() { UserName = SessionVariables.CardId };
-                                var result = Helper.UserManager.CreateAsync(user, pin).Result;
-                                if (!result.Succeeded)
-                                {
-                                    MessageBox.Show(result.Errors.ToArray()[0], "Thông báo");
-                                    return;
-                                }
-                                else
-                                {
-                                    //Cash In here
-                                    SessionVariables.MobileNumber = txtMobileNumber.Text;
-                                    SessionVariables.CardOwner = txtCardHolder.Text;
-                                    SessionVariables.Email = txtEmail.Text;
-                                    SessionVariables.Personal_id = txtcmnd.Text;
-                                    SessionVariables.Address = txtdiachi.Text;
-                                    dynamic response = Helper.RegisterCard();
-                                    Helper.CashIn(SessionVariables.CardPrepaidAmount);
-                                    if (profile != null)
-                                    {
-                                        SessionVariables.ProfileId = profile._id;
-                                        profile.user_name = SessionVariables.CardId;
-                                        Helper.DataHelper.SaveUpdate("profile", profile);
-                                    }
-                                    SessionVariables.FinanceAccount = Helper.GetAccountInfo();
-                                    SessionVariables.IsActived = true;
-                                    SessionVariables.IsRegister = true;
-                                    Helper.RegisterWalletToCard();
-                                    this.DialogResult = DialogResult.OK;
-                                    Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName,"null");
-                                    try
-                                    {
-                                        print();
-                                    }
-                                    catch { }
-                                }
+                                profile.full_name = txtCardHolder.Text;
+                                profile.mobile = txtMobileNumber.Text;
+                                profile.email = txtEmail.Text;
+                                profile.personal_id = txtcmnd.Text;
+                                profile.address = txtdiachi.Text;
+                                Helper.DataHelper.SaveUpdate("profile", profile);
+                                DialogResult dialogResult = MessageBox.Show("Cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                Helper.AddLogCard("UpdateProfile", "Cập nhật Thành công", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName, "null");
+                                print();
                             }
-                            else if (dialogResult == DialogResult.No)
+                            else
                             {
-                                MessageBox.Show("Bạn đã huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                this.Close();
+                                DialogResult dialogResult = MessageBox.Show("Số điện thoại đã tồn tại bạn muốn tiếp tục cập nhật !", "Kết quả cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+
+                                    print();
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    MessageBox.Show("Bạn đã huỷ cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                    this.Close();
+                                }
                             }
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Số điện thoại không đúng, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                        if(DialogResult==DialogResult.No)
+                        MessageBox.Show("Số điện thoại không đúng, xin mời nhập lại !", "Kết quả cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                        if (DialogResult == DialogResult.No)
                         {
                             this.Close();
                         }
                     }
-                } 
+                }
                 else
                 {
-                    MessageBox.Show("Địa chỉ email không hợp lệ, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                    if(DialogResult==DialogResult.No)
+                    MessageBox.Show("Địa chỉ email không hợp lệ, xin mời nhập lại !", "Kết quả cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                    if (DialogResult == DialogResult.No)
                     {
                         this.Close();
                     }
                 }
             }
-            catch (Exception ex) { }      
-       }
+            catch (Exception ex) { }
+        }
 
         static Regex ValidEmailRegex = CreateValidEmailRegex();
         private static Regex CreateValidEmailRegex()
@@ -175,8 +126,8 @@ namespace VirtualPOS.Client.Forms
         {
             string a = iphone.Insert(0, "84");
             a = a.Remove(2, 1);
-            dynamic profile= Helper.DataHelper.Get("profile",Query.EQ("mobile",a));
-            if(profile!=null)
+            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
+            if (profile != null)
             {
                 return false;
             }
@@ -226,12 +177,6 @@ namespace VirtualPOS.Client.Forms
                 return networkSupport_1.Any(startphone_number_2.Equals);
             }
             return false;
-        }
-
-        private void frmRegister_Load(object sender, EventArgs e)
-        {
-            lblCardNumber.Text = SessionVariables.CardNumber;
-            //txtMobileNumber.Text = SessionVariables.MobileNumber;
         }
 
         public void print()
@@ -306,16 +251,20 @@ namespace VirtualPOS.Client.Forms
                   new Font("Arial", 10),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("SDT :" + SessionVariables.MobileNumber,
+            graphics.DrawString("SDT : " + SessionVariables.MobileNumber,
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Email :" + SessionVariables.Email,
+            graphics.DrawString("Email : " + SessionVariables.Email,
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Mã PIN :" + pin,
-                   new Font("Arial", 12),
+            graphics.DrawString("CMND : " + SessionVariables.Personal_id,
+                   new Font("Arial", 10),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
+            graphics.DrawString("Địa Chỉ : " + SessionVariables.Address,
+                   new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             underLine = "-----------------------";
@@ -344,22 +293,31 @@ namespace VirtualPOS.Client.Forms
             Offset = Offset + 20;
         }
 
-        private void txtcmnd_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //check number
-            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
-        }
-
         private void txtMobileNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             //check number
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void txtcmnd_KeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show("Bạn huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            this.Close();
+            //check number
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+        }
+
+        private void UpdateProfile_Load(object sender, EventArgs e)
+        {
+            
+
+            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("user_name", SessionVariables.CardId));
+            //show data
+            string a = profile.mobile;
+            lblCardNumber.Text = SessionVariables.CardNumber;
+            txtCardHolder.Text = profile.full_name;
+            txtMobileNumber.Text = a.Replace("84","0");
+            txtEmail.Text = profile.email;
+            txtcmnd.Text = profile.personal_id;
+            txtdiachi.Text = profile.address;
         }
     }
 }
