@@ -95,7 +95,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GNC Virtual POS";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listenShortCuts);
+            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listenShortCuts);
             this.pHeader.ResumeLayout(false);
             this.pHeader.PerformLayout();
             this.ResumeLayout(false);

@@ -17,13 +17,10 @@ namespace VirtualPOS.Client.Forms
             InitializeComponent();
         }
         
-        public static class usergd
-        {
-            public static string userGD;
-        }
+       
         private void processLogin(object sender, EventArgs e)
         {
-            usergd.userGD = txtUserName.Text.Trim();
+            SessionVariables.gduser = txtUserName.Text.Trim();
             try
             {
                 var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(), txtPassword.Text.Trim()).Result;
@@ -47,14 +44,14 @@ namespace VirtualPOS.Client.Forms
 
         private void ucLogin_Load(object sender, EventArgs e)
         {
-            if(String.IsNullOrEmpty(usergd.userGD))
+            if(String.IsNullOrEmpty(SessionVariables.gduser))
             {
                 txtUserName.ReadOnly = false;
                 txtUserName.Text = "";
             }
             else
             {
-                txtUserName.Text = usergd.userGD;
+                txtUserName.Text = SessionVariables.gduser;
                 txtUserName.ReadOnly = true;
             }
         }

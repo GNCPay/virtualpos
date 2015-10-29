@@ -22,7 +22,7 @@ namespace VirtualPOS.Client.Forms
         public ucMain()
         {
             InitializeComponent();
-            lbuser2.Text = "GDV : " + ucLogin.usergd.userGD;
+            lbuser2.Text = "GDV : " + SessionVariables.gduser;
             try
             {
                 Image img = Image.FromFile(@"img\almaz.bmp");

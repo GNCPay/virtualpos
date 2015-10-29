@@ -35,7 +35,7 @@ namespace VirtualPOS.Client.Forms
         string card_track = String.Empty;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            MessageBox.Show(card_track);
+            //MessageBox.Show(card_track);
             if (keyData == Keys.Enter)
             {
                 CheckProfile();
@@ -59,12 +59,13 @@ namespace VirtualPOS.Client.Forms
                     MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
                     return;
                 }
-                ucLogin.usergd.userGD = SessionVariables.UserConfig.Id.ToString();// "0123213";
-                try
-                {
-                    ((frmMain)this.ParentForm).LoadControl(new ucLogin());
-                }
-                catch (Exception ex) { }
+                SessionVariables.gduser = SessionVariables.UserConfig.Id.ToString();// "0123213";
+                //try
+                //{
+                //    ((frmMain)this.ParentForm).LoadControl(new ucLogin());
+                //}
+                //catch (Exception ex) { }
+                return;
             }
             catch (Exception ex)
             {
@@ -76,19 +77,20 @@ namespace VirtualPOS.Client.Forms
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            
+
             //Helper.GetUserConfig(card_track);
             //if (SessionVariables.UserConfig == null)
             //{
             //    MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
             //    return;
             //}
-            ucLogin.usergd.userGD = "";
-            try
-            {
-                ((frmMain)this.ParentForm).LoadControl(new ucLogin());
-            }
-            catch (Exception ex) { }
+            //SessionVariables.gduser = card_track;
+            //try
+            //{
+            //    ((frmMain)this.ParentForm).LoadControl(new ucLogin());
+            //}
+            //catch (Exception ex) { }
+            this.ParentForm.DialogResult = DialogResult.OK;
         }
     }
 }

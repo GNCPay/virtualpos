@@ -30,24 +30,19 @@ namespace VirtualPOS.Client
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            LoadControl(new Forms.ucAlmaz());
+            //LoadControl(new Forms.ucAlmaz());
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.ShowDialog();
+            LoadControl(new ucLogin());
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            //if(keyData == Keys.F2)
-            //{
-            //    MessageBox.Show("F2 pressed");
-            //}
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-        private void listenShortCuts(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode== Keys.F2)
-            {
-                MessageBox.Show("F2 pressed");
-            }
-        }
+        //private void listenShortCuts(object sender, KeyEventArgs e)
+        //{
+        //    if(e.KeyCode== Keys.F2)
+        //    {
+        //        MessageBox.Show("F2 pressed");
+        //    }
+        //}
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
