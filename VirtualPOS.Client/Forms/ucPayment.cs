@@ -145,7 +145,7 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Mã GD : " + trans_id.Substring(0, 8),
@@ -188,10 +188,10 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
+            graphics.DrawString("GDV - " + SessionVariables.gduser, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(underLine, new Font("Arial", 10),

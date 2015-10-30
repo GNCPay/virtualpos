@@ -17,7 +17,10 @@ namespace VirtualPOS.Client.Forms
             InitializeComponent();
         }
         
-       
+       public static class acount
+       {
+           public static string role;
+       }
         private void processLogin(object sender, EventArgs e)
         {
             SessionVariables.gduser = txtUserName.Text.Trim();
@@ -26,8 +29,9 @@ namespace VirtualPOS.Client.Forms
                 var loginResult = Helper.UserManager.FindAsync(txtUserName.Text.Trim(), txtPassword.Text.Trim()).Result;
                 if (loginResult != null)
                 {
+                    acount.role = "G";
                     ((frmMain)this.ParentForm).LoadControl(new ucMain());
-                    SessionVariables.TellerUser = loginResult;
+                    SessionVariables.TellerUser = loginResult;                    
                     return;
                 }
                 else

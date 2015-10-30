@@ -47,8 +47,9 @@ namespace VirtualPOS.Client.Forms
                 else
                 {
                     MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    frmRegister frmRegister = new frmRegister();
-                    DialogResult registerResult = frmRegister.ShowDialog();
+                    //frmRegister frmRegister = new frmRegister();
+                    //DialogResult registerResult = frmRegister.ShowDialog();
+                    this.Close();
                 }
             }
             else

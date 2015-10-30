@@ -30,10 +30,21 @@ namespace VirtualPOS.Client
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //LoadControl(new Forms.ucAlmaz());
-            frmLogin frmLogin = new frmLogin();
-            frmLogin.ShowDialog();
-            LoadControl(new ucLogin());
+            try
+            {
+                //LoadControl(new Forms.ucAlmaz());
+                frmLogin frmLogin = new frmLogin();
+                frmLogin.ShowDialog();
+
+                if (SessionVariables.gduser != null)
+                {
+                    LoadControl(new ucMain());
+                }
+                else
+                {
+                    LoadControl(new ucLogin());
+                }
+            }catch (Exception ex) { }      
         }
 
         //private void listenShortCuts(object sender, KeyEventArgs e)

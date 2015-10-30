@@ -47,7 +47,10 @@ namespace VirtualPOS.Client.Forms
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
+        public static class card
+        {
+            public static string role;
+        }
         private void CheckProfile()
         {
             try
@@ -59,7 +62,18 @@ namespace VirtualPOS.Client.Forms
                     MessageBox.Show("Thẻ nhân viên chưa được đăng ký. Vui lòng kiểm tra và liên hệ với IT để được hỗ trợ");
                     return;
                 }
-                SessionVariables.gduser = SessionVariables.UserConfig.Id.ToString();// "0123213";
+                card.role = "T";
+                SessionVariables.gduser = SessionVariables.UserConfig.Id.ToString();// "0123213";   
+                var loginResult = Helper.UserManager.FindAsync(SessionVariables.gduser, "123456");
+                if (loginResult != null)
+                {
+                    //((frmMain)this.ParentForm).LoadControl(new ucMain());
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Sai thông tin đăng nhập. Vui lòng kiểm tra và thử lại!", "Đăng nhập không thành công!");
+                }
                 //try
                 //{
                 //    ((frmMain)this.ParentForm).LoadControl(new ucLogin());

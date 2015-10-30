@@ -48,7 +48,7 @@ namespace VirtualPOS.Client.Forms
             }
             else
             {
-                var loginResult = Helper.UserManager.FindAsync(SessionVariables.TellerUser.UserName, pin).Result;
+                var loginResult = Helper.UserManager.FindAsync(SessionVariables.gduser, pin).Result;
                 if (loginResult == null)
                 {
                     MessageBox.Show("Mật khẩu không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -147,10 +147,10 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
+            graphics.DrawString("GDV - " + SessionVariables.gduser, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
         }
     }

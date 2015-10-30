@@ -16,5 +16,10 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
         }
+
+        private void ucAlmaz1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

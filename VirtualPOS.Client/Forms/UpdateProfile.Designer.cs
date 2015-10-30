@@ -68,7 +68,7 @@
             this.pScanned.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.pScanned.Location = new System.Drawing.Point(-1, -1);
             this.pScanned.Name = "pScanned";
-            this.pScanned.Size = new System.Drawing.Size(390, 348);
+            this.pScanned.Size = new System.Drawing.Size(390, 391);
             this.pScanned.TabIndex = 1;
             // 
             // txtdiachi
@@ -76,8 +76,9 @@
             this.txtdiachi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtdiachi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtdiachi.Location = new System.Drawing.Point(172, 256);
+            this.txtdiachi.Multiline = true;
             this.txtdiachi.Name = "txtdiachi";
-            this.txtdiachi.Size = new System.Drawing.Size(197, 26);
+            this.txtdiachi.Size = new System.Drawing.Size(197, 68);
             this.txtdiachi.TabIndex = 4;
             // 
             // txtcmnd
@@ -158,7 +159,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(222, 296);
+            this.btnCancel.Location = new System.Drawing.Point(225, 346);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 6;
@@ -169,7 +170,7 @@
             // btnRegister
             // 
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Location = new System.Drawing.Point(299, 296);
+            this.btnRegister.Location = new System.Drawing.Point(298, 346);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(71, 34);
             this.btnRegister.TabIndex = 5;
@@ -222,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 347);
+            this.ClientSize = new System.Drawing.Size(388, 391);
             this.ControlBox = false;
             this.Controls.Add(this.pScanned);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

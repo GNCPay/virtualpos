@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.pScanned = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtdiachi = new System.Windows.Forms.TextBox();
             this.txtcmnd = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,6 +51,8 @@
             // 
             // pScanned
             // 
+            this.pScanned.Controls.Add(this.label9);
+            this.pScanned.Controls.Add(this.label8);
             this.pScanned.Controls.Add(this.txtdiachi);
             this.pScanned.Controls.Add(this.txtcmnd);
             this.pScanned.Controls.Add(this.label7);
@@ -66,16 +70,37 @@
             this.pScanned.Controls.Add(this.label1);
             this.pScanned.Location = new System.Drawing.Point(0, 0);
             this.pScanned.Name = "pScanned";
-            this.pScanned.Size = new System.Drawing.Size(390, 349);
+            this.pScanned.Size = new System.Drawing.Size(390, 380);
             this.pScanned.TabIndex = 0;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(372, 116);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(15, 20);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "*";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(372, 71);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(15, 20);
+            this.label8.TabIndex = 41;
+            this.label8.Text = "*";
             // 
             // txtdiachi
             // 
             this.txtdiachi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.txtdiachi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtdiachi.Location = new System.Drawing.Point(172, 256);
+            this.txtdiachi.Multiline = true;
             this.txtdiachi.Name = "txtdiachi";
-            this.txtdiachi.Size = new System.Drawing.Size(197, 26);
+            this.txtdiachi.Size = new System.Drawing.Size(197, 60);
             this.txtdiachi.TabIndex = 4;
             // 
             // txtcmnd
@@ -156,7 +181,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(222, 296);
+            this.btnCancel.Location = new System.Drawing.Point(222, 333);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 34);
             this.btnCancel.TabIndex = 6;
@@ -167,7 +192,7 @@
             // btnRegister
             // 
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Location = new System.Drawing.Point(299, 296);
+            this.btnRegister.Location = new System.Drawing.Point(298, 333);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(71, 34);
             this.btnRegister.TabIndex = 5;
@@ -221,7 +246,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(390, 348);
+            this.ClientSize = new System.Drawing.Size(390, 379);
             this.ControlBox = false;
             this.Controls.Add(this.pScanned);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -254,5 +279,7 @@
         private System.Windows.Forms.TextBox txtcmnd;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }

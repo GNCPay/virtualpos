@@ -51,7 +51,7 @@ namespace VirtualPOS.Client.Processing
                 end_balance,
                 amount,
                 action_code,
-                SessionVariables.TellerUser.UserName,
+                SessionVariables.gduser,
                 action_at,
                 reference_id,
                 note);
@@ -171,8 +171,8 @@ namespace VirtualPOS.Client.Processing
                 + SessionVariables.CardId + "',service:'GNCP', provider:'BANK',payment_provider:'GNCC',amount: " + amount +
           ", note: '" + "RUT TIEN MAT TU THE" +
           "', receiver:{account_bank:'" + "GNC PAY TELLER" +
-          "', account_branch:'" + "VINHOMES" + "',account_number:'" + SessionVariables.TellerUser.UserName +
-          "',account_name:'" + SessionVariables.TellerUser.UserName + "'}}}";
+          "', account_branch:'" + "VINHOMES" + "',account_number:'" + SessionVariables.gduser +
+          "',account_name:'" + SessionVariables.gduser + "'}}}";
             dynamic cashout = Helper.RequestToServer(request);
             string trans_id;
             if (cashout.error_code == "00")

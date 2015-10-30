@@ -116,6 +116,7 @@
             this.txtBillAmount.Size = new System.Drawing.Size(280, 31);
             this.txtBillAmount.TabIndex = 27;
             this.txtBillAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBillAmount.TextChanged += new System.EventHandler(this.txtBillAmount_TextChanged);
             this.txtBillAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillAmount_KeyPress_1);
             this.txtBillAmount.Leave += new System.EventHandler(this.txtBillAmount_Leave_1);
             // 

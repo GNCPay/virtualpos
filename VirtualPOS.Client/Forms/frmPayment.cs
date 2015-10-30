@@ -39,12 +39,22 @@ namespace VirtualPOS.Client.Forms
                     payment.amount = long.Parse(mkaka);
                     payment.bill_no = txtBillNo.Text;
                     this.Hide();
-                    if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                    DialogResult dialogResult = MessageBox.Show("Bạn có chắc chắn muốn thanh toán hoá đơn số : "+ txtBillNo.Text + ", số tiền thanh toán: "+txtBillAmount.Text+ " ?", "Thông Báo !", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                    if (dialogResult == DialogResult.Yes)
                     {
-                        PinRequest pir = new PinRequest();
-                        DialogResult dpir = pir.ShowDialog();
-                        ((ucMain)(this.Parent)).EnableControl();
+                        if (new frmScanCard().ShowDialog() == DialogResult.OK)
+                        {
+                            PinRequest pir = new PinRequest();
+                            DialogResult dpir = pir.ShowDialog();
+                            ((ucMain)(this.Parent)).EnableControl();
 
+                        }
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        MessageBox.Show("Bạn đã huỷ giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        this.Close();
+                        ((ucMain)(this.Parent)).EnableControl();
                     }
                 }
             }
@@ -100,16 +110,49 @@ namespace VirtualPOS.Client.Forms
 
         private void txtBillAmount_Leave_1(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    if (txtBillAmount.Text.Equals("0"))
+            //        return;
+            //    double temp = Convert.ToDouble(txtBillAmount.Text);
+            //    txtBillAmount.Text = temp.ToString("#,###");
+            //}
+            //catch (Exception ex) { }
+        }
+
+        //chèn ký tự ',' vào giữa số
+        public void TachSo(TextBox luong)
+        {
             try
             {
-                if (txtBillAmount.Text.Equals("0"))
-                    return;
-                double temp = Convert.ToDouble(txtBillAmount.Text);
-                txtBillAmount.Text = temp.ToString("#,###");
+                string txt, txt1;
+                txt1 = luong.Text.Replace(",", "");
+                txt = "";
+                int n = txt1.Length;
+                int dem = 0;
+                for (int i = n - 1; i >= 0; i--)
+                {
+                    if (dem == 2 && i != 0)
+                    {
+                        txt = "," + txt1.Substring(i, 1) + txt;
+                        dem = 0;
+                    }
+                    else
+                    {
+                        txt = txt1.Substring(i, 1) + txt;
+                        dem += 1;
+                    }
+                }
+                luong.Text = txt;
+                luong.SelectionStart = luong.Text.Length;
             }
             catch (Exception ex) { }
         }
 
 
+        private void txtBillAmount_TextChanged(object sender, EventArgs e)
+        {
+            TachSo(txtBillAmount);
+        }
     }
 }

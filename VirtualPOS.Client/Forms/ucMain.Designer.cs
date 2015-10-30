@@ -55,6 +55,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.pAction.SuspendLayout();
@@ -63,6 +65,8 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // pTransaction
@@ -130,20 +134,20 @@
             // pAction
             // 
             this.pAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.pAction.Controls.Add(this.pictureBox4);
             this.pAction.Controls.Add(this.btnthanhtoan);
             this.pAction.Controls.Add(this.btnStatement);
             this.pAction.Controls.Add(this.btnChangePIN);
-            this.pAction.Controls.Add(this.btnLock);
             this.pAction.Controls.Add(this.btnRegister);
-            this.pAction.Location = new System.Drawing.Point(15, 297);
+            this.pAction.Location = new System.Drawing.Point(0, 297);
             this.pAction.Name = "pAction";
-            this.pAction.Size = new System.Drawing.Size(739, 53);
+            this.pAction.Size = new System.Drawing.Size(770, 70);
             this.pAction.TabIndex = 2;
             // 
             // btnthanhtoan
             // 
             this.btnthanhtoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnthanhtoan.Location = new System.Drawing.Point(455, 14);
+            this.btnthanhtoan.Location = new System.Drawing.Point(404, 10);
             this.btnthanhtoan.Name = "btnthanhtoan";
             this.btnthanhtoan.Size = new System.Drawing.Size(129, 36);
             this.btnthanhtoan.TabIndex = 4;
@@ -154,7 +158,7 @@
             // btnStatement
             // 
             this.btnStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStatement.Location = new System.Drawing.Point(627, 14);
+            this.btnStatement.Location = new System.Drawing.Point(572, 10);
             this.btnStatement.Name = "btnStatement";
             this.btnStatement.Size = new System.Drawing.Size(109, 36);
             this.btnStatement.TabIndex = 3;
@@ -165,7 +169,7 @@
             // btnChangePIN
             // 
             this.btnChangePIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangePIN.Location = new System.Drawing.Point(153, 14);
+            this.btnChangePIN.Location = new System.Drawing.Point(255, 10);
             this.btnChangePIN.Name = "btnChangePIN";
             this.btnChangePIN.Size = new System.Drawing.Size(109, 36);
             this.btnChangePIN.TabIndex = 2;
@@ -176,12 +180,13 @@
             // btnLock
             // 
             this.btnLock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLock.Location = new System.Drawing.Point(301, 14);
+            this.btnLock.Location = new System.Drawing.Point(412, 249);
             this.btnLock.Name = "btnLock";
             this.btnLock.Size = new System.Drawing.Size(109, 36);
             this.btnLock.TabIndex = 1;
             this.btnLock.Text = "KHÓA THẺ";
             this.btnLock.UseVisualStyleBackColor = true;
+            this.btnLock.Visible = false;
             this.btnLock.Click += new System.EventHandler(this.lockAccount);
             // 
             // btnRegister
@@ -189,7 +194,7 @@
             this.btnRegister.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
-            this.btnRegister.Location = new System.Drawing.Point(3, 14);
+            this.btnRegister.Location = new System.Drawing.Point(111, 10);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(109, 36);
             this.btnRegister.TabIndex = 0;
@@ -302,12 +307,34 @@
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.ErrorImage")));
+            this.pictureBox3.ImageLocation = "//";
+            this.pictureBox3.Location = new System.Drawing.Point(7, 267);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(252, 24);
+            this.pictureBox3.TabIndex = 12;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
+            this.pictureBox4.ImageLocation = "//";
+            this.pictureBox4.Location = new System.Drawing.Point(3, 52);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(767, 18);
+            this.pictureBox4.TabIndex = 5;
+            this.pictureBox4.TabStop = false;
+            // 
             // ucMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnLock);
             this.Controls.Add(this.lbtime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCashIn);
@@ -330,6 +357,8 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,7 +374,7 @@
         private System.Windows.Forms.Button btnCashOut;
         private System.Windows.Forms.Button btnCashIn;
         private System.Windows.Forms.Button btnLock;
-        private System.Windows.Forms.Button btnRegister;
+        public System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btnStatement;
         private System.Windows.Forms.Button btnChangePIN;
@@ -364,5 +393,7 @@
         private System.Windows.Forms.Button btnthanhtoan;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }

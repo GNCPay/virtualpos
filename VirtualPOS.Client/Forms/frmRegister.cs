@@ -30,9 +30,7 @@ namespace VirtualPOS.Client.Forms
             dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
             try
             {
-                if (IsValidEmail(txtEmail.Text)==true)
-                {
-                    if (CheckPhoneSupport(txtMobileNumber.Text) == true)
+                  if (CheckPhoneSupport(txtMobileNumber.Text) == true)
                     {
                         if (CheckIphone(txtMobileNumber.Text) == true)
                         {
@@ -56,11 +54,6 @@ namespace VirtualPOS.Client.Forms
                                 MessageBox.Show(response.error_message.ToString(), "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                                 if (error_code == "00")
                                 {
-                                    //Cash In here
-                                    if (SessionVariables.CardPrepaidAmount == 0)
-                                    {
-                                        MessageBox.Show("Có lỗi sảy ra !");
-                                    }
                                     Helper.CashIn(SessionVariables.CardPrepaidAmount);
                                     var cardProfile = Helper.GetProfile();
                                     SessionVariables.ProfileId = cardProfile._id;
@@ -70,7 +63,21 @@ namespace VirtualPOS.Client.Forms
                                     Helper.RegisterWalletToCard();
 
                                     dynamic pr = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
-                                    pr.email = SessionVariables.Email;
+                                    if(txtEmail.Text!="")
+                                    {
+                                        if (IsValidEmail(txtEmail.Text) == true)
+                                        {
+                                            pr.email = SessionVariables.Email;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Địa chỉ email không hợp lệ, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                                            if (DialogResult == DialogResult.No)
+                                            {
+                                                this.Close();
+                                            }
+                                        }
+                                    }
                                     pr.personal_id = SessionVariables.Personal_id;
                                     pr.address = SessionVariables.Address;
                                     pr.Pin = 1;
@@ -118,6 +125,26 @@ namespace VirtualPOS.Client.Forms
                                     SessionVariables.IsActived = true;
                                     SessionVariables.IsRegister = true;
                                     Helper.RegisterWalletToCard();
+                                    dynamic pr = Helper.DataHelper.Get("profile", Query.EQ("mobile", a));
+                                    if (txtEmail.Text != "")
+                                    {
+                                        if (IsValidEmail(txtEmail.Text) == true)
+                                        {
+                                            pr.email = SessionVariables.Email;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Địa chỉ email không hợp lệ, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                                            if (DialogResult == DialogResult.No)
+                                            {
+                                                this.Close();
+                                            }
+                                        }
+                                    }
+                                    pr.personal_id = SessionVariables.Personal_id;
+                                    pr.address = SessionVariables.Address;
+                                    pr.Pin = 1;
+                                    Helper.DataHelper.SaveUpdate("profile", pr);
                                     this.DialogResult = DialogResult.OK;
                                     Helper.AddLogCard("Register", "dang ky thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName,"null");
                                     try
@@ -142,16 +169,7 @@ namespace VirtualPOS.Client.Forms
                             this.Close();
                         }
                     }
-                } 
-                else
-                {
-                    MessageBox.Show("Địa chỉ email không hợp lệ, xin mời nhập lại !", "Kết quả đăng ký", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                    if(DialogResult==DialogResult.No)
-                    {
-                        this.Close();
-                    }
-                }
-            }
+             }
             catch (Exception ex) { }      
        }
 
@@ -314,6 +332,10 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            graphics.DrawString("Địa Chỉ :" + SessionVariables.Address,
+                   new Font("Arial", 12),
+                   new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 20;
             graphics.DrawString("Mã PIN :" + pin,
                    new Font("Arial", 12),
                    new SolidBrush(Color.Black), startX, startY + Offset);
@@ -330,10 +352,10 @@ namespace VirtualPOS.Client.Forms
             new Font("Arial", 10),
             new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
+            graphics.DrawString("GDV - " + SessionVariables.gduser, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(underLine, new Font("Arial", 10),
@@ -360,6 +382,7 @@ namespace VirtualPOS.Client.Forms
         {
             MessageBox.Show("Bạn huỷ đăng ký thành công !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             this.Close();
+
         }
     }
 }

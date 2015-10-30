@@ -94,9 +94,39 @@ namespace VirtualPOS.Client.Forms
                             }  
                             else
                             {
-                                MessageBox.Show("Số hoá đơn đã được thanh toán !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                this.Close();
-                                ((ucMain)(this.Parent)).EnableControl();
+                                DialogResult dialogResult = MessageBox.Show("Số hoá đơn đã được thanh toán bạn muốn tiếp tục thực hiện giao dịch ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    string kaka = frmPayment.payment.amount.ToString();
+                                    string mkaka = kaka.Replace(".", "").Replace(",", "");
+                                    amount = long.Parse(mkaka);
+                                    long a = SessionVariables.FinanceAccount.available_balance;
+                                    int kqx = (int)a - (int)amount;
+                                    bill_no = frmPayment.payment.bill_no;
+                                    dynamic result = Processing.Helper.PayBill(bill_no, amount);
+                                    if (result.error_code == "00")
+                                    {
+                                        MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName, bill_no);
+                                        progressBar1.Visible = false;
+                                        trans_id = result.trans_id;
+                                        print();
+                                        this.Close();
+                                        ((ucMain)(this.Parent)).EnableControl();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show(result.error_message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        this.Close();
+                                        ((ucMain)(this.Parent)).EnableControl();
+                                    }
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    MessageBox.Show("Bạn đã huỷ giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                    this.Close();
+                                    ((ucMain)(this.Parent)).EnableControl();
+                                }
                             }
                         }
                         else
@@ -109,8 +139,9 @@ namespace VirtualPOS.Client.Forms
                 else
                 {
                     MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    frmRegister frmRegister = new frmRegister();
-                    DialogResult registerResult = frmRegister.ShowDialog();
+                    this.Close();
+                    //frmRegister frmRegister = new frmRegister();
+                    //DialogResult registerResult = frmRegister.ShowDialog();
 
                     //frmPayment frmp = new frmPayment();
                     //DialogResult dfrmp = frmp.ShowDialog();
@@ -190,9 +221,6 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + 20;
             graphics.DrawString("Mã GD : " + trans_id.Substring(0, 8),
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
@@ -207,17 +235,17 @@ namespace VirtualPOS.Client.Forms
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString("Số dư đầu :" + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
-                   new Font("Arial", 8),
+                   new Font("Arial", 9),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Số tiền :" + amount.ToString("N0") + " VNĐ",
+            graphics.DrawString("Số tiền TT :" + amount.ToString("N0") + " VNĐ",
                    new Font("Arial", 9),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             long a = SessionVariables.FinanceAccount.available_balance;
             int kqx = (int)a - (int)amount;
             graphics.DrawString("Số dư cuối :" + kqx.ToString("N0") + " VNĐ",
-                  new Font("Arial", 8),
+                  new Font("Arial", 9),
                   new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
 
@@ -233,10 +261,10 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
+            graphics.DrawString("GDV - " + SessionVariables.gduser, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(underLine, new Font("Arial", 10),

@@ -67,8 +67,9 @@ namespace VirtualPOS.Client.Forms
                         else
                         {
                             MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            frmRegister frmRegister = new frmRegister();
-                            DialogResult registerResult = frmRegister.ShowDialog();
+                            return;
+                            //frmRegister frmRegister = new frmRegister();
+                            //DialogResult registerResult = frmRegister.ShowDialog();
 
                             //frmPayment frmp = new frmPayment();
                             //DialogResult dfrmp = frmp.ShowDialog();
@@ -111,13 +112,14 @@ namespace VirtualPOS.Client.Forms
                     else
                     {
                         MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        frmRegister frmRegister = new frmRegister();
-                        DialogResult registerResult = frmRegister.ShowDialog();
                         //if (registerResult == DialogResult.OK)
                         //    EnableControl();
-                        EnableControl();
+                        //EnableControl();
                     }
                 }
+
+                frmRegister frmRegister = new frmRegister();
+                DialogResult registerResult = frmRegister.ShowDialog();
             }
             catch (Exception ex) { }         
         }
@@ -247,6 +249,10 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString("Loại Thẻ:" + SessionVariables.CardType,
                      new Font("Arial", 12),
                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 30;
+            graphics.DrawString("Số Dư : " + String.Concat(SessionVariables.FinanceAccount.available_balance.ToString("N0"), " VNĐ"),
+                     new Font("Arial", 10),
+                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             String underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Arial", 10),
@@ -291,10 +297,10 @@ namespace VirtualPOS.Client.Forms
             graphics.DrawString(DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"), new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("HotLine: 094.9898.222", new Font("Arial", 10),
+            graphics.DrawString("HotLine: 0949.898.222", new Font("Arial", 10),
                     new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("GDV - " + SessionVariables.TellerUser.UserName, new Font("Arial", 10),
+            graphics.DrawString("GDV - " + SessionVariables.gduser, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
             graphics.DrawString(underLine, new Font("Arial", 10),
@@ -382,6 +388,7 @@ namespace VirtualPOS.Client.Forms
 
 
                     btnRegister.Text = "Cập Nhật";
+                    dataGridView2.DataSource = list_accounts;
                     //pCardInfo.Reload();                  
         
                 pPayment.Enabled = Processing.SessionVariables.IsRegister;
@@ -396,7 +403,16 @@ namespace VirtualPOS.Client.Forms
         }
         private void ucMain_Load(object sender, EventArgs e)
         {
-            //ScanCard();                     
+            //ScanCard();        
+            if(ucAlmaz.card.role=="T")
+            {
+                btnRegister.Enabled = false;
+            }
+
+            if (ucLogin.acount.role == "G")
+            {
+                btnthanhtoan.Enabled = false;
+            }
         }
         private void label3_Click(object sender, EventArgs e)
         {
@@ -405,7 +421,7 @@ namespace VirtualPOS.Client.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lbtime.Text ="Thời gian : "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+            lbtime.Text = "Thời gian : " + DateTime.Now.ToString("hh:mm:ss");
         }
 
         private void pPayment_Load(object sender, EventArgs e)

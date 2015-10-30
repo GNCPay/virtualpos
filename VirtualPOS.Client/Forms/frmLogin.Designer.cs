@@ -39,6 +39,7 @@
             this.ucAlmaz1.Name = "ucAlmaz1";
             this.ucAlmaz1.Size = new System.Drawing.Size(437, 189);
             this.ucAlmaz1.TabIndex = 0;
+            this.ucAlmaz1.Load += new System.EventHandler(this.ucAlmaz1_Load);
             // 
             // frmLogin
             // 
