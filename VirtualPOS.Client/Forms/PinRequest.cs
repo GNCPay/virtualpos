@@ -62,11 +62,11 @@ namespace VirtualPOS.Client.Forms
                             ((ucMain)(this.Parent)).EnableControl();
                             return;
                         }
-                       
+
                         if (profile.Status != "LOCKED")
                         {
                             dynamic tran = Helper.DataHelper.Get("transactions", Query.EQ("ref_id", frmPayment.payment.bill_no));
-                            if(tran==null)
+                            if (tran == null)
                             {
                                 string kaka = frmPayment.payment.amount.ToString();
                                 string mkaka = kaka.Replace(".", "").Replace(",", "");
@@ -91,12 +91,33 @@ namespace VirtualPOS.Client.Forms
                                     this.Close();
                                     ((ucMain)(this.Parent)).EnableControl();
                                 }
-                            }  
+                            }
                             else
                             {
                                 MessageBox.Show("Số hoá đơn đã được thanh toán !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                this.Close();
-                                ((ucMain)(this.Parent)).EnableControl();
+                                string kaka = frmPayment.payment.amount.ToString();
+                                string mkaka = kaka.Replace(".", "").Replace(",", "");
+                                amount = long.Parse(mkaka);
+                                long a = SessionVariables.FinanceAccount.available_balance;
+                                int kqx = (int)a - (int)amount;
+                                bill_no = frmPayment.payment.bill_no;
+                                dynamic result = Processing.Helper.PayBill(bill_no, amount);
+                                if (result.error_code == "00")
+                                {
+                                    MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                    Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName, bill_no);
+                                    progressBar1.Visible = false;
+                                    trans_id = result.trans_id;
+                                    print();
+                                    this.Close();
+                                    ((ucMain)(this.Parent)).EnableControl();
+                                }
+                                else
+                                {
+                                    MessageBox.Show(result.error_message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    this.Close();
+                                    ((ucMain)(this.Parent)).EnableControl();
+                                }
                             }
                         }
                         else
@@ -119,7 +140,7 @@ namespace VirtualPOS.Client.Forms
                     ((ucMain)(this.Parent)).EnableControl();
                 }
             }
-            catch (Exception ex) { }  
+            catch (Exception ex) { }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
