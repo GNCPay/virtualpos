@@ -21,6 +21,7 @@ namespace VirtualPOS.Client.Forms
     {
         public ucMain()
         {
+            //
             InitializeComponent();
             lbuser2.Text = SessionVariables.gduser;
             try
