@@ -16,7 +16,7 @@ namespace VirtualPOS.Client.Forms
         {
             InitializeComponent();
         }
-        
+        //
        public static class acount
        {
            public static string role;
