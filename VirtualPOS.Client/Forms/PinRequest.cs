@@ -77,11 +77,11 @@ namespace VirtualPOS.Client.Forms
                                 dynamic result = Processing.Helper.PayBill(bill_no, amount);
                                 if (result.error_code == "00")
                                 {
-                                    MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                    Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName, bill_no);
+                                    MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);                         
                                     progressBar1.Visible = false;
                                     trans_id = result.trans_id;
                                     print();
+                                    Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance, kqx, amount, SessionVariables.CounterName, bill_no);
                                     this.Close();
                                     ((ucMain)(this.Parent)).EnableControl();
                                 }
@@ -107,12 +107,12 @@ namespace VirtualPOS.Client.Forms
                                     if (result.error_code == "00")
                                     {
                                         MessageBox.Show("Giao dịch thành công !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", a, kqx, amount, SessionVariables.CounterName, bill_no);
                                         progressBar1.Visible = false;
                                         trans_id = result.trans_id;
                                         print();
+                                        Helper.AddLogCard("Transaction", "thanh toan thanh cong", SessionVariables.FinanceAccount.available_balance, kqx, amount, SessionVariables.CounterName, bill_no);
                                         this.Close();
-                                        ((ucMain)(this.Parent)).EnableControl();
+                                        ((ucMain)(this.Parent)).EnableControl();                  
                                     }
                                     else
                                     {

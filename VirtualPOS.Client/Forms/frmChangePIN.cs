@@ -30,6 +30,8 @@ namespace VirtualPOS.Client.Forms
                 if (user == null)
                 {
                     MessageBox.Show("Mã PIN cũ không hợp lệ. Vui lòng kiểm tra và thử lại!", "Thông báo");
+                    txtOldPIN.Text = "";
+                    txtNewPIN.Text = "";
                     ((ucMain)(this.Parent)).EnableControl();
                     return;
                 }
@@ -43,6 +45,7 @@ namespace VirtualPOS.Client.Forms
                          dynamic pr = Helper.DataHelper.Get("profile", Query.EQ("user_name", user_name));
                          pr.Pin = 0;
                          Helper.DataHelper.SaveUpdate("profile", pr);
+                         //MessageBox.Show(SessionVariables.FinanceAccount.available_balance);
                          MessageBox.Show("Đổi PIN thành công!", "Thông báo");
                          this.DialogResult = DialogResult.OK;
                          Helper.AddLogCard("Change PIN", "thay doi  thanh cong", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0,SessionVariables.CounterName,"null");

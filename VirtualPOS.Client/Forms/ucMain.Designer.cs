@@ -38,16 +38,19 @@
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.pAction = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.btnthanhtoan = new System.Windows.Forms.Button();
             this.btnStatement = new System.Windows.Forms.Button();
             this.btnChangePIN = new System.Windows.Forms.Button();
-            this.btnLock = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.btnLock = new System.Windows.Forms.Button();
             this.btnCashIn = new System.Windows.Forms.Button();
             this.btnCashOut = new System.Windows.Forms.Button();
             this.dataSet1 = new System.Data.DataSet();
             this.dataSet2 = new System.Data.DataSet();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lbuser2 = new System.Windows.Forms.Label();
             this.lbuser = new System.Windows.Forms.Label();
             this.lbtime = new System.Windows.Forms.Label();
@@ -56,17 +59,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pTransaction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.pAction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // pTransaction
@@ -144,10 +146,20 @@
             this.pAction.Size = new System.Drawing.Size(770, 70);
             this.pAction.TabIndex = 2;
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
+            this.pictureBox4.ImageLocation = "//";
+            this.pictureBox4.Location = new System.Drawing.Point(3, 52);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(767, 18);
+            this.pictureBox4.TabIndex = 5;
+            this.pictureBox4.TabStop = false;
+            // 
             // btnthanhtoan
             // 
             this.btnthanhtoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnthanhtoan.Location = new System.Drawing.Point(404, 10);
+            this.btnthanhtoan.Location = new System.Drawing.Point(412, 10);
             this.btnthanhtoan.Name = "btnthanhtoan";
             this.btnthanhtoan.Size = new System.Drawing.Size(129, 36);
             this.btnthanhtoan.TabIndex = 4;
@@ -158,7 +170,7 @@
             // btnStatement
             // 
             this.btnStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStatement.Location = new System.Drawing.Point(572, 10);
+            this.btnStatement.Location = new System.Drawing.Point(591, 10);
             this.btnStatement.Name = "btnStatement";
             this.btnStatement.Size = new System.Drawing.Size(109, 36);
             this.btnStatement.TabIndex = 3;
@@ -177,6 +189,19 @@
             this.btnChangePIN.UseVisualStyleBackColor = true;
             this.btnChangePIN.Click += new System.EventHandler(this.changePIN);
             // 
+            // btnRegister
+            // 
+            this.btnRegister.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
+            this.btnRegister.Location = new System.Drawing.Point(46, 10);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(180, 36);
+            this.btnRegister.TabIndex = 0;
+            this.btnRegister.Text = "BÁN THẺ / CẬP NHẬT";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.registerCard);
+            // 
             // btnLock
             // 
             this.btnLock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -188,19 +213,6 @@
             this.btnLock.UseVisualStyleBackColor = true;
             this.btnLock.Visible = false;
             this.btnLock.Click += new System.EventHandler(this.lockAccount);
-            // 
-            // btnRegister
-            // 
-            this.btnRegister.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
-            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
-            this.btnRegister.Location = new System.Drawing.Point(111, 10);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(109, 36);
-            this.btnRegister.TabIndex = 0;
-            this.btnRegister.Text = "BÁN THẺ";
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.registerCard);
             // 
             // btnCashIn
             // 
@@ -236,18 +248,40 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.lbuser2);
             this.panel1.Controls.Add(this.lbuser);
+            this.panel1.Controls.Add(this.lbtime);
             this.panel1.Location = new System.Drawing.Point(3, 568);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(755, 36);
             this.panel1.TabIndex = 6;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(595, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 20);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Thời gian :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Giao dịch viên :";
+            // 
             // lbuser2
             // 
             this.lbuser2.AutoSize = true;
-            this.lbuser2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbuser2.Location = new System.Drawing.Point(9, 0);
+            this.lbuser2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lbuser2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
+            this.lbuser2.Location = new System.Drawing.Point(121, 5);
             this.lbuser2.Name = "lbuser2";
             this.lbuser2.Size = new System.Drawing.Size(24, 25);
             this.lbuser2.TabIndex = 7;
@@ -266,7 +300,8 @@
             // 
             this.lbtime.AutoSize = true;
             this.lbtime.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbtime.Location = new System.Drawing.Point(586, 572);
+            this.lbtime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(159)))), ((int)(((byte)(255)))));
+            this.lbtime.Location = new System.Drawing.Point(673, 5);
             this.lbtime.Name = "lbtime";
             this.lbtime.Size = new System.Drawing.Size(24, 25);
             this.lbtime.TabIndex = 8;
@@ -290,12 +325,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.Location = new System.Drawing.Point(3, 11);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label2.Location = new System.Drawing.Point(39, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(276, 37);
+            this.label2.Size = new System.Drawing.Size(196, 40);
             this.label2.TabIndex = 10;
-            this.label2.Text = "WELCOME TO ALMAZ";
+            this.label2.Text = "WELCOME TO";
             // 
             // pictureBox2
             // 
@@ -317,16 +352,6 @@
             this.pictureBox3.TabIndex = 12;
             this.pictureBox3.TabStop = false;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
-            this.pictureBox4.ImageLocation = "//";
-            this.pictureBox4.Location = new System.Drawing.Point(3, 52);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(767, 18);
-            this.pictureBox4.TabIndex = 5;
-            this.pictureBox4.TabStop = false;
-            // 
             // ucMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -335,7 +360,6 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnLock);
-            this.Controls.Add(this.lbtime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCashIn);
             this.Controls.Add(this.pAction);
@@ -351,6 +375,7 @@
             this.pTransaction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.pAction.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -358,7 +383,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,5 +419,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

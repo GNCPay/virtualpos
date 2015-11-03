@@ -23,7 +23,7 @@ namespace VirtualPOS.Client.Forms
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("bạn huỷ cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Bạn huỷ cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             this.Close();
         }
         private void btnRegister_Click(object sender, EventArgs e)
@@ -61,7 +61,8 @@ namespace VirtualPOS.Client.Forms
                             }
                             profile.personal_id = txtcmnd.Text;
                             profile.address = txtdiachi.Text;
-                            Helper.DataHelper.SaveUpdate("profile", profile);
+                        //Helper.DataHelper.SaveUpdate("profile", profile);
+                            Helper.UpdateProfile(profile);
                             this.DialogResult = DialogResult.OK;
                             DialogResult dialogResult = MessageBox.Show("Cập nhật thành công !", "Kết quả cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             Helper.AddLogCard("UpdateProfile", "Cập nhật Thành công", SessionVariables.FinanceAccount.available_balance, SessionVariables.FinanceAccount.available_balance, 0, SessionVariables.CounterName, "null");
@@ -279,10 +280,37 @@ namespace VirtualPOS.Client.Forms
                    new Font("Arial", 10),
                    new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
-            graphics.DrawString("Địa Chỉ : " + SessionVariables.Address,
-                   new Font("Arial", 10),
-                   new SolidBrush(Color.Black), startX, startY + Offset);
+            graphics.DrawString("Địa chỉ : ",
+                             new Font("Arial", 10),
+                             new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 20;
+            string dcl = SessionVariables.Address;
+            int max_length = 40;
+            int start_id = 0;
+            int next_id = 0;
+            int length = dcl.Length;
+            while (next_id < length && length > max_length)
+            {
+                int idx = dcl.IndexOf(' ', next_id);
+                while (idx < max_length && idx > 0)
+                {
+                    next_id = idx;
+                    idx = dcl.IndexOf(' ', next_id + 1);
+                }
+                string str_to_write = dcl.Substring(0, next_id);
+                dcl = dcl.Substring(next_id + 1);
+                length = dcl.Length;
+                next_id = 0;
+                graphics.DrawString(str_to_write,
+                      new Font("Arial", 11),
+                      new SolidBrush(Color.Black), startX, startY + Offset);
+                Offset = Offset + 20;
+            }
+           
+            graphics.DrawString(dcl,
+                      new Font("Arial", 11),
+                      new SolidBrush(Color.Black), startX, startY + Offset);
+            Offset = Offset + 30;
             underLine = "-----------------------";
             graphics.DrawString(underLine, new Font("Arial", 10),
                      new SolidBrush(Color.Black), startX, startY + Offset);
@@ -323,17 +351,22 @@ namespace VirtualPOS.Client.Forms
 
         private void UpdateProfile_Load(object sender, EventArgs e)
         {
-            
-
-            dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("user_name", SessionVariables.CardId));
-            //show data
-            string a = profile.mobile;
-            lblCardNumber.Text = SessionVariables.CardNumber;
-            txtCardHolder.Text = profile.full_name;
-            txtMobileNumber.Text = a.Replace("84","0");
-            txtEmail.Text = profile.email;
-            txtcmnd.Text = profile.personal_id;
-            txtdiachi.Text = profile.address;
+            try
+            {
+                dynamic profile = Helper.DataHelper.Get("profile", Query.EQ("user_name", SessionVariables.CardId));
+                //show data
+                if(profile!=null)
+                {
+                    string a = profile.mobile;
+                    lblCardNumber.Text = SessionVariables.CardNumber;
+                    txtCardHolder.Text = profile.full_name;
+                    txtMobileNumber.Text = a.Replace("84", "0");
+                    txtEmail.Text = profile.email;
+                    txtcmnd.Text = profile.personal_id;
+                    txtdiachi.Text = profile.address;
+                }
+            }
+            catch (Exception ex) { }
         }
     }
 }

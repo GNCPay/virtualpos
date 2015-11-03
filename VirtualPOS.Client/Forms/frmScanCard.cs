@@ -24,16 +24,16 @@ namespace VirtualPOS.Client.Forms
             SessionVariables.CardId = card_id;
             //SessionVariables.CardId = "0009897205";
             Helper.CheckCard();
-            if(SessionVariables.CardNumber!=null)
+            if (!String.IsNullOrEmpty(SessionVariables.CardNumber))
             {
                 var cardProfile = Helper.GetProfile();
                 SessionVariables.IsRegister = (cardProfile != null);
+                SessionVariables.FinanceAccount = Helper.GetAccountInfo();
                 if (cardProfile != null)
                 {
-                    if(cardProfile.Pin!=1)
+                    if (cardProfile.Pin != 1)
                     {
-                        SessionVariables.ProfileId = cardProfile._id;
-                        SessionVariables.FinanceAccount = Helper.GetAccountInfo();
+                        SessionVariables.ProfileId = cardProfile._id; 
                         this.pCardInfo.Reload();
                         RefreshUI(false);
                     }
@@ -41,19 +41,31 @@ namespace VirtualPOS.Client.Forms
                     {
                         MessageBox.Show("Vui lòng đổi mã pin cho lần giao dịch đầu tiên !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         frmChangePIN frmp = new frmChangePIN();
-                        DialogResult changepin = frmp.ShowDialog();    
+                        DialogResult changepin = frmp.ShowDialog();
                     }
+
                 }
                 else
                 {
-                    MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để sử dụng!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    //((ucMain)(this.Parent)).EnableControl();
                     //frmRegister frmRegister = new frmRegister();
                     //DialogResult registerResult = frmRegister.ShowDialog();
-                    this.Close();
+                    //((ucMain)(this.Parent)).EnableControl();
+
+
+                    //MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    //frmRegister frmRegister = new frmRegister();
+                    //DialogResult registerResult = frmRegister.ShowDialog();
+                    
                 }
+                this.DialogResult = DialogResult.OK;
             }
             else
+            {
                 MessageBox.Show("Số thẻ không tồn tại liên hệ admin để được hỗ trợ !", "Kết quả đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.Cancel;
+            }
             //SessionVariables.CardNumber = "9704310315011516";// "970431031501" + DateTime.Now.ToString("HHmm");
             //SessionVariables.CardOwner = "CARD OWNER 1516";// "CARD OWNER " + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);
             //SessionVariables.MobileNumber = "8490981516";// "09098" + SessionVariables.CardNumber.Substring(SessionVariables.CardNumber.Length - 4);

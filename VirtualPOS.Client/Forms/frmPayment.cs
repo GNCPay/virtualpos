@@ -30,7 +30,7 @@ namespace VirtualPOS.Client.Forms
             {
                 if (txtBillAmount.Text == "" || txtBillNo.Text == "")
                 {
-                    MessageBox.Show("Vui lòng nhập Số hoá đơn và số tiền thanh toán!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Vui lòng nhập Số hoá đơn và số tiền thanh toán hợp lệ!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
                 }
                 else
@@ -44,9 +44,12 @@ namespace VirtualPOS.Client.Forms
                     {
                         if (new frmScanCard().ShowDialog() == DialogResult.OK)
                         {
-                            PinRequest pir = new PinRequest();
-                            DialogResult dpir = pir.ShowDialog();
-                            ((ucMain)(this.Parent)).EnableControl();
+                            if (SessionVariables.ProfileId > 0)
+                            {
+                                PinRequest pir = new PinRequest();
+                                DialogResult dpir = pir.ShowDialog();
+                                ((ucMain)(this.Parent)).EnableControl();
+                            }
 
                         }
                     }

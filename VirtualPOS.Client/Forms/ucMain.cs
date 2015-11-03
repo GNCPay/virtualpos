@@ -22,7 +22,7 @@ namespace VirtualPOS.Client.Forms
         public ucMain()
         {
             InitializeComponent();
-            lbuser2.Text = "GDV : " + SessionVariables.gduser;
+            lbuser2.Text = SessionVariables.gduser;
             try
             {
                 Image img = Image.FromFile(@"img\almaz.bmp");
@@ -94,32 +94,47 @@ namespace VirtualPOS.Client.Forms
                     if (user_name != null)
                     {
                         dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                        if(profile== null)
+                        {
+                            frmRegister frmRegister = new frmRegister();
+                            DialogResult registerResult = frmRegister.ShowDialog();
+                            return;
+                        }
                         if (profile.Status == "LOCKED")
                         {
                             MessageBox.Show("Tài khoản thẻ đang bị khoá vui lòng liên hệ GDV để được hỗ trợ !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         }
                         else
                         {
-                            if (btnRegister.Text == "Cập Nhật")
+                            DialogResult confirm = MessageBox.Show("Thẻ đã được đăng ký." +
+                                Environment.NewLine + "Bạn có muốn cập nhật thông tin Khách hàng hay không?",
+                                "Cập nhật thông tin?", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                            if(confirm == DialogResult.Yes)
+                            //if (btnRegister.Text == "Cập Nhật")
                             {
                                 UpdateProfile upr = new UpdateProfile();
                                 DialogResult dupr = upr.ShowDialog();
-                                EnableControl();
+                                //EnableControl();
                             }
                             EnableControl();
-                        }       
+                        }
+                        return;
                     }
                     else
                     {
-                        MessageBox.Show("Bạn chưa đăng ký tài khoản, đăng ký ngay !", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        //MessageBox.Show("Thẻ chưa được đăng ký. Vui lòng đăng ký để sử dụng!", "Thông Báo !", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         //if (registerResult == DialogResult.OK)
                         //    EnableControl();
                         //EnableControl();
+                        frmRegister frmRegister = new frmRegister();
+                        DialogResult registerResult = frmRegister.ShowDialog();
                     }
                 }
+                //else
+                //{
 
-                frmRegister frmRegister = new frmRegister();
-                DialogResult registerResult = frmRegister.ShowDialog();
+                    
+                //}
             }
             catch (Exception ex) { }         
         }
@@ -128,18 +143,21 @@ namespace VirtualPOS.Client.Forms
         {
             if (new frmScanCard().ShowDialog() == DialogResult.OK)
             {
-                frmChangePIN frmChangePIN = new frmChangePIN();
-                frmChangePIN.ShowDialog();
-                try
+                if (SessionVariables.ProfileId > 0)
                 {
-                    var user_name = Processing.SessionVariables.CardId;
-                    dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
-                    if (profile.Status != "LOCKED")
+                    frmChangePIN frmChangePIN = new frmChangePIN();
+                    frmChangePIN.ShowDialog();
+                    try
                     {
-                        EnableControl();
+                        var user_name = Processing.SessionVariables.CardId;
+                        dynamic profile = Helper.DataHelper.Get("users", Query.EQ("UserName", user_name));
+                        if (profile.Status != "LOCKED")
+                        {
+                            EnableControl();
+                        }
                     }
+                    catch (Exception ex) { }
                 }
-                catch (Exception ex) { } 
             }
         }
 
@@ -387,7 +405,7 @@ namespace VirtualPOS.Client.Forms
                 }).ToArray();
 
 
-                    btnRegister.Text = "Cập Nhật";
+                    //btnRegister.Text = "Cập Nhật";
                     dataGridView2.DataSource = list_accounts;
                     //pCardInfo.Reload();                  
         
@@ -404,15 +422,15 @@ namespace VirtualPOS.Client.Forms
         private void ucMain_Load(object sender, EventArgs e)
         {
             //ScanCard();        
-            if(ucAlmaz.card.role=="T")
+            if (ucAlmaz.card.role == "T")
             {
                 btnRegister.Enabled = false;
             }
 
-            if (ucLogin.acount.role == "G")
-            {
-                btnthanhtoan.Enabled = false;
-            }
+            //if (ucLogin.acount.role == "G")
+            //{
+            //    btnthanhtoan.Enabled = false;
+            //}
         }
         private void label3_Click(object sender, EventArgs e)
         {
@@ -421,7 +439,7 @@ namespace VirtualPOS.Client.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lbtime.Text = "Thời gian : " + DateTime.Now.ToString("hh:mm:ss");
+            lbtime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void pPayment_Load(object sender, EventArgs e)

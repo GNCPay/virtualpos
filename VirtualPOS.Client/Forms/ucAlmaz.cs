@@ -16,6 +16,7 @@ namespace VirtualPOS.Client.Forms
         public ucAlmaz()
         {
             InitializeComponent();
+            linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             //timer1.Tick += timer1_Tick;
             //timer1.Interval = 5000;
             //timer1.Start(); 

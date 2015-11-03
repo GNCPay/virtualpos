@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.label1 = new System.Windows.Forms.Label();
             this.pHeader = new System.Windows.Forms.Panel();
-            this.pContent = new System.Windows.Forms.Panel();
             this.btnConfig = new System.Windows.Forms.LinkLabel();
+            this.pContent = new System.Windows.Forms.Panel();
             this.pHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,13 +59,6 @@
             this.pHeader.Size = new System.Drawing.Size(858, 65);
             this.pHeader.TabIndex = 0;
             // 
-            // pContent
-            // 
-            this.pContent.Location = new System.Drawing.Point(0, 68);
-            this.pContent.Name = "pContent";
-            this.pContent.Size = new System.Drawing.Size(858, 596);
-            this.pContent.TabIndex = 1;
-            // 
             // btnConfig
             // 
             this.btnConfig.ActiveLinkColor = System.Drawing.Color.White;
@@ -78,7 +71,15 @@
             this.btnConfig.TabIndex = 1;
             this.btnConfig.TabStop = true;
             this.btnConfig.Text = "Cấu hình";
+            this.btnConfig.Visible = false;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
+            // pContent
+            // 
+            this.pContent.Location = new System.Drawing.Point(0, 68);
+            this.pContent.Name = "pContent";
+            this.pContent.Size = new System.Drawing.Size(858, 596);
+            this.pContent.TabIndex = 1;
             // 
             // frmMain
             // 
@@ -95,7 +96,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GNC Virtual POS";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listenShortCuts);
             this.pHeader.ResumeLayout(false);
             this.pHeader.PerformLayout();
             this.ResumeLayout(false);

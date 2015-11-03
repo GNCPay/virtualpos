@@ -41,7 +41,30 @@ namespace VirtualPOS.Client.Processing
                coreServer,coreDbString
                 );
         }
-
+        public static void UpdateProfile(dynamic profile)
+        {
+            string strRequest = "api/ewallet?profile_id={0}&full_name={1}&mobile={2}&email={3}&address={4}&physical_id={5}&pin={6}";
+            strRequest = String.Format(strRequest,
+                profile._id,
+                profile.full_name,
+                profile.mobile,
+                profile.email,
+                profile.address,
+                profile.personal_id,
+                profile.Pin
+                );
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CMS_Gateway);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string result = client.GetStringAsync(strRequest).Result;
+                }
+            }
+            catch { }
+        }
         public static void AddLogCard(string action_code, string note, long start_balance, long end_balance, long amount, string action_at, string reference_id)
         {
             string strRequest = "api/ewallet?card_id={0}&start_balance={1}&end_balance={2}&amount={3}&action_code={4}&action_by={5}&action_at={6}&reference_id={7}&note={8}";
@@ -260,12 +283,16 @@ namespace VirtualPOS.Client.Processing
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     string card_info = client.GetStringAsync("api/ewallet/?card_id=" + SessionVariables.CardId).Result;
-                    if (String.IsNullOrEmpty(card_info)) return;
+                    if (String.IsNullOrEmpty(card_info))
+                    {
+                        SessionVariables.Clean();
+                        return;
+                    }
                     dynamic card = JObject.Parse(card_info);
                     //card_info = card_info.Substring(1, card_info.Length - 2);
                     //string[] values = card_info.Split('|');
                     SessionVariables.CardNumber = card.CardNumber;// Car values[1];
-                    SessionVariables.ProfileId = long.Parse(card.CustomerCIF.ToString());// long.Parse("0" + values[2]);
+                    SessionVariables.ProfileId = long.Parse("0"+card.CustomerCIF.ToString());// long.Parse("0" + values[2]);
                     SessionVariables.CardPrepaidAmount = card.PrepaidAmount;// long.Parse("0" + values[3]);
                     SessionVariables.IsActived = card.IsActived;// bool.Parse(values[4]);
                     SessionVariables.CardType = card.CardType;// values[5];
@@ -276,10 +303,11 @@ namespace VirtualPOS.Client.Processing
                     //card_info.PrepaidAmount,
                     //card_info.IsActived,
                     //card_info.CardType1.TypeName);
-
+                    return;
                 }
             }
             catch (Exception ex) { }
+            SessionVariables.Clean();
         }
 
         public static void RegisterWalletToCard()
@@ -340,6 +368,18 @@ namespace VirtualPOS.Client.Processing
         public static ApplicationUser TellerUser;
         public static string CounterName;
         public static bool IsRegister;
+
+        /// <summary>
+        /// Xoa du lieu
+        /// </summary>
+        public static void Clean() {
+            SessionVariables.CardNumber = "";
+            SessionVariables.ProfileId = 0;
+            SessionVariables.CardPrepaidAmount = 0;
+            SessionVariables.IsActived = false;
+            SessionVariables.CardType = "";
+            SessionVariables.CardOwner = "";
+        }
     }
     public class ApplicationUser : IdentityUser
     {

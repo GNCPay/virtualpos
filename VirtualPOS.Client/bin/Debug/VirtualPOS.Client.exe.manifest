@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VirtualPOS.Client.exe" size="1247184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VirtualPOS.Client.exe" size="1251792">
       <assemblyIdentity name="VirtualPOS.Client" version="1.0.10.28" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AwPQCuVQ913HWtDbJvr3p9o5AkWsPILTPP/q2TTpYtE=</dsig:DigestValue>
+        <dsig:DigestValue>OHFebZ45VH4ZzNAGjjz4kfb3db8FqQYY39m6oPeMSGo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -153,13 +153,13 @@
       <dsig:DigestValue>9Aek+mEgjcP/tZT2wK+cR70v1bS7ztxmhduA92IKwSA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="VirtualPOS.Client.exe.config" size="2867">
+  <file name="VirtualPOS.Client.exe.config" size="3372">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wp9cJ2W17av0+oZeVJn9Q4f92FU2gbRa4MGMNznuIS8=</dsig:DigestValue>
+      <dsig:DigestValue>BlSHXuk8eF6uQX348qB9WyndE8NYteFZMjQQiQlbxew=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
