@@ -30,8 +30,12 @@ namespace VirtualPOS.Client.Forms
                 if (loginResult != null)
                 {
                     acount.role = "G";
+                    if (Helper.UserManager.IsInRoleAsync(loginResult.Id, "SYSTEM").Result)
+                    {
+                        acount.role = "F";
+                    }
                     ((frmMain)this.ParentForm).LoadControl(new ucMain());
-                    SessionVariables.TellerUser = loginResult;                    
+                    SessionVariables.TellerUser = loginResult;                      
                     return;
                 }
                 else

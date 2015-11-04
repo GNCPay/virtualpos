@@ -422,16 +422,16 @@ namespace VirtualPOS.Client.Forms
         }
         private void ucMain_Load(object sender, EventArgs e)
         {
-            //ScanCard();        
+            //ScanCard();   
             if (ucAlmaz.card.role == "T")
             {
                 btnRegister.Enabled = false;
             }
 
-            //if (ucLogin.acount.role == "G")
-            //{
-            //    btnthanhtoan.Enabled = false;
-            //}
+            if (ucLogin.acount.role == "G")
+            {
+                btnthanhtoan.Enabled = false;
+            }
         }
         private void label3_Click(object sender, EventArgs e)
         {
